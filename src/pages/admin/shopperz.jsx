@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { 
   ShoppingBag, 
@@ -10,7 +10,8 @@ import {
   Edit2,
   Package,
   CheckCircle2,
-  AlertTriangle
+  AlertTriangle,
+  X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -26,6 +27,9 @@ export default function ShopperzAdminPage() {
   const { products, addProduct, updateProduct, deleteProduct } = useShopperz();
   const [activeTab, setActiveTab] = useState('Inventory Matrix');
   const [searchQuery, setSearchQuery] = useState('');
+  
+  const [isProductModalOpen, setIsProductModalOpen] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null);
 
   const filteredInventory = products.filter(item => 
     item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -44,18 +48,8 @@ export default function ShopperzAdminPage() {
   };
   
   const handleAddNewItem = () => {
-    const name = prompt("Enter product name:");
-    if (!name) return;
-    const price = parseInt(prompt("Enter price:"), 10);
-    const category = prompt("Enter category (Stationery/Apparel/Labs/Electronics):");
-    
-    addProduct({
-      name,
-      price,
-      category,
-      stockCount: 10,
-      image: "https://images.unsplash.com/photo-1511376916892-91f86807eb36?auto=format&fit=crop&q=80&w=200"
-    });
+    setEditingProduct(null);
+    setIsProductModalOpen(true);
   };
 
   return (
@@ -162,7 +156,10 @@ export default function ShopperzAdminPage() {
                           </td>
                           <td className="p-6 text-right">
                             <div className="flex items-center justify-end gap-2">
-                               <button className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-colors">
+                               <button 
+                                 onClick={() => { setEditingProduct(item); setIsProductModalOpen(true); }}
+                                 className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-colors"
+                               >
                                  <Edit2 size={16} />
                                </button>
                                <button onClick={() => deleteItem(item.id)} className="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors">
@@ -224,7 +221,72 @@ export default function ShopperzAdminPage() {
           )}
 
         </AnimatePresence>
+        
+        <ProductEditorModal
+          isOpen={isProductModalOpen}
+          onClose={() => setIsProductModalOpen(false)}
+          editingProduct={editingProduct}
+          onSave={(productData) => {
+            if (editingProduct) {
+              updateProduct(editingProduct.id, productData);
+            } else {
+              addProduct(productData);
+            }
+            setIsProductModalOpen(false);
+          }}
+        />
       </div>
     </AdminLayout>
+  );
+}
+
+function ProductEditorModal({ isOpen, onClose, editingProduct, onSave }) {
+  const [formData, setFormData] = useState({
+    name: '', price: '', category: 'Stationery', stockCount: 10, image: ''
+  });
+
+  useEffect(() => {
+    if (editingProduct) setFormData(editingProduct);
+    else setFormData({ name: '', price: '', category: 'Stationery', stockCount: 10, image: 'https://images.unsplash.com/photo-1511376916892-91f86807eb36?auto=format&fit=crop&q=80&w=200' });
+  }, [editingProduct, isOpen]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+      <div className="bg-white dark:bg-slate-900 rounded-[30px] w-full max-w-md p-8 shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-200 dark:border-white/10 relative">
+        <button onClick={onClose} className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"><X size={16} /></button>
+        <h3 className="text-2xl font-black italic uppercase tracking-tighter text-slate-900 dark:text-white mb-6">{editingProduct ? 'Edit Retail Item' : 'New Retail Item'}</h3>
+        <form onSubmit={(e) => { e.preventDefault(); onSave({...formData, price: Number(formData.price), stockCount: Number(formData.stockCount)}); }} className="space-y-4">
+          <div>
+            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Product Name</label>
+            <input required type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 dark:text-white outline-none focus:border-orange-500" placeholder="e.g. Graphing Calculator" />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Price (₹)</label>
+              <input required type="number" min="0" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 dark:text-white outline-none focus:border-orange-500" placeholder="e.g. 250" />
+            </div>
+            <div>
+              <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Stock Count</label>
+              <input required type="number" min="0" value={formData.stockCount} onChange={e => setFormData({...formData, stockCount: e.target.value})} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 dark:text-white outline-none focus:border-orange-500" placeholder="e.g. 10" />
+            </div>
+          </div>
+          <div>
+            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Category</label>
+            <select value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 dark:text-white outline-none focus:border-orange-500 appearance-none">
+              <option>Stationery</option><option>Apparel</option><option>Lab Equipment</option><option>Electronics</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Image URL</label>
+            <input required type="url" value={formData.image} onChange={e => setFormData({...formData, image: e.target.value})} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 dark:text-white outline-none focus:border-orange-500" placeholder="https://..." />
+          </div>
+          <button type="submit" className="w-full mt-4 py-4 bg-orange-500 text-white rounded-xl font-black text-xs uppercase tracking-widest shadow-xl shadow-orange-500/20 hover:scale-[1.02] active:scale-95 transition-all">
+            {editingProduct ? 'Save Changes' : 'Create Item'}
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }

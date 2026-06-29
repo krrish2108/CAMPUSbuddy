@@ -50,7 +50,13 @@ export function ShopperzProvider({ children }) {
   const loadRetail = async () => {
     try {
       const res = await getShopperzRetail();
-      if (res.success) setProducts(res.data);
+      if (res.success) {
+        const normalized = res.data.map(item => ({
+          ...item,
+          isAvailable: item.isAvailable !== undefined ? item.isAvailable : true
+        }));
+        setProducts(normalized);
+      }
     } catch (e) {
       console.error('Error loading retail data');
     }
