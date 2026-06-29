@@ -36,7 +36,13 @@ export const CaffinityProvider = ({ children }) => {
     try {
       setIsLoading(true);
       const res = await getMenu(canteenId);
-      if (res.success) setMenuItems(res.data);
+      if (res.success) {
+        const normalized = res.data.map(item => ({
+          ...item,
+          isAvailable: item.isAvailable !== undefined ? item.isAvailable : (item.inStock !== false)
+        }));
+        setMenuItems(normalized);
+      }
     } catch (e) {
       console.error('Error loading menu');
     } finally {
@@ -53,6 +59,15 @@ export const CaffinityProvider = ({ children }) => {
 
   const toggleMenuItemAvailability = (id) => {
     setMenuItems(prev => prev.map(i => i.id === id ? { ...i, isAvailable: !i.isAvailable } : i));
+  };
+
+  const addMenuItem = (newItem) => {
+    const item = { ...newItem, id: `m${Date.now()}`, isAvailable: true };
+    setMenuItems(prev => [item, ...prev]);
+  };
+
+  const editMenuItem = (id, updatedItem) => {
+    setMenuItems(prev => prev.map(i => i.id === id ? { ...i, ...updatedItem } : i));
   };
 
   const deleteMenuItem = (id) => {
@@ -173,6 +188,8 @@ export const CaffinityProvider = ({ children }) => {
     menuItems,
     toggleMenuItemAvailability,
     deleteMenuItem,
+    addMenuItem,
+    editMenuItem,
     isLoading
   };
 

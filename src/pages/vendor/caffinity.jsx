@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { 
   ShoppingBag, 
@@ -17,7 +17,8 @@ import {
   Plus,
   Trash2,
   Edit2,
-  Image as ImageIcon
+  Image as ImageIcon,
+  X
 } from 'lucide-react';
 import { DASHBOARD_STATS, CANTEENS } from '@/data/caffinityData';
 import { useCaffinity } from '@/context/CaffinityContext';
@@ -40,11 +41,15 @@ export default function CaffinityVendorDashboard() {
     isCanteenSelecting,
     menuItems,
     toggleMenuItemAvailability,
-    deleteMenuItem
+    deleteMenuItem,
+    addMenuItem,
+    editMenuItem
   } = useCaffinity();
 
   const [activeTab, setActiveTab] = useState('Live Orders');
   const [isAcceptingOrders, setIsAcceptingOrders] = useState(true);
+  const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
+  const [editingMenuItem, setEditingMenuItem] = useState(null);
 
   // Filter orders by selected canteen
   const canteenOrders = useMemo(() => {
@@ -195,7 +200,10 @@ export default function CaffinityVendorDashboard() {
                    <h3 className="text-3xl font-black italic uppercase tracking-tighter text-slate-900 dark:text-white">Menu Editor</h3>
                    <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">Add or modify food items instantly</p>
                  </div>
-                 <button className="px-6 py-3 bg-amber-500 text-white rounded-full font-black text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-amber-500/20 hover:scale-105 transition-transform flex items-center gap-2">
+                 <button 
+                   onClick={() => { setEditingMenuItem(null); setIsMenuModalOpen(true); }}
+                   className="px-6 py-3 bg-amber-500 text-white rounded-full font-black text-[10px] uppercase tracking-[0.2em] shadow-lg shadow-amber-500/20 hover:scale-105 transition-transform flex items-center gap-2"
+                 >
                    <Plus size={16} /> New Item
                  </button>
               </div>
@@ -222,7 +230,10 @@ export default function CaffinityVendorDashboard() {
                       </button>
                     </div>
                     <div className="grid grid-cols-2 gap-3 pt-2">
-                      <button className="py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-amber-500 hover:text-white transition-colors flex items-center justify-center gap-2">
+                      <button 
+                        onClick={() => { setEditingMenuItem(item); setIsMenuModalOpen(true); }}
+                        className="py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-amber-500 hover:text-white transition-colors flex items-center justify-center gap-2"
+                      >
                         <Edit2 size={12} /> Edit
                       </button>
                       <button onClick={() => deleteMenuItem(item.id)} className="py-2.5 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-500 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-red-500 hover:text-white transition-colors flex items-center justify-center gap-2">
@@ -277,6 +288,20 @@ export default function CaffinityVendorDashboard() {
           )}
 
         </AnimatePresence>
+        
+        <MenuEditorModal 
+          isOpen={isMenuModalOpen} 
+          onClose={() => setIsMenuModalOpen(false)} 
+          editingItem={editingMenuItem} 
+          onSave={(itemData) => {
+            if (editingMenuItem) {
+              editMenuItem(editingMenuItem.id, itemData);
+            } else {
+              addMenuItem(itemData);
+            }
+            setIsMenuModalOpen(false);
+          }}
+        />
       </div>
     </AdminLayout>
   );
@@ -382,6 +407,63 @@ function OrderCard({ order, onAction, btnText, color }) {
       >
         {btnText} <ChevronRight size={14} />
       </button>
+    </div>
+  );
+}
+
+function MenuEditorModal({ isOpen, onClose, editingItem, onSave }) {
+  const [formData, setFormData] = useState({
+    name: '', price: '', category: 'Quick Bites', prepTime: '5 min', isVeg: true, image: ''
+  });
+
+  useEffect(() => {
+    if (editingItem) setFormData(editingItem);
+    else setFormData({ name: '', price: '', category: 'Quick Bites', prepTime: '5 min', isVeg: true, image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&q=80&w=200' });
+  }, [editingItem, isOpen]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+      <div className="bg-white dark:bg-slate-900 rounded-[30px] w-full max-w-md p-8 shadow-2xl animate-in zoom-in-95 duration-300 border border-slate-200 dark:border-white/10 relative">
+        <button onClick={onClose} className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors"><X size={16} /></button>
+        <h3 className="text-2xl font-black italic uppercase tracking-tighter text-slate-900 dark:text-white mb-6">{editingItem ? 'Edit Menu Item' : 'New Menu Item'}</h3>
+        <form onSubmit={(e) => { e.preventDefault(); onSave({...formData, price: Number(formData.price)}); }} className="space-y-4">
+          <div>
+            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Item Name</label>
+            <input required type="text" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 dark:text-white outline-none focus:border-amber-500" placeholder="e.g. Masala Dosa" />
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Price (₹)</label>
+              <input required type="number" min="0" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 dark:text-white outline-none focus:border-amber-500" placeholder="e.g. 50" />
+            </div>
+            <div>
+              <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Prep Time</label>
+              <input required type="text" value={formData.prepTime} onChange={e => setFormData({...formData, prepTime: e.target.value})} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 dark:text-white outline-none focus:border-amber-500" placeholder="e.g. 10 min" />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Category</label>
+              <select value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 dark:text-white outline-none focus:border-amber-500 appearance-none">
+                <option>Beverages</option><option>Quick Bites</option><option>Meals</option><option>Combos</option><option>Healthy</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Diet Type</label>
+              <button type="button" onClick={() => setFormData({...formData, isVeg: !formData.isVeg})} className={`w-full py-3 rounded-xl font-black text-xs uppercase tracking-widest border transition-all ${formData.isVeg ? 'bg-green-50 dark:bg-green-500/10 text-green-600 border-green-200 dark:border-green-500/20' : 'bg-red-50 dark:bg-red-500/10 text-red-600 border-red-200 dark:border-red-500/20'}`}>{formData.isVeg ? 'Veg' : 'Non-Veg'}</button>
+            </div>
+          </div>
+          <div>
+            <label className="block text-[10px] font-black uppercase tracking-widest text-slate-500 mb-2">Image URL</label>
+            <input required type="url" value={formData.image} onChange={e => setFormData({...formData, image: e.target.value})} className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 dark:text-white outline-none focus:border-amber-500" placeholder="https://..." />
+          </div>
+          <button type="submit" className="w-full mt-4 py-4 bg-amber-500 text-white rounded-xl font-black text-xs uppercase tracking-widest shadow-xl shadow-amber-500/20 hover:scale-[1.02] active:scale-95 transition-all">
+            {editingItem ? 'Save Changes' : 'Create Item'}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
