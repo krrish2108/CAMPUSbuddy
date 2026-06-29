@@ -56,7 +56,7 @@ export const BUILDINGS = [
     x: 68, z: -82, w: 36, d: 24,
     description: "4 floors · 25 labs & classrooms · Dental Sciences",
     facilities: ['Dental Clinic', 'Anatomy Lab', 'Pathology Lab'],
-    image: 'https://images.unsplash.com/photo-1588776814546-1ffce47267a5?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=800&q=80',
     status: 'available'
   },
   {
@@ -71,7 +71,7 @@ export const BUILDINGS = [
     x: 18, z: -55, w: 22, d: 22, isDome: true,
     description: "Iconic dome auditorium · 1200 seat capacity",
     facilities: ['AV System', 'Central AC', 'VVIP Lounge'],
-    image: 'https://images.unsplash.com/photo-1503023345030-a7ec3c7bb723?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80',
     status: 'live-event'
   },
   {
@@ -86,7 +86,7 @@ export const BUILDINGS = [
     x: -8, z: -28, w: 22, d: 18,
     description: "2 floors · Cafeteria & Dining Hall",
     facilities: ['Food Court', 'Outdoor Seating', 'Juice Bar'],
-    image: 'https://images.unsplash.com/photo-1567620905732-2d1ec7bb741f?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=80',
     status: 'high-traffic'
   },
   {

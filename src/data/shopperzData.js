@@ -21,7 +21,7 @@ export const RETAIL_PRODUCTS = [
     category: 'Stationery',
     rating: 4.5,
     stockCount: 3,
-    image: 'https://images.unsplash.com/photo-1586075010633-2470bbcf0044?auto=format&fit=crop&q=80&w=1000',
+    image: 'https://images.unsplash.com/photo-1516962215378-7fa2e137ae93?auto=format&fit=crop&q=80&w=1000',
     bulkDeal: { min: 10, price: 95 },
     totalSold: 856
   },
@@ -32,7 +32,7 @@ export const RETAIL_PRODUCTS = [
     category: 'Lab Equipment',
     rating: 4.2,
     stockCount: 0,
-    image: 'https://images.unsplash.com/photo-1544604196-4f51e08922cf?auto=format&fit=crop&q=80&w=1000',
+    image: 'https://images.unsplash.com/photo-1517462964-21fdcec3f25b?auto=format&fit=crop&q=80&w=1000',
     totalSold: 89
   },
   {
@@ -42,7 +42,7 @@ export const RETAIL_PRODUCTS = [
     category: 'Electronics',
     rating: 4.9,
     stockCount: 8,
-    image: 'https://images.unsplash.com/photo-1574605284833-e18e69acb3a1?auto=format&fit=crop&q=80&w=1000',
+    image: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=1000',
     totalSold: 34
   },
   {
@@ -52,7 +52,7 @@ export const RETAIL_PRODUCTS = [
     category: 'Stationery',
     rating: 4.9,
     stockCount: 25,
-    image: 'https://images.unsplash.com/photo-1511376916892-91f86807eb36?auto=format&fit=crop&q=80&w=1000',
+    image: 'https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?auto=format&fit=crop&q=80&w=1000',
     totalSold: 1200
   },
   {
@@ -72,7 +72,7 @@ export const RETAIL_PRODUCTS = [
     category: 'Stationery',
     rating: 4.6,
     stockCount: 15,
-    image: 'https://images.unsplash.com/photo-1610473068524-ba4b172a6a57?auto=format&fit=crop&q=80&w=1000',
+    image: 'https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?auto=format&fit=crop&q=80&w=1000',
     totalSold: 210
   },
   {
@@ -123,7 +123,7 @@ export const RETAIL_PRODUCTS = [
     category: 'Lab Equipment',
     rating: 4.5,
     stockCount: 18,
-    image: 'https://images.unsplash.com/photo-1581093458791-9f3c3250bb8b?auto=format&fit=crop&q=80&w=1000',
+    image: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=1000',
     totalSold: 310
   }
 ];
@@ -152,7 +152,7 @@ export const MARKET_LISTINGS = [
     condition: 'Good',
     category: 'Equipment',
     seller: 'Priya S.',
-    image: 'https://images.unsplash.com/photo-1503387762-592dee58c460?auto=format&fit=crop&q=80&w=1000',
+    image: 'https://images.unsplash.com/photo-1517462964-21fdcec3f25b?auto=format&fit=crop&q=80&w=1000',
     negotiable: false,
     reservedUntil: null
   }

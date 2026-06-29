@@ -29,7 +29,7 @@ export const MOCK_TICKETS = [
     eta: '2 Hours remaining',
     aiSummary: "Core network switch failure affecting all WiFi on Library Floor 2. Auto-priority: Critical ⚠️",
     media: [
-      'https://images.unsplash.com/photo-1558494949-ef010cbdcc51?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=800&q=80',
       'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80'
     ],
     timeline: [

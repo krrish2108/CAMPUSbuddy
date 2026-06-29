@@ -247,7 +247,7 @@ function ProductEditorModal({ isOpen, onClose, editingProduct, onSave }) {
 
   useEffect(() => {
     if (editingProduct) setFormData(editingProduct);
-    else setFormData({ name: '', price: '', category: 'Stationery', stockCount: 10, image: 'https://images.unsplash.com/photo-1511376916892-91f86807eb36?auto=format&fit=crop&q=80&w=200' });
+    else setFormData({ name: '', price: '', category: 'Stationery', stockCount: 10, image: 'https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?auto=format&fit=crop&q=80&w=200' });
   }, [editingProduct, isOpen]);
 
   if (!isOpen) return null;

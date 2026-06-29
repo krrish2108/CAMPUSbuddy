@@ -18,7 +18,7 @@ export const CANTEENS = [
     name: 'Container (Main)', 
     location: 'Main Campus', 
     description: 'Open-air vibe with heavy meals', 
-    image: 'https://images.unsplash.com/photo-1534073828943-f801091bbffb?auto=format&fit=crop&w=800&q=80' 
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80' 
   },
   { 
     id: 'c4', 
@@ -41,7 +41,7 @@ export const MENU_ITEMS = [
     category: 'Beverages',
     price: 15,
     prepTime: '2 min',
-    image: 'https://images.unsplash.com/photo-1594631252845-29fc45865506?auto=format&fit=crop&w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80',
     rating: 4.8,
     totalOrders: 1250,
     calories: 80,
