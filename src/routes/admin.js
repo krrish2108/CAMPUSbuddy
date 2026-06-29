@@ -1,34 +1,41 @@
-import { fetchApi } from '@/utils/api';
+// Delay helper to simulate network request
+const delay = (ms = 500) => new Promise(resolve => setTimeout(resolve, ms));
 
 /**
  * AUTHENTICATION
  */
-export const logoutAdmin = () => 
-  fetchApi('/logout/admin', { method: 'POST' });
+export const logoutAdmin = async () => {
+  await delay();
+  return { success: true };
+};
 
 /**
  * ARENA (EVENT MANAGEMENT)
  */
-export const addArenaEvent = (eventData) => 
-  fetchApi('/api/arena/events', { method: 'POST', body: JSON.stringify(eventData) });
+export const addArenaEvent = async (eventData) => {
+  await delay();
+  return { success: true, data: { id: `EVT-${Math.floor(Math.random() * 1000)}`, ...eventData } };
+};
 
-export const updateArenaEvent = (id, eventData) => 
-  fetchApi(`/api/arena/events/${id}`, { method: 'PUT', body: JSON.stringify(eventData) });
+export const updateArenaEvent = async (id, eventData) => {
+  await delay();
+  return { success: true, data: { id, ...eventData } };
+};
 
-export const deleteArenaEvent = (id) => 
-  fetchApi(`/api/arena/events/${id}`, { method: 'DELETE' });
+export const deleteArenaEvent = async (id) => {
+  await delay();
+  return { success: true };
+};
 
 /**
  * PROBLEM BOX (MANAGEMENT)
  */
-export const updateTicketStatusAdmin = (id, status, officialResponse) => 
-  fetchApi(`/api/problembox/tickets/${id}/status`, { 
-    method: 'PATCH', 
-    body: JSON.stringify({ status, official_response: officialResponse }) 
-  });
+export const updateTicketStatusAdmin = async (id, status, officialResponse) => {
+  await delay();
+  return { success: true, data: { id, status, officialResponse } };
+};
 
-export const assignTicketAdmin = (id, departmentId) => 
-  fetchApi(`/api/problembox/tickets/${id}/assign`, { 
-    method: 'POST', 
-    body: JSON.stringify({ assigned_to: departmentId }) 
-  });
+export const assignTicketAdmin = async (id, departmentId) => {
+  await delay();
+  return { success: true, data: { id, assignedTo: departmentId } };
+};
