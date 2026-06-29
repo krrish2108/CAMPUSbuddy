@@ -215,7 +215,7 @@ export default function CaffinityVendorDashboard() {
                     <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-950 rounded-[25px] border border-slate-200 dark:border-white/5">
                       <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Available</span>
                       <button 
-                         onClick={() => toggleItemAvailability(item.id)}
+                         onClick={() => toggleMenuItemAvailability(item.id)}
                          className={`w-12 h-6 rounded-full relative transition-all shadow-inner ${item.isAvailable ? 'bg-green-500' : 'bg-slate-300 dark:bg-slate-800'}`}
                       >
                          <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all shadow-sm ${item.isAvailable ? 'right-1' : 'left-1'}`} />
@@ -225,7 +225,7 @@ export default function CaffinityVendorDashboard() {
                       <button className="py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-white rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-amber-500 hover:text-white transition-colors flex items-center justify-center gap-2">
                         <Edit2 size={12} /> Edit
                       </button>
-                      <button onClick={() => deleteItem(item.id)} className="py-2.5 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-500 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-red-500 hover:text-white transition-colors flex items-center justify-center gap-2">
+                      <button onClick={() => deleteMenuItem(item.id)} className="py-2.5 bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-500 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-red-500 hover:text-white transition-colors flex items-center justify-center gap-2">
                         <Trash2 size={12} /> Delete
                       </button>
                     </div>
