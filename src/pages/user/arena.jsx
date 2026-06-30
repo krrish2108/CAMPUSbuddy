@@ -408,7 +408,50 @@ function ArenaContent() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {/* MY NETWORK */}
+              <div className="space-y-6 pt-6 border-t border-slate-100 dark:border-white/5">
+                <div className="flex items-center justify-between px-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-blue-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+                      <Users size={20} fill="currentColor" />
+                    </div>
+                    <h3 className="text-2xl font-black text-slate-900 dark:text-white italic uppercase tracking-tighter">My Network</h3>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {FRIENDS.concat(connections).length > 0 ? (
+                    FRIENDS.concat(connections).map(friend => (
+                      <div key={friend.id} className="bg-white dark:bg-[#1a1a2e] border-2 border-slate-100 dark:border-white/5 rounded-[30px] p-6 shadow-xl hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all group relative overflow-hidden flex flex-col h-full hover:-translate-y-1">
+                        <div className="flex justify-between items-start mb-4">
+                          <div className="relative w-16 h-16 rounded-[20px] overflow-hidden border-4 border-slate-50 dark:border-slate-800 shadow-md">
+                            <Image 
+                              src={friend.avatar} 
+                              alt={friend.name}
+                              fill
+                              className="object-cover group-hover:scale-110 transition-transform duration-500"
+                            />
+                            {friend.isOnline && (
+                               <div className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white dark:border-slate-800 rounded-full" />
+                            )}
+                          </div>
+                          <button className="bg-slate-50 dark:bg-slate-800 text-slate-400 hover:bg-red-500 hover:text-white p-2 rounded-xl transition-all active:scale-95 shadow-sm border border-slate-100 dark:border-white/5 text-xs font-black uppercase">
+                            Remove
+                          </button>
+                        </div>
+                        <div className="mb-4">
+                          <h4 className="text-xl font-black text-slate-900 dark:text-white leading-tight group-hover:text-blue-500 transition-colors">{friend.name}</h4>
+                          <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mt-1">{friend.branch} · Sem {friend.semester}</p>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="col-span-full py-16 text-center text-slate-400 font-bold uppercase tracking-widest text-xs">No connections yet</div>
+                  )}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 pt-6 border-t border-slate-100 dark:border-white/5">
                 {/* FRIENDS ACTIVITY */}
                 <div className="space-y-6">
                   <div className="flex items-center gap-3 px-2">
@@ -605,7 +648,7 @@ function ArenaContent() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-lg font-black tracking-tight italic uppercase leading-none mb-1">Team Sync Request</p>
-                      <p className="text-[10px] font-black text-white/50 uppercase tracking-widest">Connect with your campus groups</p>
+                      <p className="text-[10px] font-black text-white/50 uppercase tracking-widest">Suggesting from My Network</p>
                     </div>
                     <Users size={20} className="text-amber-500" />
                   </div>

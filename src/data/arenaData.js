@@ -1,4 +1,4 @@
-export const EVENT_CATEGORIES = ['All', 'Hackathons', 'Lectures', 'Meetups', 'Ongoing'];
+export const EVENT_CATEGORIES = ['All', 'Hackathon', 'Lecture', 'Meetup', 'Ongoing'];
 
 export const EVENTS = [
   {
