@@ -52,7 +52,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
       <Navbar />
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 md:px-12 lg:px-16 py-8 space-y-8">
         <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold font-syne text-gray-900 tracking-tight">

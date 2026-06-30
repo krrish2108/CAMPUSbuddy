@@ -17,7 +17,7 @@ export default function Navbar({ isDark = false }) {
       ? 'bg-[#0f0f12]/40 border-white/5' 
       : 'bg-white/60 dark:bg-slate-950/60 border-gray-100 dark:border-white/5'
     }`}>
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
         <div 
           onClick={() => router.push('/')}
           className="font-syne font-black text-2xl tracking-tighter cursor-pointer group"

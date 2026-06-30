@@ -145,7 +145,7 @@ export default function LandingPage() {
       </div>
 
       {/* 2. HERO SECTION */}
-      <section className="w-full text-center pt-24 md:pt-40 pb-16 px-6 max-w-5xl mx-auto">
+      <section className="w-full text-center pt-24 md:pt-40 pb-16 px-6 max-w-[1440px] mx-auto">
         <div className="transition-all duration-1000 ease-out transform">
            <h1 className="font-syne font-black text-5xl md:text-7xl leading-[0.9] mb-8 tracking-tighter text-slate-900 dark:text-white">
              <span className="typewriter-cursor">{displayText}</span>
@@ -192,7 +192,7 @@ export default function LandingPage() {
       </div>
 
       {/* 4. GLASSMORPHISM MODULES */}
-      <section className="w-full max-w-5xl mx-auto px-6 mb-32 space-y-24">
+      <section className="w-full max-w-[1440px] mx-auto px-6 md:px-12 lg:px-16 mb-32 space-y-24">
         {modules.map((mod, i) => (
           <div 
             key={mod.letter}
@@ -239,7 +239,7 @@ export default function LandingPage() {
 
       {/* 5. HOW IT WORKS SECTION */}
       <section className="how-it-works-section w-full py-32 px-6 border-y border-gray-100 dark:border-white/5 bg-gray-50/30 dark:bg-white/5 relative">
-        <div className="max-w-5xl mx-auto text-center">
+        <div className="max-w-[1440px] mx-auto text-center px-6 md:px-12 lg:px-16">
           <h2 className="font-syne font-black text-4xl mb-32 text-[#0F172A] dark:text-white tracking-tighter">
             How it works
           </h2>
@@ -293,7 +293,7 @@ export default function LandingPage() {
 
       {/* 6. ABOUT US (Team section) */}
       <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Eyebrow */}
           <p className="text-center text-xs font-medium tracking-widest text-gray-400 uppercase mb-3">
             The team behind it

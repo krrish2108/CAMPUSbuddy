@@ -7,7 +7,7 @@ export default function ModuleLayout({ title, subtitle, color, children, hideHea
   return (
     <div className={`min-h-screen flex flex-col font-sans transition-colors duration-500 ${isDark ? 'bg-[#060606]' : 'bg-gray-50 dark:bg-[#020617]'}`}>
       <Navbar isDark={isDark} />
-      <main className={`flex-1 w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 ${hideHeader ? 'max-w-[1400px]' : 'max-w-7xl'}`}>
+      <main className={`flex-1 w-full mx-auto px-4 sm:px-6 md:px-12 lg:px-16 py-8 space-y-6 max-w-[1440px]`}>
         {/* Module Header */}
         <div className="flex items-center justify-between">
           <button 
