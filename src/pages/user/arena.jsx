@@ -64,6 +64,7 @@ function ArenaContent() {
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [showTicket, setShowTicket] = useState(false);
   const [showNotifPanel, setShowNotifPanel] = useState(false);
+  const [removedFriends, setRemovedFriends] = useState([]);
 
   const TABS = ['Events', 'Network', 'My Tickets'];
 
@@ -289,7 +290,7 @@ function ArenaContent() {
                           </div>
                           {isRegistered && (
                             <div className="bg-green-500 text-white px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg flex items-center gap-1">
-                              <CheckCircle2 size={12} /> RSVP'd
+                              <CheckCircle2 size={12} /> RSVP&apos;d
                             </div>
                           )}
                         </div>
@@ -420,8 +421,8 @@ function ArenaContent() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {FRIENDS.concat(connections).length > 0 ? (
-                    FRIENDS.concat(connections).map(friend => (
+                  {FRIENDS.concat(connections).filter(f => !removedFriends.includes(f.id)).length > 0 ? (
+                    FRIENDS.concat(connections).filter(f => !removedFriends.includes(f.id)).map(friend => (
                       <div key={friend.id} className="bg-white dark:bg-[#1a1a2e] border-2 border-slate-100 dark:border-white/5 rounded-[30px] p-6 shadow-xl hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all group relative overflow-hidden flex flex-col h-full hover:-translate-y-1">
                         <div className="flex justify-between items-start mb-4">
                           <div className="relative w-16 h-16 rounded-[20px] overflow-hidden border-4 border-slate-50 dark:border-slate-800 shadow-md">
@@ -435,7 +436,10 @@ function ArenaContent() {
                                <div className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white dark:border-slate-800 rounded-full" />
                             )}
                           </div>
-                          <button className="bg-slate-50 dark:bg-slate-800 text-slate-400 hover:bg-red-500 hover:text-white p-2 rounded-xl transition-all active:scale-95 shadow-sm border border-slate-100 dark:border-white/5 text-xs font-black uppercase">
+                          <button 
+                            onClick={() => setRemovedFriends(prev => [...prev, friend.id])}
+                            className="bg-slate-50 dark:bg-slate-800 text-slate-400 hover:bg-red-500 hover:text-white p-2 rounded-xl transition-all active:scale-95 shadow-sm border border-slate-100 dark:border-white/5 text-xs font-black uppercase"
+                          >
                             Remove
                           </button>
                         </div>
