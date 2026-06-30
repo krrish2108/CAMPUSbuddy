@@ -50,15 +50,15 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#020617] flex flex-col font-sans transition-colors duration-500">
       <Navbar />
       <main className="flex-1 max-w-[1440px] w-full mx-auto px-4 sm:px-6 md:px-12 lg:px-16 py-8 space-y-8">
-        <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 flex items-center justify-between">
+        <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-white/5 flex items-center justify-between transition-colors duration-500">
           <div>
-            <h1 className="text-3xl font-bold font-syne text-gray-900 tracking-tight">
-              Welcome, <span className="text-blue-600">{firstName}</span>
+            <h1 className="text-3xl font-bold font-syne text-gray-900 dark:text-white tracking-tight">
+              Welcome, <span className="text-blue-600 dark:text-blue-500">{firstName}</span>
             </h1>
-            <p className="mt-2 text-gray-500 font-medium">What would you like to do today?</p>
+            <p className="mt-2 text-gray-500 dark:text-slate-400 font-medium">What would you like to do today?</p>
           </div>
         </div>
 
