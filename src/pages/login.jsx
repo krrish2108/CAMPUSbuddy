@@ -127,12 +127,12 @@ export default function LoginPage() {
           login(res.user, res.access_token, res.refresh_token);
           
           setTimeout(() => {
-            if (res.user?.role === 'admin') {
+            if (redirect) {
+              router.push(redirect);
+            } else if (res.user?.role === 'admin') {
               router.push('/admin/dashboard');
-            } else if (res.user?.role === 'student' || res.user?.role === 'user') {
-              router.push('/user/home');
             } else {
-              router.push(redirect || '/');
+              router.push('/user/home');
             }
           }, 100);
         }
@@ -160,7 +160,9 @@ export default function LoginPage() {
           login(res.user);
           
           setTimeout(() => {
-            if (res.user?.role === 'admin') {
+            if (redirect) {
+              router.push(redirect);
+            } else if (res.user?.role === 'admin') {
               router.push('/admin/dashboard');
             } else {
               router.push('/user/home');

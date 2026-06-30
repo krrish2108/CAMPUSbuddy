@@ -116,13 +116,9 @@ export default function LandingPage() {
     };
   }, []);
 
-  // 4. AUTH AUTO-REDIRECT
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push('/user/home');
-    }
-  }, [isLoggedIn, router]);
-
+  // 4. (Removed Auto-Redirect)
+  // Now users can view the landing page even if logged in.
+  
   // 5. AUTH INTERCEPTION
   const handleModuleClick = (href) => {
     if (!isLoggedIn) {
