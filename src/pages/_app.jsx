@@ -11,6 +11,7 @@ import UAssistOverlay from '@/components/uassist/UAssistOverlay';
 import GlobalBroadcast from '@/components/uassist/GlobalBroadcast';
 import AuthGuard from '@/components/AuthGuard';
 import { AnimatePresence } from 'framer-motion';
+import Head from 'next/head';
 
 const syne = Syne({ 
   subsets: ['latin'],
@@ -162,6 +163,9 @@ export default function App({ Component, pageProps }) {
           <ProblemBoxProvider>
             <ShopperzProvider>
               <UAssistProvider>
+                <Head>
+                  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+                </Head>
                 <div className={`${syne.variable} ${inter.variable} font-inter antialiased transition-colors duration-500 min-h-screen bg-white dark:bg-[#020617] text-[#0F172A] dark:text-white`}>
                   <AuthGuard>
                     <GlobalBroadcast />

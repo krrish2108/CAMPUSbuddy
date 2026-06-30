@@ -129,8 +129,39 @@ function ArenaContent() {
   return (
     <ModuleLayout title="Arena" subtitle="Campus Connections, Events & Activity Booking" color="#1e293b">
       <div className="pb-32">
+        {/* DASHBOARD HEADER STATS */}
+        <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-100 dark:border-white/5 flex items-center justify-between shadow-sm hover:border-amber-500/30 transition-colors">
+            <div>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">My Events</p>
+              <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">{registrations.length}</h3>
+            </div>
+            <div className="w-12 h-12 bg-amber-500/10 text-amber-500 rounded-2xl flex items-center justify-center">
+              <Calendar size={24} />
+            </div>
+          </div>
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-100 dark:border-white/5 flex items-center justify-between shadow-sm hover:border-blue-500/30 transition-colors">
+            <div>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Network</p>
+              <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">{connections.length + FRIENDS.length}</h3>
+            </div>
+            <div className="w-12 h-12 bg-blue-500/10 text-blue-500 rounded-2xl flex items-center justify-center">
+              <Users size={24} />
+            </div>
+          </div>
+          <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-100 dark:border-white/5 flex items-center justify-between shadow-sm hover:border-pink-500/30 transition-colors">
+            <div>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Pending Syncs</p>
+              <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">{pendingNetworkRequests.length + (incomingSyncRequest ? 1 : 0)}</h3>
+            </div>
+            <div className="w-12 h-12 bg-pink-500/10 text-pink-500 rounded-2xl flex items-center justify-center">
+              <UserPlus size={24} />
+            </div>
+          </div>
+        </div>
+
         {/* TAB SWITCHER - MOVED TO TOP AND STICKY */}
-        <div className="flex justify-center -mx-4 px-4 sticky top-[64px] z-[40] bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl py-4 transition-all border-b border-gray-100 dark:border-white/5">
+        <div className="flex justify-center -mx-4 px-4 sticky top-[64px] z-[40] bg-white/60 dark:bg-slate-950/60 backdrop-blur-xl py-4 transition-all border-b border-gray-100 dark:border-white/5">
           <div className="flex bg-slate-100 dark:bg-slate-800 p-1.5 rounded-[25px] relative w-full max-w-lg shadow-inner">
             <div
               className="absolute h-[calc(100%-12px)] top-1.5 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] bg-amber-500 rounded-[20px] shadow-lg shadow-amber-500/30"
@@ -221,7 +252,7 @@ function ArenaContent() {
               </div>
 
               {/* EVENT FEED */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {filteredEvents.map(event => {
                   const isLive = event.status === 'Live';
                   const capacityPercent = (event.capacity.filled / event.capacity.total) * 100;
@@ -232,35 +263,66 @@ function ArenaContent() {
                     <div
                       key={event.id}
                       onClick={() => setSelectedEvent(event)}
-                      className="group relative bg-white dark:bg-slate-900 rounded-[45px] border-4 border-slate-50 dark:border-white/5 overflow-hidden hover:shadow-2xl transition-all duration-500 h-[340px] cursor-pointer"
+                      className={`group relative bg-white dark:bg-slate-900 rounded-[40px] border-2 ${isLive ? 'border-amber-500/50 shadow-[0_0_30px_-5px_rgba(245,158,11,0.2)]' : 'border-slate-100 dark:border-white/5 shadow-xl'} overflow-hidden hover:shadow-2xl hover:border-amber-500/30 transition-all duration-500 h-[400px] cursor-pointer flex flex-col`}
                     >
-                      <div className="absolute inset-0 w-full h-full group-hover:scale-110 transition-transform duration-1000">
+                      {/* Image Top Half */}
+                      <div className="relative h-[220px] w-full shrink-0 overflow-hidden bg-slate-100 dark:bg-slate-800">
                         <Image 
                           src={event.coverImage} 
                           alt={event.title}
                           fill
-                          className="object-cover"
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
                         />
-                      </div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent p-10 flex flex-col justify-end">
-                        {isLive && (
-                          <div className="absolute top-8 left-8 flex items-center gap-2 bg-red-600 text-white px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse border-4 border-white/20">
-                            <div className="w-2 h-2 bg-white rounded-full animate-ping" /> Live Now
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 dark:opacity-100" />
+                        
+                        {/* Badges */}
+                        <div className="absolute top-6 left-6 right-6 flex justify-between items-start">
+                          <div className="flex gap-2">
+                            {isLive && (
+                              <div className="flex items-center gap-2 bg-red-500 text-white px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg animate-pulse">
+                                <div className="w-1.5 h-1.5 bg-white rounded-full animate-ping" /> Live
+                              </div>
+                            )}
+                            <div className="bg-white/20 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-white/20">
+                              {event.tags[0]}
+                            </div>
                           </div>
-                        )}
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-4 text-white/50 text-[10px] font-black uppercase tracking-widest">
+                          {isRegistered && (
+                            <div className="bg-green-500 text-white px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg flex items-center gap-1">
+                              <CheckCircle2 size={12} /> RSVP'd
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Content Bottom Half */}
+                      <div className="flex-1 p-6 md:p-8 flex flex-col justify-between">
+                        <div>
+                          <div className="flex justify-between items-start mb-2">
+                            <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter italic uppercase group-hover:text-amber-500 transition-colors line-clamp-1">{event.title}</h3>
+                            <span className="shrink-0 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 px-3 py-1 rounded-lg text-xs font-bold ml-2">
+                              {event.isPaid ? `₹${event.fee}` : 'Free'}
+                            </span>
+                          </div>
+                          <p className="text-slate-500 dark:text-slate-400 text-sm line-clamp-2">{event.description}</p>
+                        </div>
+                        
+                        <div className="mt-4 space-y-4">
+                          <div className="flex flex-wrap items-center justify-between text-xs font-bold text-slate-500 dark:text-slate-400 gap-y-2">
                             <span className="flex items-center gap-1.5"><Calendar size={14} className="text-amber-500" /> {event.timeline.startsIn === 'Now' ? 'Ongoing' : event.timeline.startsIn}</span>
                             <span className="flex items-center gap-1.5"><MapPin size={14} className="text-amber-500" /> {event.location.split(',')[0]}</span>
                           </div>
-                          <h3 className="text-3xl font-black text-white tracking-tighter italic uppercase group-hover:translate-x-2 transition-transform">{event.title}</h3>
-                          <p className="text-white/60 text-xs font-bold uppercase tracking-widest">{event.organizer}</p>
-                          <div className="pt-4 space-y-3">
+                          
+                          <div className="space-y-2">
                             <div className="flex justify-between items-end">
-                              <span className="text-[10px] font-black text-white/80 uppercase tracking-widest flex items-center gap-2"><Users size={14} className="text-amber-500" /> {event.capacity.filled}/{event.capacity.total} Filled</span>
-                              {isRegistered && <span className="text-[10px] font-black text-green-400 uppercase tracking-widest flex items-center gap-1"><CheckCircle2 size={12} /> Registered</span>}
+                              <span className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+                                Capacity: {event.capacity.filled}/{event.capacity.total}
+                              </span>
+                              <span className="text-[10px] font-black text-amber-500 uppercase tracking-widest">
+                                {Math.round(capacityPercent)}% Filled
+                              </span>
                             </div>
-                            <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
+                            <div className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                               <div className={`h-full transition-all duration-1000 ${isFull ? 'bg-amber-500' : 'bg-blue-500'}`} style={{ width: `${capacityPercent}%` }} />
                             </div>
                           </div>
@@ -300,31 +362,48 @@ function ArenaContent() {
                   </div>
                 </div>
 
-                <div className="flex gap-6 overflow-x-auto pb-8 -mx-4 px-4 scrollbar-none snap-x h-[280px]">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   {isSearching ? (
-                    <div className="w-full py-16 text-center text-amber-500 font-bold animate-pulse">Searching Campus...</div>
+                    <div className="col-span-full py-16 text-center text-amber-500 font-bold animate-pulse">Searching Campus...</div>
                   ) : networkStudents.length > 0 ? (
                     networkStudents.map(student => (
-                      <div key={student.id} className="flex-shrink-0 w-80 bg-white dark:bg-[#1a1a2e] border-2 border-slate-100 dark:border-white/5 rounded-[40px] p-8 shadow-2xl snap-center hover:border-amber-500/50 transition-all group/card relative overflow-hidden">
-                        <div className="flex items-center justify-between mb-6">
-                          <div className="relative w-16 h-16 rounded-3xl overflow-hidden border-4 border-slate-100 dark:border-slate-900 shadow-xl">
+                      <div key={student.id} className="bg-white dark:bg-[#1a1a2e] border-2 border-slate-100 dark:border-white/5 rounded-[30px] p-6 shadow-xl hover:border-amber-500/50 hover:shadow-2xl hover:shadow-amber-500/10 transition-all group relative overflow-hidden flex flex-col h-full hover:-translate-y-1">
+                        <div className="flex justify-between items-start mb-4">
+                          <div className="relative w-16 h-16 rounded-[20px] overflow-hidden border-4 border-slate-50 dark:border-slate-800 shadow-md">
                             <Image 
                               src={student.avatar} 
                               alt={student.name}
                               fill
-                              className="object-cover"
+                              className="object-cover group-hover:scale-110 transition-transform duration-500"
                             />
                           </div>
-                          <button className="px-6 py-2 border-2 border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-white text-[10px] font-black uppercase tracking-widest rounded-full transition-all active:scale-90">
-                            + Connect
+                          <button className="bg-slate-50 dark:bg-slate-800 text-amber-500 hover:bg-amber-500 hover:text-white p-2 rounded-xl transition-all active:scale-95 shadow-sm border border-slate-100 dark:border-white/5">
+                            <UserPlus size={18} />
                           </button>
                         </div>
-                        <h4 className="text-xl font-black text-slate-900 dark:text-white">{student.name}</h4>
-                        <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest">{student.branch} · Sem {student.semester}</p>
+                        <div className="mb-4">
+                          <h4 className="text-xl font-black text-slate-900 dark:text-white leading-tight group-hover:text-amber-500 transition-colors">{student.name}</h4>
+                          <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mt-1">{student.branch} · Sem {student.semester}</p>
+                        </div>
+                        
+                        <div className="mt-auto space-y-3">
+                          <div className="flex flex-wrap gap-1.5">
+                            {student.skills?.slice(0, 3).map(skill => (
+                              <span key={skill} className="px-2 py-1 bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[9px] font-bold uppercase rounded-lg border border-amber-200/50 dark:border-amber-500/20">
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                          {student.matchTag && (
+                            <p className="text-[9px] font-black text-blue-500 dark:text-blue-400 uppercase tracking-wider flex items-center gap-1.5 bg-blue-50 dark:bg-blue-500/10 px-3 py-2 rounded-xl">
+                              <Zap size={10} fill="currentColor" /> {student.matchTag}
+                            </p>
+                          )}
+                        </div>
                       </div>
                     ))
                   ) : (
-                    <div className="w-full py-16 text-center text-slate-400 font-bold uppercase tracking-widest text-xs">No teammates found</div>
+                    <div className="col-span-full py-16 text-center text-slate-400 font-bold uppercase tracking-widest text-xs">No teammates found</div>
                   )}
                 </div>
               </div>
@@ -398,17 +477,55 @@ function ArenaContent() {
                     <div 
                       key={reg.id} 
                       onClick={() => { setSelectedEvent(event); setShowTicket(true); }}
-                      className="group relative bg-white dark:bg-[#1a1a2e] rounded-[45px] border-4 border-slate-100 dark:border-white/5 p-8 flex flex-col gap-6 hover:border-amber-500/50 transition-all duration-500 shadow-2xl cursor-pointer active:scale-[0.98]"
+                      className="group relative bg-white dark:bg-[#1a1a2e] rounded-3xl overflow-hidden shadow-2xl cursor-pointer active:scale-95 transition-all duration-500 flex flex-col md:flex-row hover:shadow-amber-500/10 border-2 border-slate-100 dark:border-white/5 hover:border-amber-500/50"
                     >
-                      <div className="flex justify-between items-start">
-                        <div className="space-y-1">
-                          <p className="text-[10px] font-black text-amber-500 uppercase tracking-widest">{event.tags[0]}</p>
-                          <h4 className="text-2xl font-black text-slate-900 dark:text-white leading-tight uppercase italic">{event.title}</h4>
-                          <p className="text-gray-500 text-xs font-bold uppercase tracking-widest">{event.location.split(',')[0]}</p>
+                      {/* Left Side: Event Details */}
+                      <div className="flex-1 p-6 md:p-8 relative">
+                        <div className="absolute top-0 right-0 w-8 h-full bg-gradient-to-l from-slate-50 dark:from-[#0f172a] to-transparent opacity-50" />
+                        <div className="space-y-4 relative z-10">
+                          <div className="flex justify-between items-start">
+                            <span className="bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400 px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest border border-amber-200/50 dark:border-amber-500/20">
+                              {event.tags[0]}
+                            </span>
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                              ID: {reg.id.split('-')[1] || reg.id}
+                            </span>
+                          </div>
+                          
+                          <div>
+                            <h4 className="text-2xl font-black text-slate-900 dark:text-white leading-tight uppercase italic group-hover:text-amber-500 transition-colors line-clamp-1">{event.title}</h4>
+                            <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mt-1 flex items-center gap-1">
+                              <MapPin size={12} className="text-amber-500" /> {event.location.split(',')[0]}
+                            </p>
+                          </div>
+
+                          <div className="flex items-center gap-6 pt-4 border-t border-slate-100 dark:border-white/5">
+                            <div>
+                              <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Starts In</p>
+                              <p className="text-sm font-black text-slate-900 dark:text-white uppercase">{event.timeline.startsIn}</p>
+                            </div>
+                            <div>
+                              <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Gate</p>
+                              <p className="text-sm font-black text-slate-900 dark:text-white uppercase">A4</p>
+                            </div>
+                            <div>
+                              <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Status</p>
+                              <p className="text-sm font-black text-green-500 uppercase">Confirmed</p>
+                            </div>
+                          </div>
                         </div>
-                        <div className="w-16 h-16 bg-slate-900 rounded-2xl flex items-center justify-center shrink-0">
-                          <QrCode size={32} className="text-white" />
+                      </div>
+
+                      {/* Right Side: QR Code (Tear off style) */}
+                      <div className="w-full md:w-48 bg-slate-50 dark:bg-[#0f172a] p-6 flex flex-col items-center justify-center border-t-2 md:border-t-0 md:border-l-2 border-dashed border-slate-200 dark:border-white/10 relative">
+                        {/* Perforation Cutouts */}
+                        <div className="hidden md:block absolute -top-4 -left-4 w-8 h-8 bg-gray-50 dark:bg-[#020617] rounded-full" />
+                        <div className="hidden md:block absolute -bottom-4 -left-4 w-8 h-8 bg-gray-50 dark:bg-[#020617] rounded-full" />
+                        
+                        <div className="w-24 h-24 bg-white rounded-2xl p-2 shadow-inner border border-slate-200 mb-3">
+                          <QrCode className="text-slate-900 w-full h-full" />
                         </div>
+                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.3em]">Admit One</p>
                       </div>
                     </div>
                   );
@@ -457,19 +574,29 @@ function ArenaContent() {
               </div>
             </div>
 
-            {/* Content Side */}
+              {/* Content Side */}
             <div className="flex-1 flex flex-col h-full bg-white dark:bg-slate-900 relative overflow-hidden">
-              <div className="flex-1 overflow-y-auto p-4 md:p-10 space-y-10 scrollbar-none">
-                <div className="flex gap-4">
-                  <div className="flex-1 p-6 bg-slate-50 dark:bg-white/5 rounded-[30px] border-2 border-slate-100 dark:border-white/10 flex flex-col items-center text-center space-y-2 group hover:border-amber-500 transition-all">
-                    <Clock className="text-amber-500" size={24} />
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Starts in</p>
-                    <p className="text-xl font-black text-slate-900 dark:text-white tracking-tighter italic uppercase">{selectedEvent.timeline.startsIn}</p>
+              <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-10 scrollbar-none">
+                
+                {/* About & Quick Stats */}
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-2">About The Event</h4>
+                    <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{selectedEvent.description}</p>
+                    <p className="text-xs font-bold text-amber-500 uppercase tracking-widest mt-3">Organized by {selectedEvent.organizer}</p>
                   </div>
-                  <div className="flex-1 p-6 bg-slate-50 dark:bg-white/5 rounded-[30px] border-2 border-slate-100 dark:border-white/10 flex flex-col items-center text-center space-y-2 group hover:border-amber-500 transition-all">
-                    <Trophy className="text-amber-500" size={24} />
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Prize Pot</p>
-                    <p className="text-xl font-black text-slate-900 dark:text-white tracking-tighter italic uppercase">{selectedEvent.prizePot}</p>
+
+                  <div className="flex gap-4">
+                    <div className="flex-1 p-6 bg-slate-50 dark:bg-white/5 rounded-[30px] border-2 border-slate-100 dark:border-white/10 flex flex-col items-center text-center space-y-2 group hover:border-amber-500 transition-all">
+                      <Clock className="text-amber-500" size={24} />
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Starts in</p>
+                      <p className="text-xl font-black text-slate-900 dark:text-white tracking-tighter italic uppercase">{selectedEvent.timeline.startsIn}</p>
+                    </div>
+                    <div className="flex-1 p-6 bg-slate-50 dark:bg-white/5 rounded-[30px] border-2 border-slate-100 dark:border-white/10 flex flex-col items-center text-center space-y-2 group hover:border-amber-500 transition-all">
+                      <Trophy className="text-amber-500" size={24} />
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Prize Pot</p>
+                      <p className="text-xl font-black text-slate-900 dark:text-white tracking-tighter italic uppercase">{selectedEvent.prizePot}</p>
+                    </div>
                   </div>
                 </div>
 
