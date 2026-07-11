@@ -44,7 +44,10 @@ export const MENU_CATEGORIES = [
   "Rice",
   "Chinese Combo",
   "Beverages",
-  "Extras"
+  "Extras",
+  "Paratha (With Curd And Pickle)",
+  "Indian Snacks",
+  "All Extra"
 ];
 
 export const MENU_ITEMS = [
@@ -62,6 +65,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -78,6 +82,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -94,6 +99,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -110,6 +116,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -126,6 +133,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -142,6 +150,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -158,6 +167,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -174,6 +184,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -190,6 +201,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -206,6 +218,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -222,6 +235,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -238,6 +252,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -254,6 +269,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -270,6 +286,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -286,6 +303,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -302,6 +320,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -318,6 +337,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -334,6 +354,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -350,6 +371,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -366,6 +388,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -382,6 +405,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -398,6 +422,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -414,6 +439,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -430,6 +456,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -446,6 +473,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -462,6 +490,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -478,6 +507,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -494,6 +524,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -510,6 +541,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -526,6 +558,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -542,6 +575,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -558,6 +592,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -574,6 +609,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -590,6 +626,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -606,6 +643,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -622,6 +660,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -638,6 +677,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -654,6 +694,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -670,6 +711,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -686,6 +728,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -702,6 +745,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -718,6 +762,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -734,6 +779,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -750,6 +796,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -766,6 +813,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -782,6 +830,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -798,6 +847,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -814,6 +864,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -830,6 +881,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -846,6 +898,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -862,6 +915,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -878,6 +932,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -894,6 +949,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -910,6 +966,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -926,6 +983,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -942,6 +1000,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -958,6 +1017,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -974,6 +1034,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -990,6 +1051,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1006,6 +1068,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1022,6 +1085,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1038,6 +1102,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1054,6 +1119,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1070,6 +1136,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1086,6 +1153,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1102,6 +1170,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1118,6 +1187,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1134,6 +1204,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1150,6 +1221,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1166,6 +1238,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1182,6 +1255,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1198,6 +1272,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1214,6 +1289,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1230,6 +1306,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1246,6 +1323,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1262,6 +1340,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1278,6 +1357,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1294,6 +1374,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1310,6 +1391,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1326,6 +1408,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1342,6 +1425,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1358,6 +1442,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1374,6 +1459,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1390,6 +1476,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1406,6 +1493,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1422,6 +1510,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1438,6 +1527,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1454,6 +1544,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1470,6 +1561,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1486,6 +1578,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1502,6 +1595,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1518,6 +1612,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1534,6 +1629,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1550,6 +1646,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1566,6 +1663,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1582,6 +1680,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1598,6 +1697,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1614,6 +1714,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1630,6 +1731,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1646,6 +1748,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1662,6 +1765,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1678,6 +1782,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1694,6 +1799,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1710,6 +1816,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1726,6 +1833,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1742,6 +1850,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1758,6 +1867,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1774,6 +1884,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1790,6 +1901,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1806,6 +1918,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1822,6 +1935,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1838,6 +1952,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1854,6 +1969,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1870,6 +1986,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1886,6 +2003,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1902,6 +2020,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1918,6 +2037,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1934,6 +2054,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1950,6 +2071,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1966,6 +2088,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1982,6 +2105,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -1998,6 +2122,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2014,6 +2139,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2030,6 +2156,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2046,6 +2173,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2062,6 +2190,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2078,6 +2207,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2094,6 +2224,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2110,6 +2241,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2126,6 +2258,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2142,6 +2275,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2158,6 +2292,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2174,6 +2309,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2190,6 +2326,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2206,6 +2343,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2222,6 +2360,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2238,6 +2377,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2254,6 +2394,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2270,6 +2411,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2286,6 +2428,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2302,6 +2445,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2318,6 +2462,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2334,6 +2479,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2350,6 +2496,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2366,6 +2513,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2382,6 +2530,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2398,6 +2547,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2414,6 +2564,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2430,6 +2581,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2446,6 +2598,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2462,6 +2615,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2478,6 +2632,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2494,6 +2649,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2510,6 +2666,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2526,6 +2683,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2542,6 +2700,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2558,6 +2717,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2574,6 +2734,7 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
     tags: []
   },
   {
@@ -2590,6 +2751,1401 @@ export const MENU_ITEMS = [
     availableFrom: '08:00',
     availableTo: '21:00',
     inStock: true,
+    canteenId: 'c2',
+    tags: []
+  },
+  {
+    id: 'm200',
+    name: 'Vegetable Sandwich (Plain)',
+    category: 'Sandwiches & More',
+    price: 90,
+    prepTime: '10 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.2,
+    totalOrders: 754,
+    calories: 303,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm201',
+    name: 'Vegetable Sandwich (Grilled)',
+    category: 'Sandwiches & More',
+    price: 110,
+    prepTime: '10 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.4,
+    totalOrders: 437,
+    calories: 516,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm202',
+    name: 'Vegetable and Cheese Sandwich (Plain)',
+    category: 'Sandwiches & More',
+    price: 125,
+    prepTime: '10 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.8,
+    totalOrders: 540,
+    calories: 320,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm203',
+    name: 'Vegetable and Cheese Sandwich (Grilled)',
+    category: 'Sandwiches & More',
+    price: 140,
+    prepTime: '14 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.5,
+    totalOrders: 1034,
+    calories: 499,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm204',
+    name: 'Butter and Cheese Sandwich (Plain)',
+    category: 'Sandwiches & More',
+    price: 125,
+    prepTime: '5 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 233,
+    calories: 390,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm205',
+    name: 'Butter and Cheese Sandwich (Grilled)',
+    category: 'Sandwiches & More',
+    price: 145,
+    prepTime: '14 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.5,
+    totalOrders: 435,
+    calories: 475,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm206',
+    name: 'Chutney and Cheese Sandwich (Plain)',
+    category: 'Sandwiches & More',
+    price: 130,
+    prepTime: '10 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.4,
+    totalOrders: 371,
+    calories: 336,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm207',
+    name: 'Chutney and Cheese Sandwich (Grilled)',
+    category: 'Sandwiches & More',
+    price: 140,
+    prepTime: '9 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.8,
+    totalOrders: 723,
+    calories: 269,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm208',
+    name: 'Spicy Mexican Paneer Sandwich (Plain)',
+    category: 'Sandwiches & More',
+    price: 135,
+    prepTime: '11 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.5,
+    totalOrders: 524,
+    calories: 224,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm209',
+    name: 'Spicy Mexican Paneer Sandwich (Grilled)',
+    category: 'Sandwiches & More',
+    price: 150,
+    prepTime: '14 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.7,
+    totalOrders: 290,
+    calories: 171,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm210',
+    name: 'Veg Club Sandwich (Plain)',
+    category: 'Sandwiches & More',
+    price: 150,
+    prepTime: '11 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 342,
+    calories: 223,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm211',
+    name: 'Veg Club Sandwich (Grilled)',
+    category: 'Sandwiches & More',
+    price: 160,
+    prepTime: '13 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 952,
+    calories: 315,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm212',
+    name: 'Coleslaw Sandwich - Plain',
+    category: 'Sandwiches & More',
+    price: 120,
+    prepTime: '8 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.7,
+    totalOrders: 816,
+    calories: 342,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm213',
+    name: 'Bread Butter / Jam - Plain / Grilled',
+    category: 'Sandwiches & More',
+    price: 50,
+    prepTime: '14 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 985,
+    calories: 220,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm214',
+    name: 'French Fries',
+    category: 'Sandwiches & More',
+    price: 100,
+    prepTime: '7 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.2,
+    totalOrders: 797,
+    calories: 320,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm215',
+    name: 'Peri Peri Fries',
+    category: 'Sandwiches & More',
+    price: 110,
+    prepTime: '11 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 698,
+    calories: 492,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm216',
+    name: 'Cheesy French Fries',
+    category: 'Sandwiches & More',
+    price: 125,
+    prepTime: '13 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 688,
+    calories: 314,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm217',
+    name: 'Crispy Potato Wedges',
+    category: 'Sandwiches & More',
+    price: 110,
+    prepTime: '10 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.7,
+    totalOrders: 435,
+    calories: 354,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm218',
+    name: 'Chilli Garlic Potato Pops',
+    category: 'Sandwiches & More',
+    price: 125,
+    prepTime: '13 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.6,
+    totalOrders: 480,
+    calories: 518,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm219',
+    name: 'Veg Finger',
+    category: 'Sandwiches & More',
+    price: 135,
+    prepTime: '9 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.5,
+    totalOrders: 951,
+    calories: 278,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm220',
+    name: 'Cheese Jalapeno Nuggets',
+    category: 'Sandwiches & More',
+    price: 150,
+    prepTime: '12 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.8,
+    totalOrders: 449,
+    calories: 196,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm221',
+    name: 'Poha',
+    category: 'South Indian',
+    price: 45,
+    prepTime: '8 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.9,
+    totalOrders: 731,
+    calories: 506,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm222',
+    name: 'Steamed Idli (3 Pcs.)',
+    category: 'South Indian',
+    price: 70,
+    prepTime: '9 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.9,
+    totalOrders: 518,
+    calories: 227,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm223',
+    name: 'Medu Vada (3 Pcs.)',
+    category: 'South Indian',
+    price: 70,
+    prepTime: '13 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 353,
+    calories: 484,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm224',
+    name: 'Idli-Vada (3 Pcs.)',
+    category: 'South Indian',
+    price: 70,
+    prepTime: '5 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.9,
+    totalOrders: 439,
+    calories: 317,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm225',
+    name: 'Vaghar Idli',
+    category: 'South Indian',
+    price: 90,
+    prepTime: '9 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.4,
+    totalOrders: 120,
+    calories: 375,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm226',
+    name: 'Plain Dosa',
+    category: 'South Indian',
+    price: 90,
+    prepTime: '12 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.1,
+    totalOrders: 481,
+    calories: 409,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm227',
+    name: 'Plain Cheese Dosa',
+    category: 'South Indian',
+    price: 150,
+    prepTime: '10 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.4,
+    totalOrders: 1060,
+    calories: 312,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm228',
+    name: 'Masala Dosa',
+    category: 'South Indian',
+    price: 140,
+    prepTime: '5 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.6,
+    totalOrders: 732,
+    calories: 291,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm229',
+    name: 'Cheese Masala Dosa',
+    category: 'South Indian',
+    price: 170,
+    prepTime: '10 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.9,
+    totalOrders: 256,
+    calories: 161,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm230',
+    name: 'Spring Dosa',
+    category: 'South Indian',
+    price: 160,
+    prepTime: '5 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.8,
+    totalOrders: 567,
+    calories: 412,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm231',
+    name: 'Rawa Plain Dosa',
+    category: 'South Indian',
+    price: 140,
+    prepTime: '5 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.2,
+    totalOrders: 528,
+    calories: 521,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm232',
+    name: 'Rawa Masala Dosa',
+    category: 'South Indian',
+    price: 150,
+    prepTime: '12 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.1,
+    totalOrders: 855,
+    calories: 226,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm233',
+    name: 'Mysore Plain Dosa',
+    category: 'South Indian',
+    price: 120,
+    prepTime: '14 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 368,
+    calories: 446,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm234',
+    name: 'Mysore Plain Cheese Dosa',
+    category: 'South Indian',
+    price: 160,
+    prepTime: '11 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.6,
+    totalOrders: 870,
+    calories: 153,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm235',
+    name: 'Mysore Masala Dosa',
+    category: 'South Indian',
+    price: 160,
+    prepTime: '6 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.8,
+    totalOrders: 1014,
+    calories: 315,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm236',
+    name: 'Mysore Cheese Masala Dosa',
+    category: 'South Indian',
+    price: 190,
+    prepTime: '11 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.7,
+    totalOrders: 951,
+    calories: 174,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm237',
+    name: 'Tomato Uttapam',
+    category: 'South Indian',
+    price: 110,
+    prepTime: '7 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 120,
+    calories: 249,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm238',
+    name: 'Onion Uttapam',
+    category: 'South Indian',
+    price: 110,
+    prepTime: '12 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.4,
+    totalOrders: 737,
+    calories: 204,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm239',
+    name: 'Masala Uttapam',
+    category: 'South Indian',
+    price: 110,
+    prepTime: '9 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 178,
+    calories: 297,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm240',
+    name: 'Cheese Uttapam',
+    category: 'South Indian',
+    price: 160,
+    prepTime: '7 min',
+    image: 'https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.7,
+    totalOrders: 343,
+    calories: 509,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm241',
+    name: 'Aloo Paratha | Gobhi Paratha | Mix Veg Paratha',
+    category: 'Paratha (With Curd And Pickle)',
+    price: 100,
+    prepTime: '10 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.8,
+    totalOrders: 776,
+    calories: 518,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm242',
+    name: 'Onion Paratha | Cheese Onion Paratha',
+    category: 'Paratha (With Curd And Pickle)',
+    price: 115,
+    prepTime: '9 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.6,
+    totalOrders: 107,
+    calories: 486,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm243',
+    name: 'Paneer Paratha',
+    category: 'Paratha (With Curd And Pickle)',
+    price: 150,
+    prepTime: '12 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.8,
+    totalOrders: 321,
+    calories: 289,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm244',
+    name: 'Punjabi Samosa (1 Pc)',
+    category: 'Indian Snacks',
+    price: 20,
+    prepTime: '10 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.5,
+    totalOrders: 392,
+    calories: 484,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm245',
+    name: 'Heeng Moong ki Kachori',
+    category: 'Indian Snacks',
+    price: 30,
+    prepTime: '11 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.2,
+    totalOrders: 166,
+    calories: 535,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm246',
+    name: 'Samosa Chaat',
+    category: 'Indian Snacks',
+    price: 60,
+    prepTime: '6 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.9,
+    totalOrders: 869,
+    calories: 255,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm247',
+    name: 'Dahi Kachori',
+    category: 'Indian Snacks',
+    price: 70,
+    prepTime: '6 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.6,
+    totalOrders: 120,
+    calories: 265,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm248',
+    name: 'Chilli Paneer (Dry)',
+    category: 'Oriental Starters',
+    price: 180,
+    prepTime: '7 min',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80',
+    rating: 4.8,
+    totalOrders: 557,
+    calories: 287,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm249',
+    name: 'Schezwan Paneer (Dry)',
+    category: 'Oriental Starters',
+    price: 180,
+    prepTime: '14 min',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80',
+    rating: 4.9,
+    totalOrders: 676,
+    calories: 470,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm250',
+    name: 'Veg Manchurian (Dry)',
+    category: 'Oriental Starters',
+    price: 170,
+    prepTime: '5 min',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80',
+    rating: 4.5,
+    totalOrders: 580,
+    calories: 375,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm251',
+    name: 'Crispy Vegetables',
+    category: 'Oriental Starters',
+    price: 150,
+    prepTime: '6 min',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 539,
+    calories: 304,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm252',
+    name: 'Paneer Manchurian (Dry)',
+    category: 'Oriental Starters',
+    price: 180,
+    prepTime: '14 min',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80',
+    rating: 4.2,
+    totalOrders: 669,
+    calories: 197,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm253',
+    name: 'Chilli Potato (Dry)',
+    category: 'Oriental Starters',
+    price: 110,
+    prepTime: '10 min',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80',
+    rating: 4.4,
+    totalOrders: 173,
+    calories: 497,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm254',
+    name: 'Honey Chilli Potato (Dry)',
+    category: 'Oriental Starters',
+    price: 125,
+    prepTime: '11 min',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80',
+    rating: 4.4,
+    totalOrders: 1057,
+    calories: 298,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm255',
+    name: 'Chinese Bhel',
+    category: 'Oriental Starters',
+    price: 150,
+    prepTime: '6 min',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80',
+    rating: 4.8,
+    totalOrders: 709,
+    calories: 445,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm256',
+    name: 'Veg Spring Roll',
+    category: 'Oriental Starters',
+    price: 125,
+    prepTime: '5 min',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80',
+    rating: 4.6,
+    totalOrders: 868,
+    calories: 264,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm257',
+    name: 'Masala Maggie (2 pcs.) | Veg Maggie (2 pcs.)',
+    category: 'Oriental Starters',
+    price: 90,
+    prepTime: '10 min',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80',
+    rating: 4.4,
+    totalOrders: 1085,
+    calories: 504,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm258',
+    name: 'Cheesy Maggie (2 pcs.)',
+    category: 'Oriental Starters',
+    price: 125,
+    prepTime: '6 min',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80',
+    rating: 4.7,
+    totalOrders: 253,
+    calories: 545,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm259',
+    name: 'Veg Momos (6 pcs.) (Steamed)',
+    category: 'Oriental Starters',
+    price: 80,
+    prepTime: '7 min',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80',
+    rating: 4.2,
+    totalOrders: 876,
+    calories: 229,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm260',
+    name: 'Veg Momos (6 pcs.) (Fried)',
+    category: 'Oriental Starters',
+    price: 90,
+    prepTime: '12 min',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80',
+    rating: 4.9,
+    totalOrders: 358,
+    calories: 273,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm261',
+    name: 'Cheese Veg Momos (6 pcs.) (Steamed)',
+    category: 'Oriental Starters',
+    price: 110,
+    prepTime: '8 min',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80',
+    rating: 4.7,
+    totalOrders: 997,
+    calories: 476,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm262',
+    name: 'Cheese Veg Momos (6 pcs.) (Fried)',
+    category: 'Oriental Starters',
+    price: 120,
+    prepTime: '10 min',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80',
+    rating: 4.6,
+    totalOrders: 290,
+    calories: 378,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm263',
+    name: 'Veg Hakka Noodles | Schezwan Noodles',
+    category: 'Noodles',
+    price: 120,
+    prepTime: '7 min',
+    image: 'https://images.unsplash.com/photo-1612927601601-6638404737ce?auto=format&fit=crop&w=800&q=80',
+    rating: 4.2,
+    totalOrders: 117,
+    calories: 274,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm264',
+    name: 'Chilli Garlic Noodles | Singapore Noodles',
+    category: 'Noodles',
+    price: 125,
+    prepTime: '12 min',
+    image: 'https://images.unsplash.com/photo-1612927601601-6638404737ce?auto=format&fit=crop&w=800&q=80',
+    rating: 4.6,
+    totalOrders: 983,
+    calories: 215,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm265',
+    name: 'Veg Fried Rice | Schezwan Fried Rice',
+    category: 'Rice',
+    price: 120,
+    prepTime: '8 min',
+    image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 1091,
+    calories: 355,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm266',
+    name: 'Singapore Rice | Paneer Fried Rice',
+    category: 'Rice',
+    price: 135,
+    prepTime: '6 min',
+    image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80',
+    rating: 4.5,
+    totalOrders: 970,
+    calories: 475,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm267',
+    name: 'Noodle + Manchurian',
+    category: 'Chinese Combo',
+    price: 175,
+    prepTime: '5 min',
+    image: 'https://images.unsplash.com/photo-1552590635-27c2c2128ab4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 446,
+    calories: 305,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm268',
+    name: 'Fried Rice + Manchurian',
+    category: 'Chinese Combo',
+    price: 175,
+    prepTime: '12 min',
+    image: 'https://images.unsplash.com/photo-1552590635-27c2c2128ab4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 566,
+    calories: 316,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm269',
+    name: 'Noodle + Chilli Paneer',
+    category: 'Chinese Combo',
+    price: 200,
+    prepTime: '14 min',
+    image: 'https://images.unsplash.com/photo-1552590635-27c2c2128ab4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.7,
+    totalOrders: 261,
+    calories: 436,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm270',
+    name: 'Fried Rice + Chilli Paneer',
+    category: 'Chinese Combo',
+    price: 200,
+    prepTime: '6 min',
+    image: 'https://images.unsplash.com/photo-1552590635-27c2c2128ab4?auto=format&fit=crop&w=800&q=80',
+    rating: 4.4,
+    totalOrders: 660,
+    calories: 243,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm271',
+    name: 'Tea (Readymade)',
+    category: 'Beverages',
+    price: 15,
+    prepTime: '6 min',
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 365,
+    calories: 344,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm272',
+    name: 'Lemon Ice Tea',
+    category: 'Beverages',
+    price: 50,
+    prepTime: '12 min',
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80',
+    rating: 4.8,
+    totalOrders: 207,
+    calories: 446,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm273',
+    name: 'Coffee (Readymade)',
+    category: 'Beverages',
+    price: 30,
+    prepTime: '10 min',
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80',
+    rating: 4.8,
+    totalOrders: 420,
+    calories: 412,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm274',
+    name: 'Hot Coffee (Machine)',
+    category: 'Beverages',
+    price: 30,
+    prepTime: '14 min',
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80',
+    rating: 4.7,
+    totalOrders: 673,
+    calories: 222,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm275',
+    name: 'Cold Coffee',
+    category: 'Beverages',
+    price: 85,
+    prepTime: '10 min',
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80',
+    rating: 4.2,
+    totalOrders: 421,
+    calories: 374,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm276',
+    name: 'Nimbu Pani (Machine)',
+    category: 'Beverages',
+    price: 30,
+    prepTime: '14 min',
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80',
+    rating: 4.4,
+    totalOrders: 581,
+    calories: 320,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm277',
+    name: 'Tetra Pack Juice | Cold Drinks',
+    category: 'Beverages',
+    price: 50,
+    prepTime: '7 min',
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 585,
+    calories: 470,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm278',
+    name: 'Mineral Water (500 ml / 1000 ml)',
+    category: 'Beverages',
+    price: 50,
+    prepTime: '10 min',
+    image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80',
+    rating: 4.5,
+    totalOrders: 762,
+    calories: 164,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm279',
+    name: 'Curd',
+    category: 'All Extra',
+    price: 40,
+    prepTime: '11 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.3,
+    totalOrders: 1097,
+    calories: 383,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm280',
+    name: 'Cheese',
+    category: 'All Extra',
+    price: 60,
+    prepTime: '8 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.8,
+    totalOrders: 1070,
+    calories: 411,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
+    tags: []
+  },
+  {
+    id: 'm281',
+    name: 'Butter',
+    category: 'All Extra',
+    price: 30,
+    prepTime: '7 min',
+    image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=800&q=80',
+    rating: 4.6,
+    totalOrders: 1065,
+    calories: 179,
+    isVeg: true,
+    availableFrom: '08:00',
+    availableTo: '21:00',
+    inStock: true,
+    canteenId: 'c1',
     tags: []
   },
 ];;

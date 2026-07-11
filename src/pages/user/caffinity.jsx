@@ -87,11 +87,12 @@ export default function CaffinityPage() {
 
   const filteredItems = useMemo(() => {
     return menuItems.filter(item => {
+      const matchesCanteen = !selectedCanteen || item.canteenId === selectedCanteen.id;
       const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCategory = activeCategory === 'All' || item.category === activeCategory;
-      return matchesSearch && matchesCategory;
+      return matchesCanteen && matchesSearch && matchesCategory;
     });
-  }, [searchQuery, activeCategory, menuItems]);
+  }, [searchQuery, activeCategory, menuItems, selectedCanteen]);
 
   const cartTotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
