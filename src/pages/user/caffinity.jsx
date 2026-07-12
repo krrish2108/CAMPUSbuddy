@@ -59,6 +59,10 @@ export default function CaffinityPage() {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    setActiveCategory('All');
+  }, [selectedCanteen]);
+
   // Helper: Estimate Remaining Prep Time
   const getRemainingPrep = (order) => {
     if (order.status === 'Ready' || order.status === 'Done') return 'Now';
@@ -84,6 +88,13 @@ export default function CaffinityPage() {
   }, [orders, selectedCanteen]);
 
   const specialItem = useMemo(() => menuItems.find(item => item.isSpecial), [menuItems]);
+
+  const availableCategories = useMemo(() => {
+    if (!selectedCanteen) return ['All'];
+    const itemsForCanteen = menuItems.filter(item => item.canteenId === selectedCanteen.id);
+    const cats = new Set(itemsForCanteen.map(item => item.category));
+    return ['All', ...Array.from(cats)];
+  }, [menuItems, selectedCanteen]);
 
   const filteredItems = useMemo(() => {
     return menuItems.filter(item => {
@@ -281,7 +292,7 @@ export default function CaffinityPage() {
             <input type="text" placeholder={`Search in ${selectedCanteen?.name}...`} className="w-full pl-14 pr-6 py-4 bg-gray-50 border-2 border-transparent rounded-[25px] focus:outline-none focus:border-blue-500 focus:bg-white transition-all font-bold text-base shadow-sm" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
           </div>
           <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
-            {MENU_CATEGORIES.map(cat => <button key={cat} onClick={() => setActiveCategory(cat)} className={`px-6 py-2.5 rounded-xl text-xs font-black whitespace-nowrap transition-all duration-300 ${activeCategory === cat ? 'bg-blue-600 text-white shadow-xl scale-105' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>{cat}</button>)}
+            {availableCategories.map(cat => <button key={cat} onClick={() => setActiveCategory(cat)} className={`px-6 py-2.5 rounded-xl text-xs font-black whitespace-nowrap transition-all duration-300 ${activeCategory === cat ? 'bg-blue-600 text-white shadow-xl scale-105' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>{cat}</button>)}
           </div>
         </div>
 
