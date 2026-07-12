@@ -296,26 +296,37 @@ export default function CaffinityPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredItems.map(item => {
-            const isItemAvail = item.isAvailable !== false && item.inStock !== false;
-            return (
-            <div key={item.id} className={`group flex flex-col bg-white rounded-[35px] border-2 border-gray-50 overflow-hidden hover:shadow-2xl transition-all duration-500 ${!isItemAvail ? 'grayscale opacity-70' : ''}`}>
-              <div className="relative h-44 overflow-hidden">
-                <img src={item.image} className="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt={item.name} />
-                <div className="absolute top-3 left-3 bg-white/95 px-3 py-1.5 rounded-xl flex items-center gap-2 border border-gray-100 shadow-sm"><Clock size={12} className="text-blue-600" /><span className="text-[10px] font-black text-gray-800 uppercase tracking-tighter">{item.prepTime}</span></div>
-              </div>
-              <div className="p-5 flex-1 flex flex-col">
-                <div className="flex items-center justify-between mb-2">
-                  <div className={`flex items-center gap-2 text-[9px] font-black uppercase tracking-widest ${item.isVeg ? 'text-green-600' : 'text-red-600'}`}><div className={`w-2.5 h-2.5 rounded-full border-2 ${item.isVeg ? 'bg-green-500 border-green-100' : 'bg-red-500 border-red-100'}`} />{item.isVeg ? 'Veg' : 'Non-Veg'}</div>
-                  <div className="flex items-center text-[10px] font-black text-yellow-600 bg-yellow-50 px-2.5 py-1 rounded-lg"><Star size={10} className="mr-1 fill-yellow-600" />{item.rating}</div>
-                </div>
-                <h3 className="font-black text-gray-900 text-lg leading-tight mb-2 uppercase tracking-tight">{item.name}</h3>
-                <div className="flex items-center justify-between mt-auto pt-4"><span className="font-black text-gray-900 text-xl tracking-tighter">₹{item.price}</span><button disabled={!isItemAvail} onClick={() => addToCart(item)} className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 ${isItemAvail ? 'bg-blue-600 text-white shadow-xl hover:bg-gray-900 active:scale-90' : 'bg-gray-100 text-gray-300 cursor-not-allowed'}`}><Plus size={24} /></button></div>
-              </div>
+        {filteredItems.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20 text-center px-4">
+            <div className="w-24 h-24 bg-gray-50 rounded-[30px] flex items-center justify-center mb-6 border-4 border-white shadow-xl">
+              <Search className="w-10 h-10 text-gray-300" />
             </div>
-          )})}
-        </div>
+            <h3 className="text-2xl font-black text-gray-900 mb-2 tracking-tight">No items found</h3>
+            <p className="text-gray-500 font-bold max-w-sm mb-8 text-sm">We couldn't find any items matching your search or category filter in this canteen.</p>
+            <button onClick={() => { setSearchQuery(''); setActiveCategory('All'); }} className="px-8 py-4 bg-gray-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 transition-all shadow-xl active:scale-95">Clear Filters</button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredItems.map(item => {
+              const isItemAvail = item.isAvailable !== false && item.inStock !== false;
+              return (
+              <div key={item.id} className={`group flex flex-col bg-white rounded-[35px] border-2 border-gray-50 overflow-hidden hover:shadow-2xl transition-all duration-500 ${!isItemAvail ? 'grayscale opacity-70' : ''}`}>
+                <div className="relative h-44 overflow-hidden">
+                  <img src={item.image} className="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt={item.name} />
+                  <div className="absolute top-3 left-3 bg-white/95 px-3 py-1.5 rounded-xl flex items-center gap-2 border border-gray-100 shadow-sm"><Clock size={12} className="text-blue-600" /><span className="text-[10px] font-black text-gray-800 uppercase tracking-tighter">{item.prepTime}</span></div>
+                </div>
+                <div className="p-5 flex-1 flex flex-col">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className={`flex items-center gap-2 text-[9px] font-black uppercase tracking-widest ${item.isVeg ? 'text-green-600' : 'text-red-600'}`}><div className={`w-2.5 h-2.5 rounded-full border-2 ${item.isVeg ? 'bg-green-500 border-green-100' : 'bg-red-500 border-red-100'}`} />{item.isVeg ? 'Veg' : 'Non-Veg'}</div>
+                    <div className="flex items-center text-[10px] font-black text-yellow-600 bg-yellow-50 px-2.5 py-1 rounded-lg"><Star size={10} className="mr-1 fill-yellow-600" />{item.rating}</div>
+                  </div>
+                  <h3 className="font-black text-gray-900 text-lg leading-tight mb-2 uppercase tracking-tight">{item.name}</h3>
+                  <div className="flex items-center justify-between mt-auto pt-4"><span className="font-black text-gray-900 text-xl tracking-tighter">₹{item.price}</span><button disabled={!isItemAvail} onClick={() => addToCart(item)} className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 ${isItemAvail ? 'bg-blue-600 text-white shadow-xl hover:bg-gray-900 active:scale-90' : 'bg-gray-100 text-gray-300 cursor-not-allowed'}`}><Plus size={24} /></button></div>
+                </div>
+              </div>
+            )})}
+          </div>
+        )}
       </div>
 
       {cartCount > 0 && !isCartOpen && (
