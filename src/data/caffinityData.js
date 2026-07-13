@@ -5634,6 +5634,50 @@ export const INITIAL_ORDERS = [
     scheduledTime: '12:45 PM',
     paymentMethod: 'CAMPUS Wallet',
     paymentStatus: 'Paid'
+  },
+  {
+    id: 'ORD-0490',
+    studentName: 'Krish Sharma',
+    canteenId: 'c2',
+    items: [
+      { id: 'm120', name: 'Special Tea', quantity: 2, price: 25 }
+    ],
+    total: 50,
+    status: 'Completed',
+    timestamp: new Date(Date.now() - 86400000 * 2).toISOString(), // 2 days ago
+    scheduledTime: '10:30 AM',
+    paymentMethod: 'UPI',
+    paymentStatus: 'Paid'
+  },
+  {
+    id: 'ORD-0485',
+    studentName: 'Krish Sharma',
+    canteenId: 'c3',
+    items: [
+      { id: 'm300', name: 'Caesar Salad', quantity: 1, price: 120 },
+      { id: 'm382', name: 'Tetra Pack Juice', quantity: 1, price: 50 }
+    ],
+    total: 170,
+    status: 'Cancelled',
+    timestamp: new Date(Date.now() - 86400000 * 5).toISOString(), // 5 days ago
+    scheduledTime: '01:15 PM',
+    paymentMethod: 'CAMPUS Wallet',
+    paymentStatus: 'Refunded'
+  },
+  {
+    id: 'ORD-0470',
+    studentName: 'Krish Sharma',
+    canteenId: 'c1',
+    items: [
+      { id: 'm275', name: 'Cold Coffee', quantity: 2, price: 85 },
+      { id: 'm201', name: 'Vegetable Sandwich (Grilled)', quantity: 1, price: 110 }
+    ],
+    total: 280,
+    status: 'Completed',
+    timestamp: new Date(Date.now() - 86400000 * 10).toISOString(), // 10 days ago
+    scheduledTime: '04:00 PM',
+    paymentMethod: 'Card',
+    paymentStatus: 'Paid'
   }
 ];
 
