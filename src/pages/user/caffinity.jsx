@@ -1,17 +1,17 @@
 import { useState, useMemo, useEffect } from 'react';
 import ModuleLayout from '@/components/ModuleLayout';
-import { 
-  Search, 
-  ShoppingCart, 
-  Clock, 
-  Star, 
-  ChevronRight, 
-  Minus, 
-  Plus, 
-  X, 
-  CheckCircle2, 
-  MapPin, 
-  Store, 
+import {
+  Search,
+  ShoppingCart,
+  Clock,
+  Star,
+  ChevronRight,
+  Minus,
+  Plus,
+  X,
+  CheckCircle2,
+  MapPin,
+  Store,
   ArrowLeft,
   Timer,
   Wallet,
@@ -33,15 +33,15 @@ const getTimeAgo = (timestamp) => {
 };
 
 export default function CaffinityPage() {
-  const { 
-    selectedCanteen, 
-    selectCanteen, 
-    resetCanteen, 
-    isCanteenSelecting, 
-    cart, 
-    addToCart, 
-    updateQuantity, 
-    orders, 
+  const {
+    selectedCanteen,
+    selectCanteen,
+    resetCanteen,
+    isCanteenSelecting,
+    cart,
+    addToCart,
+    updateQuantity,
+    orders,
     placeOrder,
     menuItems
   } = useCaffinity();
@@ -55,7 +55,7 @@ export default function CaffinityPage() {
   const [scheduledTime, setScheduledTime] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('CAMPUS Wallet');
   const [currentTime, setCurrentTime] = useState(new Date());
-  
+
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [historyFilter, setHistoryFilter] = useState('All');
 
@@ -71,7 +71,7 @@ export default function CaffinityPage() {
   // Helper: Estimate Remaining Prep Time
   const getRemainingPrep = (order) => {
     if (order.status === 'Ready' || order.status === 'Done') return 'Now';
-    
+
     const maxPrepStr = order.items.reduce((max, item) => {
       const itm = menuItems.find(mi => mi.id === item.id);
       const pTime = parseInt(itm?.prepTime || '5');
@@ -85,16 +85,16 @@ export default function CaffinityPage() {
 
   const activeOrders = useMemo(() => {
     if (!selectedCanteen) return [];
-    return orders.filter(o => 
-      o.canteenId === selectedCanteen.id && 
-      o.status !== 'Done' && 
+    return orders.filter(o =>
+      o.canteenId === selectedCanteen.id &&
+      o.status !== 'Done' &&
       o.status !== 'Completed' &&
       o.status !== 'Cancelled'
     );
   }, [orders, selectedCanteen]);
 
   const pastOrders = useMemo(() => {
-    let filtered = orders.filter(o => 
+    let filtered = orders.filter(o =>
       o.status === 'Completed' || o.status === 'Done' || o.status === 'Cancelled'
     );
     if (historyFilter !== 'All') {
@@ -107,7 +107,7 @@ export default function CaffinityPage() {
     order.items.forEach(orderItem => {
       const fullItem = menuItems.find(mi => mi.id === orderItem.id);
       if (fullItem) {
-        for(let i=0; i<orderItem.quantity; i++) {
+        for (let i = 0; i < orderItem.quantity; i++) {
           addToCart(fullItem);
         }
       }
@@ -141,9 +141,9 @@ export default function CaffinityPage() {
   const cartTotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-   const handleCheckout = () => {
+  const handleCheckout = () => {
     if (cartTotal === 0) return;
-    
+
     // UPI Redirect Simulation
     if (paymentMethod === 'UPI') {
       setIsUPIRedirecting(true);
@@ -175,8 +175,8 @@ export default function CaffinityPage() {
   const currentOrder = orders.find(o => o.id === trackingOrderId);
   const trackingStep = currentOrder ? (
     currentOrder.status === 'Placed' ? 0 :
-    currentOrder.status === 'Preparing' ? 1 :
-    currentOrder.status === 'Ready' ? 2 : 3
+      currentOrder.status === 'Preparing' ? 1 :
+        currentOrder.status === 'Ready' ? 2 : 3
   ) : 0;
 
   if (isCanteenSelecting) {
@@ -190,7 +190,7 @@ export default function CaffinityPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-20">
             {CANTEENS.map(canteen => (
-              <div 
+              <div
                 key={canteen.id}
                 onClick={() => selectCanteen(canteen)}
                 className="group relative h-72 rounded-[40px] overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-500 border-4 border-white"
@@ -220,7 +220,7 @@ export default function CaffinityPage() {
           <button onClick={() => setTrackingOrderId(null)} className="flex items-center gap-2 text-xs font-black text-gray-400 hover:text-blue-600 transition-colors uppercase tracking-widest">
             <ArrowLeft size={14} /> Back to Menu
           </button>
-          
+
           <div className="text-center space-y-4">
             <div className="relative inline-flex mb-4">
               {trackingStep === 3 ? (
@@ -338,7 +338,7 @@ export default function CaffinityPage() {
               <Search className="w-10 h-10 text-gray-300" />
             </div>
             <h3 className="text-2xl font-black text-gray-900 mb-2 tracking-tight">No items found</h3>
-            <p className="text-gray-500 font-bold max-w-sm mb-8 text-sm">We couldn't find any items matching your search or category filter in this canteen.</p>
+            <p className="text-gray-500 font-bold max-w-sm mb-8 text-sm">We couldn&apos;t find any items matching your search or category filter in this canteen.</p>
             <button onClick={() => { setSearchQuery(''); setActiveCategory('All'); }} className="px-8 py-4 bg-gray-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 transition-all shadow-xl active:scale-95">Clear Filters</button>
           </div>
         ) : (
@@ -346,21 +346,22 @@ export default function CaffinityPage() {
             {filteredItems.map(item => {
               const isItemAvail = item.isAvailable !== false && item.inStock !== false;
               return (
-              <div key={item.id} className={`group flex flex-col bg-white rounded-[35px] border-2 border-gray-50 overflow-hidden hover:shadow-2xl transition-all duration-500 ${!isItemAvail ? 'grayscale opacity-70' : ''}`}>
-                <div className="relative h-44 overflow-hidden">
-                  <img src={item.image} className="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt={item.name} />
-                  <div className="absolute top-3 left-3 bg-white/95 px-3 py-1.5 rounded-xl flex items-center gap-2 border border-gray-100 shadow-sm"><Clock size={12} className="text-blue-600" /><span className="text-[10px] font-black text-gray-800 uppercase tracking-tighter">{item.prepTime}</span></div>
-                </div>
-                <div className="p-5 flex-1 flex flex-col">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className={`flex items-center gap-2 text-[9px] font-black uppercase tracking-widest ${item.isVeg ? 'text-green-600' : 'text-red-600'}`}><div className={`w-2.5 h-2.5 rounded-full border-2 ${item.isVeg ? 'bg-green-500 border-green-100' : 'bg-red-500 border-red-100'}`} />{item.isVeg ? 'Veg' : 'Non-Veg'}</div>
-                    <div className="flex items-center text-[10px] font-black text-yellow-600 bg-yellow-50 px-2.5 py-1 rounded-lg"><Star size={10} className="mr-1 fill-yellow-600" />{item.rating}</div>
+                <div key={item.id} className={`group flex flex-col bg-white rounded-[35px] border-2 border-gray-50 overflow-hidden hover:shadow-2xl transition-all duration-500 ${!isItemAvail ? 'grayscale opacity-70' : ''}`}>
+                  <div className="relative h-44 overflow-hidden">
+                    <img src={item.image} className="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt={item.name} />
+                    <div className="absolute top-3 left-3 bg-white/95 px-3 py-1.5 rounded-xl flex items-center gap-2 border border-gray-100 shadow-sm"><Clock size={12} className="text-blue-600" /><span className="text-[10px] font-black text-gray-800 uppercase tracking-tighter">{item.prepTime}</span></div>
                   </div>
-                  <h3 className="font-black text-gray-900 text-lg leading-tight mb-2 uppercase tracking-tight">{item.name}</h3>
-                  <div className="flex items-center justify-between mt-auto pt-4"><span className="font-black text-gray-900 text-xl tracking-tighter">₹{item.price}</span><button disabled={!isItemAvail} onClick={() => addToCart(item)} className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 ${isItemAvail ? 'bg-blue-600 text-white shadow-xl hover:bg-gray-900 active:scale-90' : 'bg-gray-100 text-gray-300 cursor-not-allowed'}`}><Plus size={24} /></button></div>
+                  <div className="p-5 flex-1 flex flex-col">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className={`flex items-center gap-2 text-[9px] font-black uppercase tracking-widest ${item.isVeg ? 'text-green-600' : 'text-red-600'}`}><div className={`w-2.5 h-2.5 rounded-full border-2 ${item.isVeg ? 'bg-green-500 border-green-100' : 'bg-red-500 border-red-100'}`} />{item.isVeg ? 'Veg' : 'Non-Veg'}</div>
+                      <div className="flex items-center text-[10px] font-black text-yellow-600 bg-yellow-50 px-2.5 py-1 rounded-lg"><Star size={10} className="mr-1 fill-yellow-600" />{item.rating}</div>
+                    </div>
+                    <h3 className="font-black text-gray-900 text-lg leading-tight mb-2 uppercase tracking-tight">{item.name}</h3>
+                    <div className="flex items-center justify-between mt-auto pt-4"><span className="font-black text-gray-900 text-xl tracking-tighter">₹{item.price}</span><button disabled={!isItemAvail} onClick={() => addToCart(item)} className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 ${isItemAvail ? 'bg-blue-600 text-white shadow-xl hover:bg-gray-900 active:scale-90' : 'bg-gray-100 text-gray-300 cursor-not-allowed'}`}><Plus size={24} /></button></div>
+                  </div>
                 </div>
-              </div>
-            )})}
+              )
+            })}
           </div>
         )}
       </div>
@@ -397,7 +398,7 @@ export default function CaffinityPage() {
             )}
 
             <div className="w-16 h-1.5 bg-gray-200 rounded-full mx-auto my-4 md:hidden shrink-0" />
-            
+
             <div className="px-10 py-5 flex items-center justify-between shrink-0">
               <div>
                 <h2 className="text-xl font-black font-syne text-gray-900 tracking-tight uppercase italic">{selectedCanteen?.name} Checkout</h2>
@@ -425,13 +426,13 @@ export default function CaffinityPage() {
                 <div className="space-y-2">
                   <p className="text-[9px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2"><Wallet size={12} className="text-blue-500" /> Pay via</p>
                   <div className="flex p-1 bg-white border-2 border-gray-100 rounded-xl gap-1">
-                    <button 
+                    <button
                       onClick={() => setPaymentMethod('CAMPUS Wallet')}
                       className={`flex-1 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-1 ${paymentMethod === 'CAMPUS Wallet' ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-400 hover:bg-gray-50'}`}
                     >
                       <Wallet size={10} /> Wallet
                     </button>
-                    <button 
+                    <button
                       onClick={() => setPaymentMethod('UPI')}
                       className={`flex-1 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-1 ${paymentMethod === 'UPI' ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-400 hover:bg-gray-50'}`}
                     >
@@ -442,13 +443,12 @@ export default function CaffinityPage() {
               </div>
 
               <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-                 <div><p className="text-[9px] font-black uppercase tracking-[0.2em] text-gray-400">Total Checkouts</p><p className="text-2xl font-black text-gray-900 tracking-tighter">₹{cartTotal}</p></div>
-                 <button 
+                <div><p className="text-[9px] font-black uppercase tracking-[0.2em] text-gray-400">Total Checkouts</p><p className="text-2xl font-black text-gray-900 tracking-tighter">₹{cartTotal}</p></div>
+                <button
                   onClick={handleCheckout}
                   disabled={isCheckoutProcessing || cartTotal === 0}
-                  className={`px-8 py-4 rounded-[20px] font-black text-base transition-all shadow-xl relative overflow-hidden flex items-center gap-3 active:scale-95 ${
-                    isCheckoutProcessing || cartTotal === 0 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-gray-900'
-                  }`}
+                  className={`px-8 py-4 rounded-[20px] font-black text-base transition-all shadow-xl relative overflow-hidden flex items-center gap-3 active:scale-95 ${isCheckoutProcessing || cartTotal === 0 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-gray-900'
+                    }`}
                 >
                   {isCheckoutProcessing ? 'Placing...' : cartTotal === 0 ? 'Cart is Empty' : paymentMethod === 'UPI' ? 'Pay via UPI' : 'Pay via Wallet'}
                   <ChevronRight size={18} />
@@ -480,8 +480,8 @@ export default function CaffinityPage() {
             <div className="flex-1 overflow-y-auto p-8 space-y-6 scrollbar-none bg-gray-50/50">
               {pastOrders.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center opacity-50">
-                   <History size={48} className="text-gray-300 mb-4" />
-                   <p className="font-black text-gray-900">No past orders found.</p>
+                  <History size={48} className="text-gray-300 mb-4" />
+                  <p className="font-black text-gray-900">No past orders found.</p>
                 </div>
               ) : (
                 pastOrders.map(order => {
@@ -491,18 +491,18 @@ export default function CaffinityPage() {
                     <div key={order.id} className="bg-white border-2 border-gray-100 rounded-[30px] p-6 hover:shadow-xl transition-all">
                       <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-100">
                         <div>
-                           <div className="flex items-center gap-2 mb-1">
-                             <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md ${isCompleted ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'}`}>{order.status}</span>
-                             <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{new Date(order.timestamp).toLocaleDateString()}</span>
-                           </div>
-                           <h4 className="font-black text-gray-900 text-sm uppercase tracking-tight">{canteen?.name}</h4>
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md ${isCompleted ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'}`}>{order.status}</span>
+                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{new Date(order.timestamp).toLocaleDateString()}</span>
+                          </div>
+                          <h4 className="font-black text-gray-900 text-sm uppercase tracking-tight">{canteen?.name}</h4>
                         </div>
                         <div className="text-right">
-                           <p className="font-black text-xl tracking-tighter text-gray-900">₹{order.total}</p>
-                           <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">{order.paymentMethod}</p>
+                          <p className="font-black text-xl tracking-tighter text-gray-900">₹{order.total}</p>
+                          <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">{order.paymentMethod}</p>
                         </div>
                       </div>
-                      
+
                       <div className="space-y-3 mb-6">
                         {order.items.map((item, idx) => (
                           <div key={idx} className="flex items-center justify-between">

@@ -16,13 +16,7 @@ export const CaffinityProvider = ({ children }) => {
   useEffect(() => {
     loadCanteens();
     loadMenu();
-    
-    // Auth persist check
-    const savedCanteen = localStorage.getItem('selected_canteen');
-    if (savedCanteen) {
-      setSelectedCanteen(JSON.parse(savedCanteen));
-      setIsCanteenSelecting(false);
-    }
+    setIsCanteenSelecting(true);
   }, []);
 
   const loadCanteens = async () => {
