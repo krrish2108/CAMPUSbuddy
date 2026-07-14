@@ -1,5 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useMemo, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import ModuleLayout from '@/components/ModuleLayout';
+
+const CartModal = dynamic(() => import('@/components/caffinity/CartModal'), { ssr: false });
+const HistoryModal = dynamic(() => import('@/components/caffinity/HistoryModal'), { ssr: false });
 import {
   Search,
   ShoppingCart,
@@ -376,151 +383,30 @@ export default function CaffinityPage() {
         </div>
       )}
 
-      {isCartOpen && (
-        <div className="fixed inset-0 z-[60] flex flex-col items-center justify-end md:justify-center bg-black/60 backdrop-blur-md animate-in fade-in duration-300 p-0 md:p-6">
-          <div className="absolute inset-0" onClick={() => setIsCartOpen(false)} />
-          <div className="relative bg-white rounded-t-[50px] md:rounded-[40px] w-full max-w-lg max-h-[75vh] flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-500 shadow-2xl border border-white/20">
-            {/* COMPACT UPI REDIRECT OVERLAY */}
-            {isUPIRedirecting && (
-              <div className="absolute inset-0 z-50 bg-white flex flex-col items-center justify-center p-10 animate-in fade-in ease-out text-center">
-                <div className="relative mb-8">
-                  <div className="absolute inset-0 bg-blue-100 rounded-full animate-ping opacity-30" />
-                  <div className="relative w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center text-blue-600">
-                    <Smartphone size={48} className="animate-bounce" />
-                  </div>
-                </div>
-                <h3 className="text-2xl font-black text-gray-900 uppercase italic mb-2 tracking-tight">Opening UPI App</h3>
-                <p className="text-gray-500 font-medium max-w-xs">{selectedCanteen?.name} is requesting ₹{cartTotal}. Complete payment in your banking app.</p>
-                <div className="mt-8 flex items-center gap-2 text-blue-600 font-black uppercase text-[10px] tracking-widest">
-                  <ExternalLink size={14} /> Redirecting safely
-                </div>
-              </div>
-            )}
+      <CartModal 
+        isCartOpen={isCartOpen}
+        setIsCartOpen={setIsCartOpen}
+        isUPIRedirecting={isUPIRedirecting}
+        cart={cart}
+        cartTotal={cartTotal}
+        updateQuantity={updateQuantity}
+        scheduledTime={scheduledTime}
+        setScheduledTime={setScheduledTime}
+        paymentMethod={paymentMethod}
+        setPaymentMethod={setPaymentMethod}
+        handleCheckout={handleCheckout}
+        isCheckoutProcessing={isCheckoutProcessing}
+        selectedCanteen={selectedCanteen}
+      />
 
-            <div className="w-16 h-1.5 bg-gray-200 rounded-full mx-auto my-4 md:hidden shrink-0" />
-
-            <div className="px-10 py-5 flex items-center justify-between shrink-0">
-              <div>
-                <h2 className="text-xl font-black font-syne text-gray-900 tracking-tight uppercase italic">{selectedCanteen?.name} Checkout</h2>
-                <p className="text-gray-400 font-bold uppercase tracking-widest text-[9px]">Review & Pay</p>
-              </div>
-              <button onClick={() => setIsCartOpen(false)} className="w-9 h-9 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 hover:bg-gray-200 transition shrink-0"><X size={18} /></button>
-            </div>
-
-            <div className="flex-1 overflow-y-auto px-10 py-2 space-y-4 scrollbar-none">
-              {cart.map(item => (
-                <div key={item.id} className="flex items-center gap-4 group">
-                  <div className="w-12 h-12 rounded-xl overflow-hidden shadow-md border-2 border-white shrink-0"><img src={item.image} className="w-full h-full object-cover" alt={item.name} /></div>
-                  <div className="flex-1 min-w-0"><h4 className="font-black text-gray-900 text-sm truncate uppercase italic tracking-tight">{item.name}</h4><p className="text-blue-600 font-black tracking-tighter text-xs">₹{item.price}</p></div>
-                  <div className="flex items-center bg-gray-50 rounded-xl p-1 gap-2 border border-gray-100"><button onClick={() => updateQuantity(item.id, -1)} className="w-6 h-6 rounded-lg bg-white shadow-sm flex items-center justify-center text-gray-400 hover:text-red-500 transition"><Minus size={12} /></button><span className="w-4 text-center font-black text-xs text-gray-900">{item.quantity}</span><button onClick={() => updateQuantity(item.id, 1)} className="w-6 h-6 rounded-lg bg-white shadow-sm flex items-center justify-center text-gray-400 hover:text-blue-600 transition"><Plus size={12} /></button></div>
-                </div>
-              ))}
-            </div>
-
-            <div className="p-8 bg-gray-50 border-t border-gray-100 space-y-5 shrink-0">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <p className="text-[9px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2"><Clock size={12} className="text-orange-500" /> Suggested Pickup</p>
-                  <input type="time" value={scheduledTime === 'Asap' ? '' : scheduledTime} onChange={(e) => setScheduledTime(e.target.value)} className="w-full px-4 py-2.5 rounded-xl border-2 border-gray-200 focus:border-orange-500 focus:outline-none font-black text-xs shadow-sm bg-white" />
-                </div>
-                <div className="space-y-2">
-                  <p className="text-[9px] font-black uppercase tracking-widest text-gray-400 flex items-center gap-2"><Wallet size={12} className="text-blue-500" /> Pay via</p>
-                  <div className="flex p-1 bg-white border-2 border-gray-100 rounded-xl gap-1">
-                    <button
-                      onClick={() => setPaymentMethod('CAMPUS Wallet')}
-                      className={`flex-1 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-1 ${paymentMethod === 'CAMPUS Wallet' ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-400 hover:bg-gray-50'}`}
-                    >
-                      <Wallet size={10} /> Wallet
-                    </button>
-                    <button
-                      onClick={() => setPaymentMethod('UPI')}
-                      className={`flex-1 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-1 ${paymentMethod === 'UPI' ? 'bg-blue-600 text-white shadow-sm' : 'text-gray-400 hover:bg-gray-50'}`}
-                    >
-                      <Smartphone size={10} /> UPI
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-                <div><p className="text-[9px] font-black uppercase tracking-[0.2em] text-gray-400">Total Checkouts</p><p className="text-2xl font-black text-gray-900 tracking-tighter">₹{cartTotal}</p></div>
-                <button
-                  onClick={handleCheckout}
-                  disabled={isCheckoutProcessing || cartTotal === 0}
-                  className={`px-8 py-4 rounded-[20px] font-black text-base transition-all shadow-xl relative overflow-hidden flex items-center gap-3 active:scale-95 ${isCheckoutProcessing || cartTotal === 0 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-gray-900'
-                    }`}
-                >
-                  {isCheckoutProcessing ? 'Placing...' : cartTotal === 0 ? 'Cart is Empty' : paymentMethod === 'UPI' ? 'Pay via UPI' : 'Pay via Wallet'}
-                  <ChevronRight size={18} />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-      {isHistoryOpen && (
-        <div className="fixed inset-0 z-[60] flex flex-col items-center justify-end md:justify-center bg-black/60 backdrop-blur-md animate-in fade-in duration-300 p-0 md:p-6">
-          <div className="absolute inset-0" onClick={() => setIsHistoryOpen(false)} />
-          <div className="relative bg-white rounded-t-[50px] md:rounded-[40px] w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-500 shadow-2xl border border-white/20">
-            <div className="flex items-center justify-between p-8 border-b border-gray-100 bg-white z-10 shrink-0">
-              <div>
-                <h2 className="text-2xl font-black font-syne text-gray-900 tracking-tight uppercase italic flex items-center gap-2"><History className="text-blue-600" /> Past Orders</h2>
-                <p className="text-gray-400 font-bold uppercase tracking-widest text-[9px] mt-1">Your order history</p>
-              </div>
-              <button onClick={() => setIsHistoryOpen(false)} className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 hover:bg-gray-200 transition shrink-0"><X size={20} /></button>
-            </div>
-
-            <div className="px-8 py-4 bg-gray-50 border-b border-gray-100 flex gap-2 overflow-x-auto scrollbar-none shrink-0">
-              <button onClick={() => setHistoryFilter('All')} className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all ${historyFilter === 'All' ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-gray-500 hover:bg-gray-200 border-2 border-gray-100'}`}>All Canteens</button>
-              {CANTEENS.map(c => (
-                <button key={c.id} onClick={() => setHistoryFilter(c.id)} className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest whitespace-nowrap transition-all ${historyFilter === c.id ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-gray-500 hover:bg-gray-200 border-2 border-gray-100'}`}>{c.name}</button>
-              ))}
-            </div>
-
-            <div className="flex-1 overflow-y-auto p-8 space-y-6 scrollbar-none bg-gray-50/50">
-              {pastOrders.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-12 text-center opacity-50">
-                  <History size={48} className="text-gray-300 mb-4" />
-                  <p className="font-black text-gray-900">No past orders found.</p>
-                </div>
-              ) : (
-                pastOrders.map(order => {
-                  const canteen = CANTEENS.find(c => c.id === order.canteenId);
-                  const isCompleted = order.status === 'Completed' || order.status === 'Done';
-                  return (
-                    <div key={order.id} className="bg-white border-2 border-gray-100 rounded-[30px] p-6 hover:shadow-xl transition-all">
-                      <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-100">
-                        <div>
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md ${isCompleted ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'}`}>{order.status}</span>
-                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{new Date(order.timestamp).toLocaleDateString()}</span>
-                          </div>
-                          <h4 className="font-black text-gray-900 text-sm uppercase tracking-tight">{canteen?.name}</h4>
-                        </div>
-                        <div className="text-right">
-                          <p className="font-black text-xl tracking-tighter text-gray-900">₹{order.total}</p>
-                          <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">{order.paymentMethod}</p>
-                        </div>
-                      </div>
-
-                      <div className="space-y-3 mb-6">
-                        {order.items.map((item, idx) => (
-                          <div key={idx} className="flex items-center justify-between">
-                            <p className="text-xs font-bold text-gray-600 truncate"><span className="text-gray-400 mr-2">{item.quantity}x</span>{item.name}</p>
-                            <p className="text-xs font-black text-gray-900 shrink-0">₹{item.price * item.quantity}</p>
-                          </div>
-                        ))}
-                      </div>
-
-                      <button onClick={() => handleReorder(order)} className="w-full py-3 bg-blue-50 text-blue-600 rounded-xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-blue-600 hover:text-white transition-all group"><RotateCcw size={14} className="group-hover:-rotate-180 transition-transform duration-500" /> Reorder Items</button>
-                    </div>
-                  );
-                })
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      <HistoryModal 
+        isHistoryOpen={isHistoryOpen}
+        setIsHistoryOpen={setIsHistoryOpen}
+        historyFilter={historyFilter}
+        setHistoryFilter={setHistoryFilter}
+        pastOrders={pastOrders}
+        handleReorder={handleReorder}
+      />
     </ModuleLayout>
   );
 }
