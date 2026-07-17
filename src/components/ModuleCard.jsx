@@ -1,20 +1,44 @@
 'use client';
 
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
-export default function ModuleCard({ letter, name, description, href, color }) {
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } }
+};
+
+export default function ModuleCard({ icon: Icon, letter, name, description, href, color, className = "" }) {
   return (
-    <Link href={href} className="group block h-full">
-      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm hover:shadow-md border border-gray-100 dark:border-white/5 p-6 transition-all duration-200 transform group-hover:-translate-y-1 group-hover:scale-[1.02] h-full flex flex-col items-center text-center">
+    <motion.div variants={itemVariants} className={`block h-full ${className}`}>
+      <Link href={href} className="group block h-full relative outline-none">
+        {/* Glow behind the card */}
         <div 
-          className={`w-16 h-16 rounded-full flex items-center justify-center text-white font-bold text-3xl mb-4 shadow-sm`}
-          style={{ backgroundColor: color }}
+          className="absolute inset-0 rounded-[32px] opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10"
+          style={{ backgroundColor: `${color}40` }}
+        />
+        
+        <motion.div 
+          whileHover={{ scale: 1.02, y: -4 }}
+          whileTap={{ scale: 0.98 }}
+          className="relative bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[32px] shadow-sm border border-gray-200/50 dark:border-white/5 p-8 h-full flex flex-col items-start text-left overflow-hidden"
         >
-          {letter}
-        </div>
-        <h3 className="font-syne font-bold text-xl text-gray-900 dark:text-white mb-2">{name}</h3>
-        <p className="text-gray-500 dark:text-slate-400 text-sm flex-grow">{description}</p>
-      </div>
-    </Link>
+          {/* Subtle mesh background element */}
+          <div className="absolute -top-24 -right-24 w-48 h-48 rounded-full blur-3xl opacity-20 dark:opacity-10 pointer-events-none transition-transform duration-700 group-hover:scale-150" style={{ backgroundColor: color }} />
+          
+          <div 
+            className="w-16 h-16 rounded-2xl flex items-center justify-center text-white mb-6 shadow-md shrink-0 relative z-10 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3"
+            style={{ backgroundColor: color }}
+          >
+            {Icon ? <Icon size={32} strokeWidth={2.5} /> : <span className="font-bold text-3xl">{letter}</span>}
+          </div>
+          
+          <div className="relative z-10 flex-1 flex flex-col">
+            <h3 className="font-syne font-black text-2xl text-gray-900 dark:text-white mb-3 tracking-tight">{name}</h3>
+            <p className="text-gray-500 dark:text-slate-400 text-sm font-medium leading-relaxed flex-grow">{description}</p>
+          </div>
+        </motion.div>
+      </Link>
+    </motion.div>
   );
 }
