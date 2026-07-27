@@ -247,27 +247,35 @@ export default function MarketSection({ searchQuery }) {
                </div>
 
                <div className="flex gap-3 mt-auto">
-                  <button 
-                    disabled={item.status === 'Reserved'}
-                    onClick={() => item.status === 'Available' && handleReserve(item)}
-                    className={`flex-1 py-3 rounded-2xl font-black uppercase tracking-widest text-[9px] flex items-center justify-center gap-2 transition-all ${
-                      item.status === 'Reserved' 
-                      ? 'bg-orange-100 text-orange-600 cursor-not-allowed' 
-                      : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-orange-600 dark:hover:bg-orange-600 hover:text-white'
-                    }`}
-                  >
-                     {item.status === 'Reserved' ? (
-                       <><Clock size={12} /> Reserved</>
-                     ) : (
-                       <>I Want This <ChevronRight size={12} /></>
-                     )}
-                  </button>
-                  <button 
-                    onClick={() => openChat(item)}
-                    className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-500 hover:text-orange-600 hover:bg-orange-600/10 transition-all"
-                  >
-                     <MessageSquare size={16} />
-                  </button>
+                  {item.seller?.id === user?.id ? (
+                     <div className="flex-1 py-3 rounded-2xl font-black uppercase tracking-widest text-[9px] flex items-center justify-center gap-2 bg-slate-100 dark:bg-white/5 text-slate-500">
+                        <Tag size={12} /> Your Listing
+                     </div>
+                  ) : (
+                     <>
+                        <button 
+                          disabled={item.status === 'Reserved'}
+                          onClick={() => item.status === 'Available' && handleReserve(item)}
+                          className={`flex-1 py-3 rounded-2xl font-black uppercase tracking-widest text-[9px] flex items-center justify-center gap-2 transition-all ${
+                            item.status === 'Reserved' 
+                            ? 'bg-orange-100 text-orange-600 cursor-not-allowed' 
+                            : 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-orange-600 dark:hover:bg-orange-600 hover:text-white'
+                          }`}
+                        >
+                           {item.status === 'Reserved' ? (
+                             <><Clock size={12} /> Reserved</>
+                           ) : (
+                             <>I Want This <ChevronRight size={12} /></>
+                           )}
+                        </button>
+                        <button 
+                          onClick={() => openChat(item)}
+                          className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-500 hover:text-orange-600 hover:bg-orange-600/10 transition-all"
+                        >
+                           <MessageSquare size={16} />
+                        </button>
+                     </>
+                  )}
                </div>
             </div>
           </motion.div>
