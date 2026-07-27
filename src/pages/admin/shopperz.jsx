@@ -24,7 +24,7 @@ const SEARCH_INSIGHTS = [
 ];
 
 export default function ShopperzAdminPage() {
-  const { products, addProduct, updateProduct, deleteProduct } = useShopperz();
+  const { products, addProduct, updateProduct, deleteProduct, marketListings, deleteMarketListing } = useShopperz();
   const [activeTab, setActiveTab] = useState('Inventory Matrix');
   const [searchQuery, setSearchQuery] = useState('');
   
@@ -61,7 +61,7 @@ export default function ShopperzAdminPage() {
         
         {/* TABS */}
         <div className="flex items-center gap-6 border-b border-slate-200 dark:border-white/5 pb-2">
-          {['Inventory Matrix', 'Demand Insights'].map(tab => (
+          {['Inventory Matrix', 'Student Market', 'Demand Insights'].map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -172,6 +172,60 @@ export default function ShopperzAdminPage() {
                     </tbody>
                   </table>
                </div>
+            </motion.div>
+          )}
+
+          {activeTab === 'Student Market' && (
+            <motion.div 
+              key="student-market"
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+              className="space-y-8"
+            >
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                 <div>
+                   <h3 className="text-2xl font-black italic uppercase tracking-tighter text-slate-900 dark:text-white">Student Market</h3>
+                   <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mt-1">Manage P2P Listings</p>
+                 </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                 {marketListings?.map(item => (
+                   <div key={item.id} className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 rounded-[30px] p-6 shadow-xl relative group">
+                      <div className="absolute top-4 right-4 z-10">
+                        <button 
+                          onClick={() => {
+                            if (window.confirm(`Are you sure you want to delete ${item.title}?`)) {
+                              deleteMarketListing(item.id);
+                            }
+                          }}
+                          className="w-8 h-8 bg-red-50 dark:bg-red-500/20 text-red-600 dark:text-red-500 rounded-lg flex items-center justify-center hover:bg-red-500 hover:text-white transition-colors"
+                        >
+                          <Trash2 size={14} />
+                        </button>
+                      </div>
+                      
+                      <div className="aspect-video w-full rounded-2xl overflow-hidden mb-4 bg-slate-100 dark:bg-slate-800">
+                        <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                      </div>
+                      
+                      <div>
+                        <h4 className="font-bold text-slate-900 dark:text-white">{item.title}</h4>
+                        <p className="text-[10px] font-black text-orange-600 uppercase tracking-widest mt-1">₹{item.price}</p>
+                      </div>
+
+                      <div className="mt-4 pt-4 border-t border-slate-100 dark:border-white/5 text-[9px] font-black uppercase tracking-widest text-slate-400 flex items-center justify-between">
+                         <span>Seller: {item.seller?.name || 'Unknown'}</span>
+                         <span>{item.status}</span>
+                      </div>
+                   </div>
+                 ))}
+                 
+                 {(!marketListings || marketListings.length === 0) && (
+                   <div className="col-span-full py-20 text-center border-2 border-dashed border-slate-200 dark:border-white/10 rounded-[30px]">
+                      <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">No Student Listings found</p>
+                   </div>
+                 )}
+              </div>
             </motion.div>
           )}
 

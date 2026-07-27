@@ -158,6 +158,21 @@ export function ShopperzProvider({ children }) {
     return false;
   };
 
+  const addMarketListing = (listing) => {
+    const newListing = {
+      id: `mkt-${Math.floor(Math.random() * 9000) + 1000}`,
+      status: 'Available',
+      seller: user || { name: 'Current User', id: 'u123' },
+      ...listing
+    };
+    setMarketListings(prev => [newListing, ...prev]);
+    return true;
+  };
+
+  const deleteMarketListing = (id) => {
+    setMarketListings(prev => prev.filter(l => l.id !== id));
+  };
+
   // 4. CLEANUP (Auto-release P2P reservations)
   useEffect(() => {
     const interval = setInterval(() => {
@@ -178,7 +193,7 @@ export function ShopperzProvider({ children }) {
       products, addProduct, updateProduct, deleteProduct,
       cart, addToCart, removeFromCart, checkout,
       printJobs, addPrintJob,
-      marketListings, reserveItem,
+      marketListings, reserveItem, addMarketListing, deleteMarketListing,
       isExamSeason, isLoading, user
     }}>
       {children}
