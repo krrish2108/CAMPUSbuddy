@@ -11,7 +11,9 @@ import {
   Zap,
   Trash2,
   Wallet,
-  X
+  X,
+  CheckCircle,
+  MapPin
 } from 'lucide-react';
 
 import StoreSection from '@/components/shopperz/StoreSection';
@@ -23,6 +25,7 @@ export default function ShopperzPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showCart, setShowCart] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [placedOrder, setPlacedOrder] = useState(null);
 
   const sections = [
     { id: 'store', label: 'Campus Store', icon: <Store size={18} /> },
@@ -219,10 +222,10 @@ export default function ShopperzPage() {
                      disabled={isProcessing}
                      onClick={async () => {
                        setIsProcessing(true);
-                       const success = await checkout(totalAmount);
-                       if (success) {
+                       const result = await checkout(totalAmount);
+                       if (result.success) {
                          setShowCart(false);
-                         alert("Order placed successfully! 🚀");
+                         setPlacedOrder(result.order);
                        } else {
                          alert("Checkout failed. Check your wallet balance.");
                        }
@@ -238,6 +241,53 @@ export default function ShopperzPage() {
           </div>
         )}
       </AnimatePresence>
+
+      {/* OTP SUCCESS MODAL */}
+      <AnimatePresence>
+        {placedOrder && (
+          <div className="fixed inset-0 z-[4000] flex items-center justify-center p-4">
+             <motion.div 
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               exit={{ opacity: 0 }}
+               className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+               onClick={() => setPlacedOrder(null)}
+             />
+             <motion.div 
+               initial={{ scale: 0.9, opacity: 0, y: 20 }}
+               animate={{ scale: 1, opacity: 1, y: 0 }}
+               exit={{ scale: 0.9, opacity: 0, y: 20 }}
+               className="relative bg-white dark:bg-slate-900 rounded-[40px] p-8 md:p-12 shadow-2xl max-w-md w-full text-center border border-slate-100 dark:border-white/5"
+             >
+                <div className="w-20 h-20 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <CheckCircle size={40} />
+                </div>
+                <h3 className="text-2xl font-black italic tracking-tighter uppercase mb-2">Order Confirmed!</h3>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mb-8">
+                  Your payment was successful. Please show the OTP below to the admin to collect your items.
+                </p>
+
+                <div className="bg-slate-50 dark:bg-white/5 rounded-3xl p-6 mb-8 border border-slate-100 dark:border-white/5 shadow-inner">
+                   <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Verification OTP</p>
+                   <p className="text-4xl font-black tracking-widest text-orange-600 dark:text-orange-500">{placedOrder.otp}</p>
+                </div>
+
+                <div className="flex items-center gap-4 bg-orange-50 dark:bg-orange-500/10 text-orange-600 dark:text-orange-400 p-4 rounded-2xl text-left mb-8 border border-orange-100 dark:border-orange-500/20">
+                   <MapPin size={24} className="shrink-0" />
+                   <p className="text-xs font-bold leading-tight">Pick up your items from the Campus Store Counter (Block 3).</p>
+                </div>
+
+                <button 
+                  onClick={() => setPlacedOrder(null)}
+                  className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-black text-[10px] uppercase tracking-widest hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors"
+                >
+                  Done
+                </button>
+             </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
     </ModuleLayout>
   );
 }

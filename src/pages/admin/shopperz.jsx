@@ -11,7 +11,8 @@ import {
   Package,
   CheckCircle2,
   AlertTriangle,
-  X
+  X,
+  Key
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -24,7 +25,7 @@ const SEARCH_INSIGHTS = [
 ];
 
 export default function ShopperzAdminPage() {
-  const { products, addProduct, updateProduct, deleteProduct, marketListings, deleteMarketListing } = useShopperz();
+  const { products, addProduct, updateProduct, deleteProduct, marketListings, deleteMarketListing, storeOrders, markStoreOrderCompleted } = useShopperz();
   const [activeTab, setActiveTab] = useState('Inventory Matrix');
   const [searchQuery, setSearchQuery] = useState('');
   
@@ -61,7 +62,7 @@ export default function ShopperzAdminPage() {
         
         {/* TABS */}
         <div className="flex items-center gap-6 border-b border-slate-200 dark:border-white/5 pb-2">
-          {['Inventory Matrix', 'Student Market', 'Demand Insights'].map(tab => (
+          {['Inventory Matrix', 'Store Orders', 'Student Market', 'Demand Insights'].map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -274,6 +275,73 @@ export default function ShopperzAdminPage() {
             </motion.div>
           )}
 
+        </AnimatePresence>
+
+        <AnimatePresence mode="wait">
+          {activeTab === 'Store Orders' && (
+            <motion.div 
+              key="store_orders"
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}
+              className="space-y-6"
+            >
+              <div className="flex items-center justify-between">
+                <h3 className="text-2xl font-black italic uppercase tracking-tighter text-slate-900 dark:text-white">Pending Store Orders</h3>
+                <span className="px-4 py-2 bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 rounded-xl text-[10px] font-black uppercase tracking-widest">
+                  {storeOrders?.length || 0} Orders
+                </span>
+              </div>
+
+              {(!storeOrders || storeOrders.length === 0) ? (
+                <div className="py-20 text-center opacity-40">
+                   <Package size={48} className="mx-auto mb-4" />
+                   <p className="font-black italic uppercase tracking-widest text-sm">No Pending Orders</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {storeOrders.map((order) => (
+                    <div key={order.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-3xl p-6 shadow-xl flex flex-col justify-between group hover:border-orange-500 transition-colors">
+                       <div className="flex justify-between items-start mb-6">
+                          <div>
+                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Order ID: {order.id}</p>
+                            <h4 className="font-bold text-slate-900 dark:text-white mt-1">{order.user?.name || 'Student'}</h4>
+                          </div>
+                          <div className="flex flex-col items-end">
+                            <span className="text-xl font-black italic text-orange-600 dark:text-orange-500">₹{order.total}</span>
+                          </div>
+                       </div>
+                       
+                       <div className="space-y-3 mb-6 bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-100 dark:border-white/5">
+                         {order.items?.map((item, idx) => (
+                           <div key={idx} className="flex justify-between items-center text-sm">
+                             <span className="font-medium text-slate-700 dark:text-slate-300">{item.quantity}x {item.name}</span>
+                             <span className="font-bold text-slate-900 dark:text-white">₹{item.price * item.quantity}</span>
+                           </div>
+                         ))}
+                       </div>
+
+                       <div className="flex items-center justify-between mt-auto border-t border-slate-100 dark:border-white/5 pt-4">
+                         <div className="flex items-center gap-3">
+                           <div className="w-10 h-10 bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-500 rounded-xl flex items-center justify-center">
+                             <Key size={18} />
+                           </div>
+                           <div>
+                             <p className="text-[9px] font-black uppercase tracking-widest text-slate-400">OTP Code</p>
+                             <p className="text-lg font-black tracking-widest text-slate-900 dark:text-white">{order.otp}</p>
+                           </div>
+                         </div>
+                         <button 
+                           onClick={() => markStoreOrderCompleted(order.id)}
+                           className="px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-orange-500 dark:hover:bg-orange-500 hover:text-white transition-all flex items-center gap-2"
+                         >
+                           <CheckCircle2 size={14} /> Verify & Picked Up
+                         </button>
+                       </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          )}
         </AnimatePresence>
         
         <ProductEditorModal

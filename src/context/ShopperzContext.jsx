@@ -8,15 +8,18 @@ import {
   getPrintJobs,
   getUserProfile 
 } from '@/routes/user';
+import { useInbox } from './InboxContext';
 
 const ShopperzContext = createContext();
 
 export function ShopperzProvider({ children }) {
+  const { addMessage } = useInbox();
   const [activeSection, setActiveSection] = useState('store'); // 'store' | 'print' | 'market'
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [printJobs, setPrintJobs] = useState([]);
   const [marketListings, setMarketListings] = useState([]);
+  const [storeOrders, setStoreOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isExamSeason, setIsExamSeason] = useState(true);
   const [user, setUser] = useState(null);
@@ -108,17 +111,31 @@ export function ShopperzProvider({ children }) {
 
   const checkout = async (total) => {
     try {
-       const orderItems = cart.map(item => ({ id: item.id, quantity: item.quantity }));
+       const orderItems = cart.map(item => ({ id: item.id, name: item.name, quantity: item.quantity, price: item.price }));
        const res = await placeShopperzOrder({ items: orderItems, total });
        if (res.success) {
          setCart([]);
          loadRetail(); // Refresh stock levels
-         return true;
+         
+         // Generate a random 6-digit OTP
+         const otp = Math.floor(100000 + Math.random() * 900000).toString();
+         const newOrder = {
+           ...res.data,
+           otp,
+           user: user || { name: 'Student' }
+         };
+         setStoreOrders(prev => [newOrder, ...prev]);
+         
+         return { success: true, order: newOrder };
        }
     } catch (e) {
       console.error('Checkout failed');
     }
-    return false;
+    return { success: false };
+  };
+
+  const markStoreOrderCompleted = (orderId) => {
+    setStoreOrders(prev => prev.filter(order => order.id !== orderId));
   };
 
   // 2. PRINT LOGIC
@@ -166,6 +183,19 @@ export function ShopperzProvider({ children }) {
       ...listing
     };
     setMarketListings(prev => [newListing, ...prev]);
+    
+    // Simulating an incoming message for this new listing
+    setTimeout(() => {
+      addMessage({
+        sender: 'KU Student',
+        avatar: 'S',
+        title: `Interested in your ${listing.title}`,
+        preview: 'Hi! Is this still available? I can meet you at the library today.',
+        type: 'market_inquiry',
+        link: '/user/shopperz'
+      });
+    }, 5000);
+
     return true;
   };
 
@@ -194,6 +224,7 @@ export function ShopperzProvider({ children }) {
       cart, addToCart, removeFromCart, checkout,
       printJobs, addPrintJob,
       marketListings, reserveItem, addMarketListing, deleteMarketListing,
+      storeOrders, markStoreOrderCompleted,
       isExamSeason, isLoading, user
     }}>
       {children}
