@@ -236,7 +236,7 @@ export default function MarketSection({ searchQuery }) {
                <div className="flex items-center gap-6 pt-4 border-t border-slate-50 dark:border-white/5 text-[9px] font-black uppercase tracking-widest text-slate-400">
                   <div className="flex items-center gap-2">
                      <Clock size={12} className="text-slate-400" />
-                     <span>Posted by {item.seller?.name || 'KU Student'}</span>
+                     <span>Posted by {typeof item.seller === 'string' ? item.seller : item.seller?.name || 'KU Student'}</span>
                   </div>
                   {item.semester && (
                     <div className="flex items-center gap-2">
@@ -247,7 +247,7 @@ export default function MarketSection({ searchQuery }) {
                </div>
 
                <div className="flex gap-3 mt-auto">
-                  {item.seller?.id === user?.id ? (
+                  {((typeof item.seller === 'string' ? item.seller : item.seller?.name) === user?.name || item.seller?.id === 'u123' || (user?.id && item.seller?.id === user?.id)) ? (
                      <div className="flex-1 py-3 rounded-2xl font-black uppercase tracking-widest text-[9px] flex items-center justify-center gap-2 bg-slate-100 dark:bg-white/5 text-slate-500">
                         <Tag size={12} /> Your Listing
                      </div>
