@@ -305,6 +305,24 @@ export default function LoginPage() {
                         />
                       </div>
                     </div>
+
+                    <div className="group">
+                      <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2 group-focus-within:text-[#1A56DB]">Password</label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-[#1A56DB]"><Lock size={18} /></div>
+                        <input 
+                          type={showPassword ? "text" : "password"} 
+                          required 
+                          value={password} 
+                          onChange={(e) => setPassword(e.target.value)} 
+                          className="block w-full pl-11 pr-12 py-4 rounded-2xl bg-gray-50 dark:bg-slate-800/50 border border-gray-100 dark:border-white/5 focus:outline-none focus:ring-2 focus:ring-blue-500 transition text-slate-900 dark:text-white" 
+                          placeholder="••••••••" 
+                        />
+                        <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-blue-500 transition-colors">
+                          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 )}
 
