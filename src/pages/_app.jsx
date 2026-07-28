@@ -6,6 +6,7 @@ import { ArenaProvider } from '@/context/ArenaContext';
 import { ProblemBoxProvider } from '@/context/ProblemBoxContext';
 import { UAssistProvider } from '@/context/UAssistContext';
 import { ShopperzProvider } from '@/context/ShopperzContext';
+import { InboxProvider } from '@/context/InboxContext';
 import UAssistFab from '@/components/uassist/UAssistFab';
 import UAssistOverlay from '@/components/uassist/UAssistOverlay';
 import GlobalBroadcast from '@/components/uassist/GlobalBroadcast';
@@ -161,11 +162,12 @@ export default function App({ Component, pageProps }) {
       <CaffinityProvider>
         <ArenaProvider>
           <ProblemBoxProvider>
-            <ShopperzProvider>
-              <UAssistProvider>
-                <Head>
-                  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-                </Head>
+            <InboxProvider>
+              <ShopperzProvider>
+                <UAssistProvider>
+                  <Head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+                  </Head>
                 <div className={`${syne.variable} ${inter.variable} font-inter antialiased transition-colors duration-500 min-h-screen bg-white dark:bg-[#020617] text-[#0F172A] dark:text-white`}>
                   <AuthGuard>
                     <GlobalBroadcast />
@@ -176,8 +178,9 @@ export default function App({ Component, pageProps }) {
                     </AnimatePresence>
                   </AuthGuard>
                 </div>
-              </UAssistProvider>
-            </ShopperzProvider>
+                </UAssistProvider>
+              </ShopperzProvider>
+            </InboxProvider>
           </ProblemBoxProvider>
         </ArenaProvider>
       </CaffinityProvider>

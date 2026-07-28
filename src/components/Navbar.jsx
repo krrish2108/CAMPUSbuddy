@@ -1,13 +1,16 @@
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { ThemeContext } from '@/pages/_app';
-import { Sun, Moon, LogOut, User, Phone, BookOpen, School, Hash, Mail, Settings } from 'lucide-react';
+import { Sun, Moon, LogOut, User, Phone, BookOpen, School, Hash, Mail, Settings, Bell, Check, Trash2 } from 'lucide-react';
 import EditProfileModal from './EditProfileModal';
+import { useInbox } from '@/context/InboxContext';
 
 export default function Navbar({ isDark = false }) {
   const router = useRouter();
   const { isDarkMode, toggleTheme, isLoggedIn, logout, userProfile } = useContext(ThemeContext);
+  const { messages, unreadCount, markAsRead, clearAll } = useInbox() || { messages: [], unreadCount: 0 };
   const [showProfileCard, setShowProfileCard] = useState(false);
+  const [showInbox, setShowInbox] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -36,6 +39,79 @@ export default function Navbar({ isDark = false }) {
             {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
           
+          {/* Inbox / Notifications */}
+          {isLoggedIn && (
+            <div className="relative">
+              <button 
+                onClick={() => {
+                  setShowInbox(!showInbox);
+                  setShowProfileCard(false);
+                }}
+                className={`relative p-2.5 rounded-2xl transition-all duration-300 ${
+                  showInbox 
+                  ? 'bg-[#1A56DB] text-white shadow-lg shadow-blue-500/20' 
+                  : 'hover:bg-gray-100 dark:hover:bg-white/10 text-gray-500 dark:text-gray-400'
+                }`}
+              >
+                <Bell size={20} />
+                {unreadCount > 0 && (
+                  <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white dark:border-slate-950 animate-pulse"></span>
+                )}
+              </button>
+
+              {showInbox && (
+                <div className="absolute top-14 right-0 w-[320px] md:w-[380px] bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/5 rounded-3xl shadow-2xl p-6 animate-in fade-in zoom-in-95 duration-200">
+                   <div className="flex justify-between items-center mb-4">
+                      <h3 className="font-syne font-black text-lg text-slate-900 dark:text-white tracking-tighter">Inbox</h3>
+                      <button 
+                        onClick={clearAll}
+                        className="text-[10px] font-bold text-red-500 bg-red-50 dark:bg-red-500/10 px-3 py-1.5 rounded-full hover:bg-red-500 hover:text-white transition-colors"
+                      >
+                        Clear All
+                      </button>
+                   </div>
+                   
+                   <div className="max-h-[350px] overflow-y-auto space-y-3 scrollbar-none">
+                     {messages.length === 0 ? (
+                       <div className="py-10 text-center opacity-40 flex flex-col items-center">
+                         <Bell size={32} className="mb-2" />
+                         <p className="text-xs font-black uppercase tracking-widest">No Messages</p>
+                       </div>
+                     ) : (
+                       messages.map(msg => (
+                         <div 
+                           key={msg.id} 
+                           onClick={() => markAsRead(msg.id)}
+                           className={`p-4 rounded-2xl border transition-all cursor-pointer ${
+                             msg.isRead 
+                             ? 'bg-slate-50 border-transparent dark:bg-white/5 dark:border-white/5 opacity-60' 
+                             : 'bg-white border-[#1A56DB]/20 dark:bg-slate-800 dark:border-blue-500/30 shadow-md'
+                           }`}
+                         >
+                            <div className="flex gap-3">
+                               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-black shrink-0">
+                                 {msg.avatar || 'U'}
+                               </div>
+                               <div className="flex-1">
+                                  <div className="flex justify-between items-start">
+                                    <h4 className="text-sm font-bold text-slate-900 dark:text-white leading-tight">{msg.title}</h4>
+                                    {!msg.isRead && <span className="w-2 h-2 bg-[#1A56DB] rounded-full shrink-0 mt-1"></span>}
+                                  </div>
+                                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{msg.preview}</p>
+                                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 mt-2 block">
+                                    {new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                                  </span>
+                               </div>
+                            </div>
+                         </div>
+                       ))
+                     )}
+                   </div>
+                </div>
+              )}
+            </div>
+          )}
+          
           {/* Auth & Profile */}
           {isLoggedIn ? (
              <div className="flex items-center gap-4">
@@ -49,7 +125,10 @@ export default function Navbar({ isDark = false }) {
 
                <div className="relative">
                  <button 
-                 onClick={() => setShowProfileCard(!showProfileCard)}
+                 onClick={() => {
+                   setShowProfileCard(!showProfileCard);
+                   setShowInbox(false);
+                 }}
                  className={`flex items-center gap-2 p-1.5 pr-4 rounded-2xl transition-all duration-300 ${
                    showProfileCard 
                    ? 'bg-[#1A56DB] text-white shadow-lg shadow-blue-500/20' 
