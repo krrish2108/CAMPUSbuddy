@@ -329,12 +329,18 @@ export default function LoginPage() {
                 {/* 3. OTP CHOICE VIEW */}
                 {step === STEPS.OTP_CHOICE && (
                   <div className="animate-in fade-in duration-500 space-y-4">
-                    <button type="button" onClick={() => selectOtpMethod('number')} className="w-full flex items-center justify-between p-5 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50 dark:bg-slate-800/30 hover:border-blue-500 transition-all group">
+                    <button type="button" disabled className="w-full flex items-center justify-between p-5 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50/50 dark:bg-slate-800/10 opacity-60 cursor-not-allowed group relative overflow-hidden">
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500"><Smartphone size={20} /></div>
-                        <div className="text-left"><p className="text-sm font-black text-slate-900 dark:text-white">Get OTP on Number</p><p className="text-xs text-gray-500">{phone}</p></div>
+                        <div className="w-10 h-10 rounded-full bg-slate-500/10 flex items-center justify-center text-slate-500"><Smartphone size={20} /></div>
+                        <div className="text-left">
+                           <p className="text-sm font-black text-slate-900 dark:text-white flex items-center gap-2">
+                             Get OTP on Number
+                             <span className="px-2 py-0.5 bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 rounded-full text-[8px] uppercase tracking-widest">Coming soon</span>
+                           </p>
+                           <p className="text-xs text-gray-500">{phone}</p>
+                        </div>
                       </div>
-                      <ChevronRight size={20} className="text-gray-300 group-hover:text-blue-500 transition-colors" />
+                      <ChevronRight size={20} className="text-gray-300" />
                     </button>
                     <button type="button" onClick={() => selectOtpMethod('email')} className="w-full flex items-center justify-between p-5 rounded-2xl border border-gray-100 dark:border-white/5 bg-gray-50 dark:bg-slate-800/30 hover:border-blue-500 transition-all group">
                       <div className="flex items-center gap-4">
