@@ -260,7 +260,7 @@ export default function EditProfileModal({ isOpen, onClose }) {
                 </div>
 
                 <div className="flex flex-wrap gap-3">
-                   {formData.skills.map(skill => (
+                   {(formData.skills || []).map(skill => (
                      <div key={skill} className="px-4 py-2 bg-blue-500/10 border border-blue-500/20 text-blue-500 rounded-2xl flex items-center gap-2 group animate-in zoom-in duration-300">
                         <span className="text-sm font-black">{skill}</span>
                         <button onClick={() => removeSkill(skill)} className="hover:text-red-500 transition-colors">
@@ -268,7 +268,7 @@ export default function EditProfileModal({ isOpen, onClose }) {
                         </button>
                      </div>
                    ))}
-                   {formData.skills.length === 0 && (
+                   {(!formData.skills || formData.skills.length === 0) && (
                      <p className="text-sm text-gray-400 font-medium">No skills added yet.</p>
                    )}
                 </div>
@@ -276,7 +276,7 @@ export default function EditProfileModal({ isOpen, onClose }) {
                 <div className="pt-6 border-t border-gray-100 dark:border-white/5">
                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-4">Suggested for you</p>
                    <div className="flex flex-wrap gap-2">
-                      {SUGGESTED_SKILLS.filter(s => !formData.skills.includes(s)).map(s => (
+                      {SUGGESTED_SKILLS.filter(s => !(formData.skills || []).includes(s)).map(s => (
                         <button 
                           key={s} 
                           onClick={() => addSkill(s)}
@@ -308,7 +308,7 @@ export default function EditProfileModal({ isOpen, onClose }) {
                 </div>
 
                 <div className="grid grid-cols-1 gap-4">
-                   {formData.certificates.map(cert => (
+                   {(formData.certificates || []).map(cert => (
                      <div key={cert.id} className="p-4 rounded-[28px] border border-gray-100 dark:border-white/5 bg-white dark:bg-white/5 flex items-center justify-between group animate-in slide-in-from-right-4 duration-300">
                         <div className="flex items-center gap-4">
                            <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500">
