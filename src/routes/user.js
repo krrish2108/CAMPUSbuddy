@@ -33,7 +33,7 @@ export const verifyOtp = async (email, otp_code) => {
 
 export const getUserProfile = async () => {
   await delay();
-  const role = typeof window !== 'undefined' ? (localStorage.getItem('role') || 'user') : 'user';
+  const role = typeof window !== 'undefined' ? (localStorage.getItem('role') || sessionStorage.getItem('role') || 'user') : 'user';
   return { name: 'Demo User', role };
 };
 

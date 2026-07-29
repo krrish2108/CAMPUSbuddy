@@ -64,6 +64,7 @@ export default function LoginPage() {
   const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState('');
   const [otpMethod, setOtpMethod] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
 
   // Profile State
   const [dept, setDept] = useState('');
@@ -124,7 +125,7 @@ export default function LoginPage() {
 
         if (res.status === 'success') {
           // Pass the tokens from the JSON body to the global login handler
-          login(res.user, res.access_token, res.refresh_token);
+          login(res.user, res.access_token, res.refresh_token, rememberMe);
           
           setTimeout(() => {
             if (redirect) {
@@ -157,7 +158,7 @@ export default function LoginPage() {
 
         if (res.status === 'success') {
           // Success! Now we have the final tokens and user profile
-          login(res.user);
+          login(res.user, res.access_token, res.refresh_token, rememberMe);
           
           setTimeout(() => {
             if (redirect) {
@@ -172,7 +173,7 @@ export default function LoginPage() {
       } else if (step === STEPS.PROFILE) {
         // Profile update if any extra fields needed
         // await updateProfile({ dept, semester, college_id: collegeId, course });
-        login(); 
+        login(null, null, null, rememberMe); 
         router.push(redirect || '/');
       }
     } catch (err) {
@@ -261,7 +262,16 @@ export default function LoginPage() {
                         <input type={showPassword ? "text" : "password"} required value={password} onChange={(e) => setPassword(e.target.value)} className="block w-full pl-11 pr-12 py-4 rounded-2xl bg-gray-50 dark:bg-slate-800/50 border border-gray-100 dark:border-white/5 focus:outline-none focus:ring-2 focus:ring-blue-500 transition text-slate-900 dark:text-white" placeholder="••••••••" />
                         <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-blue-500 transition-colors">{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}</button>
                       </div>
-                      <div className="mt-2 text-right"><button type="button" className="text-xs font-bold text-[#1A56DB] dark:text-blue-400 hover:underline">Forgot Password?</button></div>
+                      <div className="mt-4 flex items-center justify-between">
+                        <label className="flex items-center gap-2 cursor-pointer group/cb">
+                          <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${rememberMe ? 'bg-[#1A56DB] border-[#1A56DB]' : 'border-gray-300 dark:border-white/20 group-hover/cb:border-[#1A56DB]'}`}>
+                            {rememberMe && <CheckCircle2 size={12} className="text-white" />}
+                          </div>
+                          <input type="checkbox" className="hidden" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
+                          <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest group-hover/cb:text-slate-900 dark:group-hover/cb:text-white transition-colors">Remember me</span>
+                        </label>
+                        <button type="button" className="text-[10px] font-bold text-[#1A56DB] dark:text-blue-400 hover:underline uppercase tracking-widest">Forgot Password?</button>
+                      </div>
                     </div>
                   </div>
                 )}

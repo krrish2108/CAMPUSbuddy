@@ -31,13 +31,35 @@ import { logoutAdmin } from '@/routes/admin';
 
 export const ThemeContext = createContext();
 
-// Initial state helper (to prevent hydration mismatch/flicker)
+// Storage helpers to support "Remember Me"
+export const setStorageItem = (key, value, remember = false) => {
+  if (typeof window === 'undefined') return;
+  if (remember) {
+    localStorage.setItem(key, value);
+    sessionStorage.removeItem(key);
+  } else {
+    sessionStorage.setItem(key, value);
+    localStorage.removeItem(key);
+  }
+};
+
+export const getStorageItem = (key) => {
+  if (typeof window === 'undefined') return null;
+  return localStorage.getItem(key) || sessionStorage.getItem(key);
+};
+
+export const removeStorageItem = (key) => {
+  if (typeof window === 'undefined') return;
+  localStorage.removeItem(key);
+  sessionStorage.removeItem(key);
+};
+
+// Initial state helper
 const getInitialState = (key, fallback) => {
   if (typeof window !== 'undefined') {
-    const saved = localStorage.getItem(key);
+    const saved = getStorageItem(key);
     if (key === 'isLoggedIn') {
-      // With the new Bearer token flow, access_token is the ultimate source of truth
-      return !!localStorage.getItem('access_token');
+      return !!getStorageItem('access_token');
     }
     if (key === 'userProfile' && saved) {
       try { return JSON.parse(saved); } catch (e) { return fallback; }
@@ -75,19 +97,19 @@ export default function App({ Component, pageProps }) {
         setIsLoggedIn(true);
         setUserProfile(data);
         setUserRole(data.role || 'user');
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userProfile', JSON.stringify(data));
-        localStorage.setItem('userRole', data.role || 'user');
+        
+        // Preserve their storage preference (if they had access_token in localStorage, keep it there)
+        const isPersistent = !!localStorage.getItem('access_token');
+        setStorageItem('isLoggedIn', 'true', isPersistent);
+        setStorageItem('userProfile', JSON.stringify(data), isPersistent);
+        setStorageItem('userRole', data.role || 'user', isPersistent);
       }
     } catch (err) {
       console.log('Sync session failed:', err);
-      // Only force logout if it's a clear 401 and we aren't just in the middle of a login
       if (err.status === 401) {
-        // If we have a hint, maybe the cookie is just slow? 
-        // We'll only logout if the hint is also false
-        if (localStorage.getItem('isLoggedIn') !== 'true') {
+        if (getStorageItem('isLoggedIn') !== 'true') {
           setIsLoggedIn(false);
-          localStorage.setItem('isLoggedIn', 'false');
+          setStorageItem('isLoggedIn', 'false');
         }
       }
     }
@@ -107,14 +129,14 @@ export default function App({ Component, pageProps }) {
   // 3. Auth & Profile Handlers
   const toggleTheme = () => setIsDarkMode((prev) => !prev);
   
-  const login = (userData, accessToken, refreshToken) => {
+  const login = (userData, accessToken, refreshToken, rememberMe = false) => {
     console.log('Executing login sequence for:', userData?.name);
     
     if (accessToken) {
-      localStorage.setItem('access_token', accessToken);
+      setStorageItem('access_token', accessToken, rememberMe);
     }
     if (refreshToken) {
-      localStorage.setItem('refresh_token', refreshToken);
+      setStorageItem('refresh_token', refreshToken, rememberMe);
     }
     
     setIsLoggedIn(true);
@@ -122,11 +144,11 @@ export default function App({ Component, pageProps }) {
       setUserProfile(userData);
       const role = userData.role || 'user';
       setUserRole(role);
-      localStorage.setItem('userProfile', JSON.stringify(userData));
-      localStorage.setItem('userRole', role);
-      localStorage.setItem('role', role); // Matching guide
+      setStorageItem('userProfile', JSON.stringify(userData), rememberMe);
+      setStorageItem('userRole', role, rememberMe);
+      setStorageItem('role', role, rememberMe);
     }
-    localStorage.setItem('isLoggedIn', 'true');
+    setStorageItem('isLoggedIn', 'true', rememberMe);
     // Give the browser a moment to register state before syncing
     setTimeout(() => checkSession(), 500);
   };
@@ -138,12 +160,12 @@ export default function App({ Component, pageProps }) {
     setIsLoggedIn(false);
     setUserProfile(null);
     setUserRole('user');
-    localStorage.removeItem('userProfile');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('role');
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-    localStorage.setItem('isLoggedIn', 'false');
+    removeStorageItem('userProfile');
+    removeStorageItem('userRole');
+    removeStorageItem('role');
+    removeStorageItem('access_token');
+    removeStorageItem('refresh_token');
+    removeStorageItem('isLoggedIn');
   };
 
   const updateProfile = (data) => {
