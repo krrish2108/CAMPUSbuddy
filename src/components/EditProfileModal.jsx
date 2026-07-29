@@ -59,31 +59,35 @@ export default function EditProfileModal({ isOpen, onClose }) {
 
   const addSkill = (skill) => {
     const trimmed = skill.trim();
-    if (trimmed && !formData.skills.includes(trimmed)) {
-      handleInputChange('skills', [...formData.skills, trimmed]);
+    const currentSkills = formData.skills || [];
+    if (trimmed && !currentSkills.includes(trimmed)) {
+      handleInputChange('skills', [...currentSkills, trimmed]);
       setSkillInput('');
     }
   };
 
   const removeSkill = (skill) => {
-    handleInputChange('skills', formData.skills.filter(s => s !== skill));
+    const currentSkills = formData.skills || [];
+    handleInputChange('skills', currentSkills.filter(s => s !== skill));
   };
 
   const handleCertUpload = (e) => {
     const file = e.target.files[0];
-    if (file && formData.certificates.length < 5) {
+    const currentCerts = formData.certificates || [];
+    if (file && currentCerts.length < 5) {
       const newCert = {
         id: Date.now(),
         name: file.name,
         date: new Date().toLocaleDateString(),
         size: (file.size / 1024).toFixed(1) + ' KB'
       };
-      handleInputChange('certificates', [...formData.certificates, newCert]);
+      handleInputChange('certificates', [...currentCerts, newCert]);
     }
   };
 
   const removeCert = (id) => {
-    handleInputChange('certificates', formData.certificates.filter(c => c.id !== id));
+    const currentCerts = formData.certificates || [];
+    handleInputChange('certificates', currentCerts.filter(c => c.id !== id));
   };
 
   const handleClose = () => {
