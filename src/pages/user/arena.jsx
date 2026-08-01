@@ -27,7 +27,7 @@ import {
   Smartphone
 } from 'lucide-react';
 import { EVENTS, EVENT_CATEGORIES, DASHBOARD_STATS, FRIENDS, TEAM_TIERS, SUGGESTED_TEAMMATES, NETWORK_ACTIVITY } from '@/data/arenaData';
-import { ArenaProvider, useArena } from '@/context/ArenaContext';
+import { useArena } from '@/context/ArenaContext';
 
 function ArenaContent() {
   const {
@@ -282,6 +282,11 @@ function ArenaContent() {
                             {isLive && (
                               <div className="flex items-center gap-2 bg-red-500 text-white px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg animate-pulse">
                                 <div className="w-1.5 h-1.5 bg-white rounded-full animate-ping" /> Live
+                              </div>
+                            )}
+                            {event.status === 'On Hold' && (
+                              <div className="flex items-center gap-2 bg-amber-500 text-white px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg">
+                                On Hold
                               </div>
                             )}
                             <div className="bg-white/20 backdrop-blur-md text-white px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-white/20">
@@ -756,12 +761,21 @@ function ArenaContent() {
                       <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Entry Fee</p>
                       <p className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter italic uppercase">{selectedEvent.isPaid ? `₹${selectedEvent.fee}` : 'Free'}</p>
                     </div>
-                    <button
-                      onClick={() => { rsvpToEvent(selectedEvent); }}
-                      className="flex-[2] py-5 bg-slate-900 text-white rounded-[25px] font-black text-lg shadow-xl hover:bg-amber-500 transition-all flex items-center justify-center gap-4 italic uppercase tracking-tight active:scale-95 group"
-                    >
-                      Reserve My Spot <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    {selectedEvent.status === 'On Hold' ? (
+                      <button
+                        disabled
+                        className="flex-[2] py-5 bg-amber-500/20 text-amber-500 rounded-[25px] font-black text-lg cursor-not-allowed flex items-center justify-center gap-4 italic uppercase tracking-tight"
+                      >
+                        Temporarily On Hold
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => { rsvpToEvent(selectedEvent); }}
+                        className="flex-[2] py-5 bg-slate-900 text-white rounded-[25px] font-black text-lg shadow-xl hover:bg-amber-500 transition-all flex items-center justify-center gap-4 italic uppercase tracking-tight active:scale-95 group"
+                      >
+                        Reserve My Spot <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                      </button>
+                    )}
                   </div>
                 )}
               </div>
@@ -948,10 +962,6 @@ function ArenaContent() {
 }
 
 export default function ArenaPage() {
-  return (
-    <ArenaProvider>
-      <ArenaContent />
-    </ArenaProvider>
-  );
+  return <ArenaContent />;
 }
 

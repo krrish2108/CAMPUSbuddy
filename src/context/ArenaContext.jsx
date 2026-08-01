@@ -76,31 +76,60 @@ export function ArenaProvider({ children }) {
     } catch (e) { console.error('Error loading syncs'); }
   };
 
+  const saveEventsToStorage = (updatedEvents) => {
+    setEvents(updatedEvents);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('campus_arena_events', JSON.stringify(updatedEvents));
+    }
+  };
+
   const loadEvents = async () => {
     try {
+      if (typeof window !== 'undefined') {
+        const saved = localStorage.getItem('campus_arena_events');
+        if (saved) {
+          try {
+            setEvents(JSON.parse(saved));
+            setIsLoading(false);
+            return;
+          } catch (err) {
+            console.error('Failed to parse saved arena events', err);
+          }
+        }
+      }
       const res = await getArenaEvents();
-      if (res.success) setEvents(res.data);
+      if (res.success) {
+        setEvents(res.data);
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('campus_arena_events', JSON.stringify(res.data));
+        }
+      }
     } catch (e) {
       console.error('Error loading events');
     } finally {
       setIsLoading(false);
     }
   };
-   const addEvent = async (newEvent) => {
+
+  const addEvent = async (newEvent) => {
     try {
       const res = await addArenaEvent(newEvent);
-      if (res.success) loadEvents();
+      if (res.success && res.data) {
+        saveEventsToStorage([res.data, ...events]);
+      }
     } catch (e) {
       console.error('Error adding event');
     }
   };
 
   const updateEvent = (id, updatedEvent) => {
-    setEvents(prev => prev.map(ev => ev.id === id ? { ...ev, ...updatedEvent } : ev));
+    const nextEvents = events.map(ev => ev.id === id ? { ...ev, ...updatedEvent } : ev);
+    saveEventsToStorage(nextEvents);
   };
 
   const deleteEvent = (id) => {
-    setEvents(prev => prev.filter(ev => ev.id !== id));
+    const nextEvents = events.filter(ev => ev.id !== id);
+    saveEventsToStorage(nextEvents);
   };
 
   // Removed mock sync simulation

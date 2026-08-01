@@ -14,7 +14,7 @@ import {
   MonitorPlay
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArenaProvider, useArena } from '@/context/ArenaContext';
+import { useArena } from '@/context/ArenaContext';
 import { EVENT_CATEGORIES } from '@/data/arenaData';
 
 const INITIAL_EVENTS = [
@@ -27,6 +27,7 @@ function ArenaAdminContent() {
   const { events, updateEvent, deleteEvent, addEvent } = useArena();
   const [activeTab, setActiveTab] = useState('Event Directory');
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [editingId, setEditingId] = useState(null);
   const [newEvent, setNewEvent] = useState({
     title: '',
     category: 'Hackathon',
@@ -37,6 +38,29 @@ function ArenaAdminContent() {
   });
 
   const [photoUrl, setPhotoUrl] = useState('');
+
+  const changeStatus = (id, newStatus) => {
+    updateEvent(id, { status: newStatus });
+  };
+
+  const startEdit = (ev) => {
+    setEditingId(ev.id);
+    setNewEvent({
+      title: ev.title || '',
+      category: ev.category || (ev.tags && ev.tags[0]) || 'Hackathon',
+      date: ev.date || '',
+      capacity: ev.capacity?.total ?? ev.capacity ?? 500,
+      registrationLink: ev.registrationLink || '',
+      photos: ev.photos || []
+    });
+    setShowCreateModal(true);
+  };
+
+  const openCreateModal = () => {
+    setEditingId(null);
+    setNewEvent({ title: '', category: 'Hackathon', date: '', capacity: 500, registrationLink: '', photos: [] });
+    setShowCreateModal(true);
+  };
 
   const addPhoto = () => {
     if (!photoUrl) return;
@@ -55,19 +79,37 @@ function ArenaAdminContent() {
   };
 
   const handleDeploy = () => {
-    // Map minimal admin fields to standard user event model if necessary
-    const eventToDeploy = {
-      ...newEvent,
-      organizer: 'Campus Admin',
-      status: 'Upcoming',
-      capacity: { total: parseInt(newEvent.capacity) || 500, filled: 0 },
-      location: 'To be announced',
-      coverImage: newEvent.photos[0]?.url || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80',
-      tags: [newEvent.category],
-      timeline: { startsIn: 'Upcoming', duration: 'TBD' }
-    };
-    addEvent(eventToDeploy);
+    if (editingId) {
+      const existing = events.find(e => e.id === editingId);
+      const updatedEvent = {
+        ...existing,
+        title: newEvent.title,
+        category: newEvent.category,
+        date: newEvent.date,
+        capacity: typeof existing?.capacity === 'object' 
+          ? { ...existing.capacity, total: parseInt(newEvent.capacity) || 500 }
+          : parseInt(newEvent.capacity) || 500,
+        registrationLink: newEvent.registrationLink,
+        photos: newEvent.photos,
+        coverImage: newEvent.photos[0]?.url || existing?.coverImage,
+        tags: [newEvent.category, ...(existing?.tags?.slice(1) || [])]
+      };
+      updateEvent(editingId, updatedEvent);
+    } else {
+      const eventToDeploy = {
+        ...newEvent,
+        organizer: 'Campus Admin',
+        status: 'Live',
+        capacity: { total: parseInt(newEvent.capacity) || 500, filled: 0 },
+        location: 'To be announced',
+        coverImage: newEvent.photos[0]?.url || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80',
+        tags: [newEvent.category],
+        timeline: { startsIn: 'Upcoming', duration: 'TBD' }
+      };
+      addEvent(eventToDeploy);
+    }
     setShowCreateModal(false);
+    setEditingId(null);
     setNewEvent({ title: '', category: 'Hackathon', date: '', capacity: 500, registrationLink: '', photos: [] });
   };
 
@@ -107,7 +149,7 @@ function ArenaAdminContent() {
                    <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mt-1">Govern campus life operations</p>
                  </div>
                  <button 
-                   onClick={() => setShowCreateModal(true)}
+                   onClick={openCreateModal}
                    className="px-6 py-4 bg-pink-500 text-white rounded-full font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-pink-500/20 hover:scale-105 transition-all flex items-center gap-3"
                  >
                    <Plus size={18} /> Launch Event
@@ -125,11 +167,12 @@ function ArenaAdminContent() {
                           <div className="space-y-2">
                              <div className="flex items-center gap-2 mb-2">
                                 <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${
-                                   ev.status === 'Active' ? 'bg-green-50 dark:bg-green-500/10 text-green-600 dark:text-green-500' :
+                                   ev.status === 'Live' ? 'bg-green-50 dark:bg-green-500/10 text-green-600 dark:text-green-500' :
                                    ev.status === 'Completed' ? 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400' :
+                                   ev.status === 'On Hold' ? 'bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-500' :
                                    'bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-500'
                                 }`}>{ev.status}</span>
-                                <span className="text-[10px] text-slate-500 font-bold px-2 py-0.5 border border-slate-200 dark:border-white/10 rounded-lg">{ev.category}</span>
+                                <span className="text-[10px] text-slate-500 font-bold px-2 py-0.5 border border-slate-200 dark:border-white/10 rounded-lg">{ev.category || (ev.tags && ev.tags[0])}</span>
                              </div>
                              <h4 className="text-2xl font-black text-slate-900 dark:text-white italic uppercase tracking-tighter truncate max-w-[280px]">{ev.title}</h4>
                           </div>
@@ -160,15 +203,15 @@ function ArenaAdminContent() {
                        </div>
 
                        <div className="grid grid-cols-4 gap-3">
-                          <button onClick={() => changeStatus(ev.id, 'Upcoming')} className="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-amber-50 dark:hover:bg-amber-500/10 text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-500 transition-colors">
+                          <button onClick={() => changeStatus(ev.id, 'On Hold')} className="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-amber-50 dark:hover:bg-amber-500/10 text-slate-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-500 transition-colors">
                             <Pause size={16} className="mb-1" />
                             <span className="text-[8px] font-black uppercase tracking-widest">Hold</span>
                           </button>
-                          <button onClick={() => changeStatus(ev.id, 'Active')} className="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-green-50 dark:hover:bg-green-500/10 text-slate-500 dark:text-slate-400 hover:text-green-600 dark:hover:text-green-500 transition-colors">
+                          <button onClick={() => changeStatus(ev.id, 'Live')} className="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-green-50 dark:hover:bg-green-500/10 text-slate-500 dark:text-slate-400 hover:text-green-600 dark:hover:text-green-500 transition-colors">
                             <Play size={16} className="mb-1" />
                             <span className="text-[8px] font-black uppercase tracking-widest">Activate</span>
                           </button>
-                          <button className="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-500/10 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-500 transition-colors">
+                          <button onClick={() => startEdit(ev)} className="flex flex-col items-center justify-center p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-500/10 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-500 transition-colors">
                             <Edit2 size={16} className="mb-1" />
                             <span className="text-[8px] font-black uppercase tracking-widest">Edit</span>
                           </button>
@@ -191,7 +234,7 @@ function ArenaAdminContent() {
             >
                <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 rounded-[45px] p-10 shadow-xl dark:shadow-2xl space-y-8">
                   <div>
-                    <h3 className="text-2xl font-black italic uppercase tracking-tighter text-slate-900 dark:text-white">Live Registrations</h3>
+                    <h3 className="text-2xl font-black italic uppercase tracking-tighter text-slate-900 dark:bg-white">Live Registrations</h3>
                     <p className="text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest mt-1">Select an event to view roll call</p>
                   </div>
                   
@@ -251,8 +294,8 @@ function ArenaAdminContent() {
                  <div className="h-2 bg-gradient-to-r from-pink-500 to-purple-500" />
                  <div className="p-10 space-y-8">
                     <div className="flex items-center justify-between">
-                       <h3 className="text-3xl font-black text-slate-900 dark:text-white italic uppercase tracking-tighter">Event Creator</h3>
-                       <button onClick={() => setShowCreateModal(false)} className="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
+                       <h3 className="text-3xl font-black text-slate-900 dark:text-white italic uppercase tracking-tighter">{editingId ? 'Edit Event' : 'Event Creator'}</h3>
+                       <button onClick={() => { setShowCreateModal(false); setEditingId(null); }} className="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
                          <Plus size={24} className="rotate-45" />
                        </button>
                     </div>
@@ -300,7 +343,6 @@ function ArenaAdminContent() {
                           />
                        </div>
 
-                       {/* NEW FIELDS */}
                        <div className="space-y-3 col-span-2">
                           <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 pl-4">Registration Link</label>
                           <input 
@@ -330,7 +372,6 @@ function ArenaAdminContent() {
                             </button>
                           </div>
                           
-                          {/* Photo Order Display */}
                           <div className="flex flex-wrap gap-3 mt-4">
                             {newEvent.photos.map((p, idx) => (
                               <div key={idx} className="relative group/photo w-24 h-24 rounded-2xl overflow-hidden border-2 border-slate-100 dark:border-white/5">
@@ -355,7 +396,7 @@ function ArenaAdminContent() {
                         onClick={handleDeploy}
                         className="w-full py-5 bg-pink-500 text-white rounded-[25px] font-black text-sm uppercase tracking-widest hover:bg-pink-600 shadow-xl shadow-pink-500/20 transition-colors"
                       >
-                        Deploy Event
+                        {editingId ? 'Save Changes' : 'Deploy Event'}
                       </button>
                     </div>
                  </div>
@@ -370,9 +411,5 @@ function ArenaAdminContent() {
 }
 
 export default function ArenaAdminPage() {
-  return (
-    <ArenaProvider>
-      <ArenaAdminContent />
-    </ArenaProvider>
-  );
+  return <ArenaAdminContent />;
 }
