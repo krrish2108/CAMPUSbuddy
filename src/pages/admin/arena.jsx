@@ -34,6 +34,7 @@ function ArenaAdminContent() {
     date: '',
     capacity: 500,
     registrationLink: '',
+    description: '',
     photos: [] // { url: '', order: 0 }
   });
 
@@ -51,6 +52,7 @@ function ArenaAdminContent() {
       date: ev.date || '',
       capacity: ev.capacity?.total ?? ev.capacity ?? 500,
       registrationLink: ev.registrationLink || '',
+      description: ev.description || '',
       photos: ev.photos || []
     });
     setShowCreateModal(true);
@@ -58,7 +60,7 @@ function ArenaAdminContent() {
 
   const openCreateModal = () => {
     setEditingId(null);
-    setNewEvent({ title: '', category: 'Hackathon', date: '', capacity: 500, registrationLink: '', photos: [] });
+    setNewEvent({ title: '', category: 'Hackathon', date: '', capacity: 500, registrationLink: '', description: '', photos: [] });
     setShowCreateModal(true);
   };
 
@@ -90,6 +92,7 @@ function ArenaAdminContent() {
           ? { ...existing.capacity, total: parseInt(newEvent.capacity) || 500 }
           : parseInt(newEvent.capacity) || 500,
         registrationLink: newEvent.registrationLink,
+        description: newEvent.description || '',
         photos: newEvent.photos,
         coverImage: newEvent.photos[0]?.url || existing?.coverImage,
         tags: [newEvent.category, ...(existing?.tags?.slice(1) || [])]
@@ -102,6 +105,7 @@ function ArenaAdminContent() {
         status: 'Live',
         capacity: { total: parseInt(newEvent.capacity) || 500, filled: 0 },
         location: 'To be announced',
+        description: newEvent.description || 'No detailed description provided.',
         coverImage: newEvent.photos[0]?.url || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80',
         tags: [newEvent.category],
         timeline: { startsIn: 'Upcoming', duration: 'TBD' }
@@ -110,7 +114,7 @@ function ArenaAdminContent() {
     }
     setShowCreateModal(false);
     setEditingId(null);
-    setNewEvent({ title: '', category: 'Hackathon', date: '', capacity: 500, registrationLink: '', photos: [] });
+    setNewEvent({ title: '', category: 'Hackathon', date: '', capacity: 500, registrationLink: '', description: '', photos: [] });
   };
 
   return (
@@ -351,6 +355,17 @@ function ArenaAdminContent() {
                             className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-2xl text-slate-900 dark:text-white font-bold placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-pink-500 outline-none" 
                             value={newEvent.registrationLink}
                             onChange={(e) => setNewEvent({...newEvent, registrationLink: e.target.value})}
+                          />
+                       </div>
+
+                       <div className="space-y-3 col-span-2">
+                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 pl-4">Event Description / Details</label>
+                          <textarea 
+                            rows={4}
+                            placeholder="Write event overview, rules, paragraph details..." 
+                            className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-2xl text-slate-900 dark:text-white font-medium placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-pink-500 outline-none resize-y" 
+                            value={newEvent.description || ''}
+                            onChange={(e) => setNewEvent({...newEvent, description: e.target.value})}
                           />
                        </div>
 

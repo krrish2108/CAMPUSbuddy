@@ -634,7 +634,7 @@ function ArenaContent() {
                 <div className="space-y-6">
                   <div>
                     <h4 className="text-sm font-black text-slate-400 uppercase tracking-widest mb-2">About The Event</h4>
-                    <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{selectedEvent.description}</p>
+                    <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed whitespace-pre-line">{selectedEvent.description}</p>
                     <p className="text-xs font-bold text-amber-500 uppercase tracking-widest mt-3">Organized by {selectedEvent.organizer}</p>
                   </div>
 
