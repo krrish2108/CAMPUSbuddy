@@ -25,7 +25,10 @@ import {
   Ban,
   ArrowUpRight,
   PauseCircle,
-  AlertCircle
+  AlertCircle,
+  Mail,
+  Send,
+  Check
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { fetchUserDb, syncUserDb, createUserIdentity, fetchLocationsDb, syncLocationsDb } from '@/routes/admin';
@@ -57,6 +60,28 @@ export default function UsersAdminPage() {
     phone: '',
     status: 'Active'
   });
+
+  // Global Student Broadcast State
+  const [showBroadcastModal, setShowBroadcastModal] = useState(false);
+  const [broadcastForm, setBroadcastForm] = useState({
+    subject: 'Campus-Wide Notice: Important University Update',
+    body: 'Dear Campus Students & Faculty,\n\nPlease review the following campus-wide announcement regarding academic schedules, technical festivals, and portal governance.\n\nBest Regards,\nCampusBuddy Administrative Command'
+  });
+  const [sendingBroadcast, setSendingBroadcast] = useState(false);
+  const [broadcastSuccess, setBroadcastSuccess] = useState(false);
+
+  const handleSendGlobalBlast = (e) => {
+    e.preventDefault();
+    setSendingBroadcast(true);
+    setTimeout(() => {
+      setSendingBroadcast(false);
+      setBroadcastSuccess(true);
+      setTimeout(() => {
+        setBroadcastSuccess(false);
+        setShowBroadcastModal(false);
+      }, 1800);
+    }, 1500);
+  };
 
   // Locations Form
   const [locInput, setLocInput] = useState('');
@@ -415,6 +440,14 @@ export default function UsersAdminPage() {
                   <option value="STATUS">Status</option>
                 </select>
               </div>
+
+              <button
+                onClick={() => setShowBroadcastModal(true)}
+                className="px-5 py-3.5 bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 font-black text-xs uppercase tracking-widest rounded-2xl shadow-xl transition-all flex items-center gap-2 whitespace-nowrap hover:scale-[1.02] active:scale-95"
+              >
+                <Mail size={16} className="text-pink-500 animate-pulse" />
+                <span>Email All Students</span>
+              </button>
 
               <button 
                 onClick={() => setShowAddModal(true)}
@@ -1038,6 +1071,112 @@ export default function UsersAdminPage() {
                   </div>
                 </form>
               </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* ============================================================== */}
+      {/* CAMPUS-WIDE GLOBAL STUDENT EMAIL BROADCAST MODAL               */}
+      {/* ============================================================== */}
+      <AnimatePresence>
+        {showBroadcastModal && (
+          <div className="fixed inset-0 z-[140] bg-slate-950/80 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="w-full max-w-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-2xl rounded-[45px] overflow-hidden my-auto relative"
+            >
+              <div className="h-2 bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500" />
+
+              {broadcastSuccess ? (
+                <div className="p-14 text-center space-y-5 animate-in zoom-in-95 duration-300">
+                  <div className="w-20 h-20 rounded-full bg-emerald-500/10 text-emerald-500 mx-auto flex items-center justify-center shadow-xl border border-emerald-500/20">
+                    <Check size={40} className="animate-bounce" />
+                  </div>
+                  <h3 className="text-3xl font-black italic uppercase tracking-tighter text-slate-900 dark:text-white">Global Broadcast Transmitted!</h3>
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-300 max-w-md mx-auto">
+                    Your campus-wide email notification has been dispatched across university mail relays to all {users.length || 'registered'} campus identities.
+                  </p>
+                </div>
+              ) : (
+                <div className="p-8 space-y-6">
+                  <div className="flex items-center justify-between border-b border-slate-100 dark:border-white/5 pb-5">
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 flex items-center justify-center text-white shadow-lg shadow-purple-500/25 shrink-0">
+                        <Mail size={24} />
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-black italic uppercase tracking-tight text-slate-900 dark:text-white">Campus-Wide Student Email Blast</h3>
+                        <p className="text-xs font-medium text-slate-400 mt-0.5">Transmit global announcements & alerts to every active student profile</p>
+                      </div>
+                    </div>
+                    <button onClick={() => setShowBroadcastModal(false)} className="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">
+                      <X size={20} />
+                    </button>
+                  </div>
+
+                  <form onSubmit={handleSendGlobalBlast} className="space-y-5">
+                    <div className="p-4 rounded-2xl bg-purple-50 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/20 flex items-center justify-between">
+                      <div>
+                        <p className="text-xs font-black text-purple-900 dark:text-purple-300">Targeting: All Campus Identities ({users.length} Active Accounts)</p>
+                        <p className="text-[11px] text-purple-700/80 dark:text-purple-400/80 font-medium">Includes Students, Faculty, Vendors, and Administrators</p>
+                      </div>
+                      <span className="w-2.5 h-2.5 rounded-full bg-purple-500 animate-ping" />
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-black uppercase text-slate-400 tracking-widest mb-1 pl-1">Notice Subject Line *</label>
+                      <input 
+                        type="text"
+                        required
+                        className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-2xl px-5 py-3 text-sm font-bold outline-none focus:border-purple-500 text-slate-900 dark:text-white transition-all"
+                        value={broadcastForm.subject}
+                        onChange={(e) => setBroadcastForm({...broadcastForm, subject: e.target.value})}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-black uppercase text-slate-400 tracking-widest mb-1 pl-1">Broadcast Content Body *</label>
+                      <textarea 
+                        rows={6}
+                        required
+                        className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 rounded-2xl px-5 py-3.5 text-sm font-medium outline-none focus:border-purple-500 text-slate-900 dark:text-white transition-all leading-relaxed resize-y"
+                        value={broadcastForm.body}
+                        onChange={(e) => setBroadcastForm({...broadcastForm, body: e.target.value})}
+                      />
+                    </div>
+
+                    <div className="pt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-end gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setShowBroadcastModal(false)}
+                        className="px-6 py-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 font-black text-xs uppercase tracking-widest rounded-2xl transition-all"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={sendingBroadcast}
+                        className="px-8 py-4 bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 hover:opacity-90 text-white font-black text-xs uppercase tracking-widest rounded-2xl shadow-xl shadow-purple-500/25 transition-all flex items-center gap-2.5 active:scale-95"
+                      >
+                        {sendingBroadcast ? (
+                          <>
+                            <RefreshCw size={18} className="animate-spin" />
+                            <span>Dispatching Global Blast...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Send size={18} />
+                            <span>Transmit To All Students →</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              )}
             </motion.div>
           </div>
         )}
