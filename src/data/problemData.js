@@ -8,10 +8,72 @@ export const TICKET_CATEGORIES = [
 ];
 
 export const DEPARTMENTS = [
-  { id: 'netops', name: 'Network Operations', lead: 'Mr. Rajesh' },
-  { id: 'maint', name: 'Campus Maintenance', lead: 'Mr. Sharma' },
-  { id: 'it', name: 'IT Helpdesk', lead: 'Ms. Priya' },
-  { id: 'sec', name: 'Campus Security', lead: 'Insp. Chauhan' }
+  { 
+    id: 'netops', 
+    name: 'Network Operations', 
+    lead: 'Mr. Rajesh Kumar', 
+    role: 'Chief Network Engineer', 
+    phone: '+91 98711 22334', 
+    ext: 'Ext. 4021', 
+    email: 'rajesh.k@campus.edu',
+    category: 'network',
+    keywords: ['wifi', 'network', 'internet', 'router', 'switch', 'ethernet', 'connection', 'offline', 'bandwidth', 'ip', 'server', 'ping', 'lan', 'wlan', 'connectivity']
+  },
+  { 
+    id: 'maint', 
+    name: 'Campus Maintenance', 
+    lead: 'Mr. Vivek Sharma', 
+    role: 'Senior Facilities Supervisor', 
+    phone: '+91 98222 33445', 
+    ext: 'Ext. 4055', 
+    email: 'vivek.s@campus.edu',
+    category: 'facilities',
+    keywords: ['water', 'leak', 'plumbing', 'pipe', 'tap', 'washroom', 'toilet', 'door', 'window', 'glass', 'furniture', 'bench', 'carpenter', 'repair', 'broken', 'elevator', 'lift', 'stuck', 'mechanical']
+  },
+  { 
+    id: 'ac_cool', 
+    name: 'HVAC & Cooling Systems', 
+    lead: 'Mr. Anil Mehta', 
+    role: 'Lead AC & Electrical Specialist', 
+    phone: '+91 98333 77889', 
+    ext: 'Ext. 4080', 
+    email: 'anil.m@campus.edu',
+    category: 'ac',
+    keywords: ['ac', 'air conditioner', 'cooler', 'cooling', 'vent', 'hot', 'heat', 'compressor', 'chiller', 'fan', 'suffocation', 'temperature', 'hvac', 'exhaust', 'gas']
+  },
+  { 
+    id: 'it', 
+    name: 'IT & Server Helpdesk', 
+    lead: 'Ms. Priya Nair', 
+    role: 'System Admin Specialist', 
+    phone: '+91 98450 11223', 
+    ext: 'Ext. 4100', 
+    email: 'priya.n@campus.edu',
+    category: 'others',
+    keywords: ['computer', 'pc', 'lab', 'software', 'projector', 'printer', 'screen', 'keyboard', 'mouse', 'cpu', 'gpu', 'portal', 'login', 'bug', 'system']
+  },
+  { 
+    id: 'sec', 
+    name: 'Campus Security & Safety', 
+    lead: 'Insp. Vikram Chauhan', 
+    role: 'Chief Security Officer', 
+    phone: '+91 98100 99887', 
+    ext: 'Ext. 1000 (Emergency)', 
+    email: 'security.command@campus.edu',
+    category: 'security',
+    keywords: ['security', 'safety', 'guard', 'gate', 'unauthorized', 'theft', 'loss', 'lost', 'found', 'emergency', 'hazard', 'fire', 'smoke', 'intruder', 'patrol', 'cctv', 'camera']
+  },
+  { 
+    id: 'hostel', 
+    name: 'Hostel & Mess Operations', 
+    lead: 'Dr. S. K. Verma', 
+    role: 'Chief Warden & Hygiene Inspector', 
+    phone: '+91 98555 44332', 
+    ext: 'Ext. 2010', 
+    email: 'warden@campus.edu',
+    category: 'hostel',
+    keywords: ['hostel', 'mess', 'food', 'hygiene', 'warden', 'room', 'bed', 'dorm', 'dinner', 'lunch', 'breakfast', 'canteen', 'water cooler', 'pest', 'cleanliness']
+  }
 ];
 
 export const MOCK_TICKETS = [
@@ -23,8 +85,10 @@ export const MOCK_TICKETS = [
     category: 'network',
     priority: 'Critical',
     upvotes: 42,
+    progress: 65,
     reporter: { name: 'Rohan Sharma', anonymous: false },
     assignedTo: 'netops',
+    aiConfidence: '99%',
     status: 'InProgress',
     eta: '2 Hours remaining',
     aiSummary: "Core network switch failure affecting all WiFi on Library Floor 2. Auto-priority: Critical ⚠️",
@@ -36,7 +100,7 @@ export const MOCK_TICKETS = [
       { step: 'Raised', time: 'Today 9:00 AM', completed: true },
       { step: 'Triaged', time: 'Today 9:15 AM', completed: true },
       { step: 'Assigned', time: 'Today 9:30 AM (Network Ops)', completed: true },
-      { step: 'In Progress', time: 'ETA: 2 Hours', completed: false, active: true },
+      { step: 'In Progress', time: 'ETA: 2 Hours (65% Completed)', completed: false, active: true },
       { step: 'Resolved', time: 'Pending', completed: false }
     ],
     resolution: null,
@@ -50,8 +114,10 @@ export const MOCK_TICKETS = [
     category: 'ac',
     priority: 'High',
     upvotes: 8,
+    progress: 15,
     reporter: { name: 'Anonymous Student', anonymous: true },
     assignedTo: 'maint',
+    aiConfidence: '96%',
     status: 'Raised',
     aiSummary: "Water leakage in AC vents detected. Possible electrical hazard. Priority: High.",
     media: [],
@@ -73,8 +139,10 @@ export const MOCK_TICKETS = [
     category: 'facilities',
     priority: 'Critical',
     upvotes: 89,
+    progress: 100,
     reporter: { name: 'Aman Varma', anonymous: false },
     assignedTo: 'maint',
+    aiConfidence: '98%',
     status: 'Resolved',
     aiSummary: "Mechanical failure in elevator hoist motor. Emergency maintenance required.",
     media: [],
@@ -97,8 +165,10 @@ export const MOCK_TICKETS = [
     category: 'hostel',
     priority: 'High',
     upvotes: 112,
+    progress: 100,
     reporter: { name: 'Anonymous Student', anonymous: true },
-    assignedTo: 'sec',
+    assignedTo: 'hostel',
+    aiConfidence: '95%',
     status: 'Resolved',
     aiSummary: "Food safety concern reported. Requires independent audit and sanitization.",
     media: [],
@@ -121,8 +191,10 @@ export const MOCK_TICKETS = [
     category: 'network',
     priority: 'High',
     upvotes: 45,
+    progress: 100,
     reporter: { name: 'Dr. Karishma', anonymous: false },
     assignedTo: 'it',
+    aiConfidence: '94%',
     status: 'Resolved',
     aiSummary: "Server hardware bottleneck detected. Upgrading RAM and GPU clusters recommended.",
     media: [],
