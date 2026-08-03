@@ -11,12 +11,28 @@ const delay = (ms = 500) => new Promise(resolve => setTimeout(resolve, ms));
  */
 export const login = async (email, password) => {
   await delay();
-  const role = email.includes('admin') ? 'admin' : (email.includes('vendor') ? 'vendor' : 'user');
+  let name = 'Demo User';
+  let role = email.includes('admin') ? 'admin' : (email.includes('vendor') ? 'vendor' : 'user');
+  let status = 'Active';
+
+  if (typeof window !== 'undefined') {
+    const savedDb = localStorage.getItem('campus_user_db');
+    if (savedDb) {
+      const db = JSON.parse(savedDb);
+      const matched = db.find(u => u.email.toLowerCase() === email.toLowerCase() || u.name.toLowerCase() === email.toLowerCase());
+      if (matched) {
+        name = matched.name;
+        role = matched.role ? matched.role.toLowerCase() : role;
+        status = matched.status || 'Active';
+      }
+    }
+  }
+
   return { 
     status: 'success', 
     access_token: 'mock_token',
     refresh_token: 'mock_refresh',
-    user: { name: 'Demo User', email, role } 
+    user: { name, email, role, status } 
   };
 };
 
@@ -27,14 +43,49 @@ export const register = async (data) => {
 
 export const verifyOtp = async (email, otp_code) => {
   await delay();
-  const role = email.includes('admin') ? 'admin' : (email.includes('vendor') ? 'vendor' : 'user');
-  return { status: 'success', user: { name: 'Demo User', email, role } };
+  let name = 'Demo User';
+  let role = email.includes('admin') ? 'admin' : (email.includes('vendor') ? 'vendor' : 'user');
+  let status = 'Active';
+
+  if (typeof window !== 'undefined') {
+    const savedDb = localStorage.getItem('campus_user_db');
+    if (savedDb) {
+      const db = JSON.parse(savedDb);
+      const matched = db.find(u => u.email.toLowerCase() === email.toLowerCase() || u.name.toLowerCase() === email.toLowerCase());
+      if (matched) {
+        name = matched.name;
+        role = matched.role ? matched.role.toLowerCase() : role;
+        status = matched.status || 'Active';
+      }
+    }
+  }
+
+  return { status: 'success', user: { name, email, role, status } };
 };
 
 export const getUserProfile = async () => {
   await delay();
+  if (typeof window !== 'undefined') {
+    const saved = localStorage.getItem('userProfile') || sessionStorage.getItem('userProfile');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        // Sync against latest db status
+        const savedDb = localStorage.getItem('campus_user_db');
+        if (savedDb && parsed.email) {
+          const db = JSON.parse(savedDb);
+          const matched = db.find(u => u.email.toLowerCase() === parsed.email.toLowerCase() || u.name.toLowerCase() === parsed.name?.toLowerCase());
+          if (matched) {
+            parsed.status = matched.status;
+            parsed.role = matched.role ? matched.role.toLowerCase() : parsed.role;
+          }
+        }
+        return parsed;
+      } catch (e) {}
+    }
+  }
   const role = typeof window !== 'undefined' ? (localStorage.getItem('role') || sessionStorage.getItem('role') || 'user') : 'user';
-  return { name: 'Demo User', role };
+  return { name: 'Demo User', role, status: 'Active' };
 };
 
 export const searchStudents = async (query) => {

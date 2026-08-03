@@ -133,7 +133,7 @@ export const INITIAL_USER_DB = [
     department: 'Information Technology',
     identifier: '24BIT10098',
     joined: '05 Sep 2024',
-    status: 'Under Review',
+    status: 'On Hold',
     phone: '+91 89012 34567',
     lastActive: '2 days ago',
     avatarGradient: 'from-yellow-500 to-amber-600',
