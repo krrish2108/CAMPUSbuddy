@@ -897,7 +897,7 @@ export default function AdminDashboard() {
                       className="w-full px-5 py-3.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 focus:border-blue-500 rounded-2xl text-xs font-bold text-slate-900 dark:text-white outline-none resize-none transition-all" 
                     />
                     <p className="text-[10px] font-medium text-slate-500 dark:text-slate-400 leading-snug">
-                      When a student submits a problem containing these words in the title, description, or location, our UAssist Intelligence engine will automatically bind this specialist's name, phone, and SIP line in the UI!
+                      When a student submits a problem containing these words in the title, description, or location, our UAssist Intelligence engine will automatically bind this specialist&apos;s name, phone, and SIP line in the UI!
                     </p>
                   </div>
 

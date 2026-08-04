@@ -441,7 +441,7 @@ export default function ShopperzAdminPage() {
                     <span>Campus Store Pickup Queue</span>
                   </h3>
                   <p className="text-xs font-bold text-slate-400 mt-0.5">
-                    Verify student identity and OTP before releasing package. Click **"👤 View Student Profile"** to inspect campus student credentials!
+                    Verify student identity and OTP before releasing package. Click &quot;👤 View Student Profile&quot; to inspect campus student credentials!
                   </p>
                 </div>
                 <span className="px-4 py-2 bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 rounded-2xl text-xs font-black uppercase tracking-wider h-fit">
