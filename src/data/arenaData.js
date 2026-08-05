@@ -4,7 +4,7 @@ export const EVENTS = [
   {
     id: 'EVT-0500',
     title: 'UITxKIIF Hackathon',
-    organizer: 'Process Busters',
+    organizer: 'Karnavati Innovation Hub',
     coverImage: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80',
     mode: 'Offline',
     registrationDeadline: '2026-04-09T23:59:00Z',
