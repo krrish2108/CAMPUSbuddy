@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { Syne, Inter } from 'next/font/google';
 import { useEffect, useState, createContext } from 'react';
 import '../styles/globals.css';
@@ -70,6 +71,7 @@ const getInitialState = (key, fallback) => {
 };
 
 export default function App({ Component, pageProps }) {
+  const router = useRouter();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(getInitialState('isLoggedIn', false));
   const [userProfile, setUserProfile] = useState(getInitialState('userProfile', null));
@@ -194,10 +196,14 @@ export default function App({ Component, pageProps }) {
                   <AuthGuard>
                     <GlobalBroadcast />
                     <Component {...pageProps} />
-                    <UAssistFab />
-                    <AnimatePresence>
-                      <UAssistOverlay />
-                    </AnimatePresence>
+                    {isLoggedIn && router.pathname !== '/' && router.pathname !== '/login' && (
+                      <>
+                        <UAssistFab />
+                        <AnimatePresence>
+                          <UAssistOverlay />
+                        </AnimatePresence>
+                      </>
+                    )}
                   </AuthGuard>
                 </div>
                 </UAssistProvider>
