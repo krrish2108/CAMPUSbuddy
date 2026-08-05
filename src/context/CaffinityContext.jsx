@@ -3,11 +3,53 @@ import { getCanteens, getMenu, placeCaffinityOrder } from '@/routes/user';
 
 const CaffinityContext = createContext();
 
+const INITIAL_DEMO_ORDERS = [
+  {
+    id: 'ORD-8421',
+    canteenId: 'c1',
+    items: [{ id: 'm1', name: 'Peri Peri Cheese Fries', quantity: 2 }, { id: 'm4', name: 'Cold Coffee Hazelnut', quantity: 1 }],
+    totalAmount: 180,
+    status: 'Ready',
+    scheduledTime: 'As soon as possible',
+    paymentMethod: 'UPI (Paid)',
+    timestamp: new Date(Date.now() - 12 * 60000).toISOString(),
+    studentName: 'Ananya Singh',
+    studentId: '24BBT10112',
+    otp: '4891'
+  },
+  {
+    id: 'ORD-8422',
+    canteenId: 'c1',
+    items: [{ id: 'm2', name: 'Paneer Tikka Grilled Sandwich', quantity: 1 }, { id: 'm6', name: 'Masala Chai', quantity: 2 }],
+    totalAmount: 140,
+    status: 'Preparing',
+    scheduledTime: '1:15 PM',
+    paymentMethod: 'Campus Credits',
+    timestamp: new Date(Date.now() - 5 * 60000).toISOString(),
+    studentName: 'Kabir Das',
+    studentId: '24ECE10405',
+    otp: '2204'
+  },
+  {
+    id: 'ORD-8423',
+    canteenId: 'c2',
+    items: [{ id: 'm10', name: 'South Indian Combo (Idli/Dosa)', quantity: 1 }],
+    totalAmount: 95,
+    status: 'Done',
+    scheduledTime: '12:30 PM',
+    paymentMethod: 'UPI (Paid)',
+    timestamp: new Date(Date.now() - 35 * 60000).toISOString(),
+    studentName: 'Rohan Sharma',
+    studentId: '24BCE10023',
+    otp: '9105'
+  }
+];
+
 export const CaffinityProvider = ({ children }) => {
   const [selectedCanteen, setSelectedCanteen] = useState(null);
   const [canteens, setCanteens] = useState([]);
   const [cart, setCart] = useState([]);
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState(INITIAL_DEMO_ORDERS);
   const [isCanteenSelecting, setIsCanteenSelecting] = useState(true);
   const [menuItems, setMenuItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
