@@ -70,11 +70,15 @@ function ArenaContent() {
 
   const friendScrollRef = useRef(null);
 
-  const featuredEvents = useMemo(() => events.filter(e => e.isFeatured), [events]);
+  const featuredEvents = useMemo(() => {
+    const featured = events.filter(e => e.isFeatured);
+    if (featured.length > 0) return featured;
+    return events.length > 0 ? events.slice(0, 3) : [];
+  }, [events]);
 
   // Auto-carousel logic
   useEffect(() => {
-    if (activeTab !== 'Events') return;
+    if (activeTab !== 'Events' || featuredEvents.length === 0) return;
     const timer = setInterval(() => {
       setCarouselIndex(prev => (prev + 1) % featuredEvents.length);
     }, 5000);
@@ -207,37 +211,44 @@ function ArenaContent() {
               </div>
 
               {/* HERO CAROUSEL */}
-              <div className="relative h-[400px] rounded-[50px] overflow-hidden group shadow-2xl border-4 border-white dark:border-slate-800">
-                {featuredEvents.map((event, idx) => (
-                  <div
-                    key={event.id}
-                    className={`absolute inset-0 transition-all duration-1000 ease-in-out ${idx === carouselIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-110 pointer-events-none'}`}
-                  >
-                    <img src={event.coverImage} className="w-full h-full object-cover" alt={event.title} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-12">
-                      <div className="space-y-4 max-w-2xl animate-in slide-in-from-bottom-8 duration-700">
-                        <div className="flex gap-2">
-                          <span className="bg-amber-500 text-white text-[10px] font-black uppercase px-4 py-1.5 rounded-full tracking-widest shadow-lg">Featured Event</span>
-                          <span className="bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase px-4 py-1.5 rounded-full tracking-widest border border-white/30">{event.mode}</span>
+              {featuredEvents.length > 0 && (
+                <div className="relative h-[380px] sm:h-[420px] rounded-[45px] overflow-hidden group shadow-2xl border-2 border-slate-200/80 dark:border-slate-800 bg-slate-950">
+                  {featuredEvents.map((event, idx) => {
+                    const activeIdx = carouselIndex % featuredEvents.length;
+                    return (
+                      <div
+                        key={event.id}
+                        className={`absolute inset-0 transition-all duration-1000 ease-in-out ${idx === activeIdx ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-105 pointer-events-none z-0'}`}
+                      >
+                        <img src={event.coverImage || 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80'} className="w-full h-full object-cover" alt={event.title} />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-8 sm:p-12">
+                          <div className="space-y-4 max-w-2xl">
+                            <div className="flex flex-wrap gap-2">
+                              <span className="bg-amber-500 text-white text-[10px] font-black uppercase px-3.5 py-1 rounded-full tracking-widest shadow-lg">Featured Event</span>
+                              <span className="bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase px-3.5 py-1 rounded-full tracking-widest border border-white/30">{event.mode || 'In-Person'}</span>
+                              {event.organizer && <span className="bg-blue-600 text-white text-[10px] font-black uppercase px-3.5 py-1 rounded-full tracking-widest shadow-md">{event.organizer}</span>}
+                            </div>
+                            <h2 className="text-3xl sm:text-5xl font-black text-white font-syne tracking-tight leading-none uppercase">{event.title}</h2>
+                            <p className="text-white/90 font-medium text-xs sm:text-base max-w-xl line-clamp-2 leading-relaxed">{event.description}</p>
+                            <button
+                              onClick={() => setSelectedEvent(event)}
+                              className="px-8 py-3.5 bg-white text-slate-900 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-amber-500 hover:text-white transition-all active:scale-95 shadow-xl inline-flex items-center gap-2.5 mt-2 w-fit"
+                            >
+                              <span>View details</span>
+                              <ChevronRight size={16} />
+                            </button>
+                          </div>
                         </div>
-                        <h2 className="text-5xl font-black text-white font-syne tracking-tighter leading-none italic uppercase">{event.title}</h2>
-                        <p className="text-white/80 font-medium text-lg max-w-lg line-clamp-2">{event.description}</p>
-                        <button
-                          onClick={() => setSelectedEvent(event)}
-                          className="px-10 py-4 bg-white text-slate-900 rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-amber-500 hover:text-white transition-all active:scale-95 shadow-xl flex items-center gap-3"
-                        >
-                          View details <ChevronRight size={18} />
-                        </button>
                       </div>
-                    </div>
+                    );
+                  })}
+                  <div className="absolute bottom-8 right-8 sm:bottom-10 sm:right-12 flex gap-2 z-20">
+                    {featuredEvents.map((_, i) => (
+                      <button key={i} onClick={() => setCarouselIndex(i)} className={`h-2 rounded-full transition-all duration-500 ${i === (carouselIndex % featuredEvents.length) ? 'w-10 bg-amber-500 shadow-md shadow-amber-500/50' : 'w-2 bg-white/40 hover:bg-white/70'}`} />
+                    ))}
                   </div>
-                ))}
-                <div className="absolute bottom-10 right-12 flex gap-3">
-                  {featuredEvents.map((_, i) => (
-                    <button key={i} onClick={() => setCarouselIndex(i)} className={`h-2 rounded-full transition-all duration-500 ${i === carouselIndex ? 'w-10 bg-amber-500' : 'w-2 bg-white/40'}`} />
-                  ))}
                 </div>
-              </div>
+              )}
 
               {/* FILTERS */}
               <div className="flex gap-3 overflow-x-auto pb-4 scrollbar-none sticky top-[88px] bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl z-20 py-4 -mx-4 px-4 transition-all">
