@@ -584,10 +584,10 @@ export default function LandingPage() {
             <div className="space-y-4">
               <h4 className="text-xs font-black uppercase tracking-widest text-slate-900 dark:text-white">Security & Protocols</h4>
               <ul className="space-y-2.5 text-xs font-bold text-slate-500 dark:text-slate-400">
-                <li><span className="hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors">Zero-Knowledge Encryption</span></li>
-                <li><span className="hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors">Student Privacy Guidelines</span></li>
-                <li><span className="hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors">Terms of Campus Service</span></li>
-                <li><span className="hover:text-slate-900 dark:hover:text-white cursor-pointer transition-colors">API Architecture Docs</span></li>
+                <li><button onClick={() => router.push('/security')} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Zero-Knowledge Encryption</button></li>
+                <li><button onClick={() => router.push('/privacy')} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Student Privacy Guidelines</button></li>
+                <li><button onClick={() => router.push('/privacy')} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Terms of Campus Service</button></li>
+                <li><a href="https://github.com/campusbuddy" target="_blank" rel="noreferrer" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors inline-block">API Architecture Docs</a></li>
               </ul>
             </div>
 
@@ -598,8 +598,8 @@ export default function LandingPage() {
             <p>© 2026 CAMPUSbuddy Inc. Engineered for modern university infrastructures. All rights reserved.</p>
             
             <div className="flex items-center gap-6">
-              <span className="hover:underline cursor-pointer">Privacy Policy</span>
-              <span className="hover:underline cursor-pointer">Security Protocol</span>
+              <button onClick={() => router.push('/privacy')} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-bold">Privacy Policy</button>
+              <button onClick={() => router.push('/security')} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-bold">Security Protocol</button>
               <button 
                 onClick={scrollToTop}
                 className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-blue-600 hover:text-white flex items-center justify-center transition-colors shadow-sm ml-2"
