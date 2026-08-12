@@ -65,54 +65,65 @@ export default function Navbar({ isDark = false }) {
               </button>
 
               {showInbox && (
-                <div className="absolute top-14 right-0 w-[320px] md:w-[380px] bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/5 rounded-3xl shadow-2xl p-6 animate-in fade-in zoom-in-95 duration-200">
-                   <div className="flex justify-between items-center mb-4">
-                      <h3 className="font-syne font-black text-lg text-slate-900 dark:text-white tracking-tighter">Inbox</h3>
-                      <button 
-                        onClick={clearAll}
-                        className="text-[10px] font-bold text-red-500 bg-red-50 dark:bg-red-500/10 px-3 py-1.5 rounded-full hover:bg-red-500 hover:text-white transition-colors"
-                      >
-                        Clear All
-                      </button>
-                   </div>
-                   
-                   <div className="max-h-[350px] overflow-y-auto space-y-3 scrollbar-none">
-                     {messages.length === 0 ? (
-                       <div className="py-10 text-center opacity-40 flex flex-col items-center">
-                         <Bell size={32} className="mb-2" />
-                         <p className="text-xs font-black uppercase tracking-widest">No Messages</p>
+                 <div className="absolute top-14 right-0 w-[320px] md:w-[380px] bg-white/90 dark:bg-slate-900/90 backdrop-blur-3xl border border-white/50 dark:border-white/10 rounded-[32px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] p-1 animate-in fade-in zoom-in-95 slide-in-from-top-4 duration-300">
+                    <div className="relative overflow-hidden rounded-[28px] p-6 bg-white dark:bg-slate-900">
+                      
+                      {/* Subtle background glow */}
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 dark:bg-indigo-500/20 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
+                      <div className="absolute bottom-0 left-0 w-32 h-32 bg-fuchsia-500/10 dark:bg-fuchsia-500/20 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2" />
+
+                       <div className="relative z-10 flex justify-between items-center mb-6">
+                          <h3 className="font-syne font-black text-2xl text-slate-900 dark:text-white tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">Inbox</h3>
+                          <button 
+                            onClick={clearAll}
+                            className="text-[10px] font-black text-rose-500 bg-rose-50 dark:bg-rose-500/10 px-3 py-1.5 rounded-xl hover:bg-rose-500 hover:text-white transition-all shadow-sm uppercase tracking-widest"
+                          >
+                            Clear All
+                          </button>
                        </div>
-                     ) : (
-                       messages.map(msg => (
-                         <div 
-                           key={msg.id} 
-                           onClick={() => markAsRead(msg.id)}
-                           className={`p-4 rounded-2xl border transition-all cursor-pointer ${
-                             msg.isRead 
-                             ? 'bg-slate-50 border-transparent dark:bg-white/5 dark:border-white/5 opacity-60' 
-                             : 'bg-white border-[#1A56DB]/20 dark:bg-slate-800 dark:border-blue-500/30 shadow-md'
-                           }`}
-                         >
-                            <div className="flex gap-3">
-                               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-black shrink-0">
-                                 {msg.avatar || 'U'}
-                               </div>
-                               <div className="flex-1">
-                                  <div className="flex justify-between items-start">
-                                    <h4 className="text-sm font-bold text-slate-900 dark:text-white leading-tight">{msg.title}</h4>
-                                    {!msg.isRead && <span className="w-2 h-2 bg-[#1A56DB] rounded-full shrink-0 mt-1"></span>}
-                                  </div>
-                                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{msg.preview}</p>
-                                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 mt-2 block">
-                                    {new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
-                                  </span>
-                               </div>
-                            </div>
-                         </div>
-                       ))
-                     )}
-                   </div>
-                </div>
+                       
+                       <div className="relative z-10 max-h-[350px] overflow-y-auto space-y-3 scrollbar-none pb-2">
+                         {messages.length === 0 ? (
+                           <div className="py-12 text-center opacity-40 flex flex-col items-center">
+                             <div className="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
+                               <Bell size={24} />
+                             </div>
+                             <p className="text-[10px] font-black uppercase tracking-widest">No Messages</p>
+                           </div>
+                         ) : (
+                           messages.map(msg => (
+                             <div 
+                               key={msg.id} 
+                               onClick={() => markAsRead(msg.id)}
+                               className={`p-4 rounded-[20px] transition-all cursor-pointer group hover:shadow-md ${
+                                 msg.isRead 
+                                 ? 'bg-slate-50/80 border border-transparent dark:bg-white/5 dark:border-white/5 opacity-60 hover:opacity-100 hover:bg-slate-100 dark:hover:bg-white/10' 
+                                 : 'bg-white border border-indigo-500/20 dark:bg-slate-800/80 dark:border-indigo-500/30 shadow-sm hover:border-indigo-500/50'
+                               }`}
+                             >
+                                <div className="flex gap-4">
+                                   <div className="relative shrink-0">
+                                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-white font-black shadow-inner ${msg.isRead ? 'bg-slate-400 dark:bg-slate-600' : 'bg-gradient-to-br from-indigo-500 to-purple-600'}`}>
+                                       {msg.avatar || 'U'}
+                                     </div>
+                                     {!msg.isRead && (
+                                       <div className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-rose-500 rounded-full border-2 border-white dark:border-slate-800 animate-pulse"></div>
+                                     )}
+                                   </div>
+                                   <div className="flex-1">
+                                      <h4 className={`text-sm font-bold leading-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors ${msg.isRead ? 'text-slate-700 dark:text-slate-300' : 'text-slate-900 dark:text-white'}`}>{msg.title}</h4>
+                                      <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 mt-1 line-clamp-2 leading-relaxed">{msg.preview}</p>
+                                      <span className="text-[9px] font-black uppercase tracking-widest text-slate-400/80 mt-2 block">
+                                        {new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                                      </span>
+                                   </div>
+                                </div>
+                             </div>
+                           ))
+                         )}
+                       </div>
+                    </div>
+                 </div>
               )}
             </div>
           )}
