@@ -4,10 +4,15 @@ import { ThemeContext } from '@/pages/_app';
 import { Sun, Moon, LogOut, User, Phone, BookOpen, School, Hash, Mail, Settings, Bell, Check, Trash2 } from 'lucide-react';
 import EditProfileModal from './EditProfileModal';
 import { useUserInbox } from '@/context/user/UserInboxContext';
+import { useUserProfile } from '@/context/user/UserProfileContext';
+import { useAdminProfile } from '@/context/admin/AdminProfileContext';
 
 export default function Navbar({ isDark = false }) {
   const router = useRouter();
-  const { isDarkMode, toggleTheme, isLoggedIn, logout, userProfile } = useContext(ThemeContext);
+  const { isDarkMode, toggleTheme, isLoggedIn, logout, userRole } = useContext(ThemeContext);
+  const { userProfile } = useUserProfile() || {};
+  const { adminProfile } = useAdminProfile() || {};
+  const activeProfile = userRole === 'admin' ? adminProfile : userProfile;
   const { messages, unreadCount, markAsRead, clearAll } = useUserInbox() || { messages: [], unreadCount: 0 };
   const [showProfileCard, setShowProfileCard] = useState(false);
   const [showInbox, setShowInbox] = useState(false);
@@ -137,18 +142,26 @@ export default function Navbar({ isDark = false }) {
                      : 'bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-200 hover:brightness-110'
                  }`}
                >
-                 <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-black ${isDark ? 'bg-white/10' : 'bg-white/20'}`}>
-                   {userProfile?.name?.charAt(0) || 'U'}
-                 </div>
+                  <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-black overflow-hidden ${isDark ? 'bg-white/10' : 'bg-white/20'}`}>
+                    {activeProfile?.avatar ? (
+                      <img src={activeProfile.avatar} alt="Profile" className="w-full h-full object-cover" />
+                    ) : (
+                      activeProfile?.name?.charAt(0) || 'U'
+                    )}
+                  </div>
                  <span className="text-sm font-bold hidden md:block">Profile</span>
                </button>
 
                {/* Profile Details Card (Quick View Dropdown) */}
                {showProfileCard && (
                  <div className="absolute top-14 right-0 w-[280px] md:w-[320px] bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/5 rounded-3xl shadow-2xl p-6 animate-in fade-in zoom-in-95 duration-200">
-                    <div className="flex justify-between items-start mb-6">
+                     <div className="flex justify-between items-start mb-6">
                       <div className="w-16 h-16 rounded-2xl bg-[#1A56DB] dark:bg-blue-600 flex items-center justify-center text-white text-3xl font-black shadow-lg overflow-hidden">
-                        {userProfile?.avatar ? <img src={userProfile.avatar} className="w-full h-full object-cover" /> : userProfile?.name?.charAt(0) || 'U'}
+                        {activeProfile?.avatar ? (
+                          <img src={activeProfile.avatar} alt="Profile" className="w-full h-full object-cover" />
+                        ) : (
+                          activeProfile?.name?.charAt(0) || 'U'
+                        )}
                       </div>
                       <div className="flex gap-2">
                         <button 

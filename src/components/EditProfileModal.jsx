@@ -1,18 +1,19 @@
 import { useState, useContext, useEffect, useRef } from 'react';
-import { ThemeContext } from '@/pages/_app';
+import { useUserProfile } from '@/context/user/UserProfileContext';
 import { 
   X, Camera, User, School, Smartphone, Hash, 
   Check, Loader2, AlertCircle, FileText, Download, Trash2,
-  Sparkles, Award, ChevronRight
+  Sparkles, Award, ChevronRight, Edit3
 } from 'lucide-react';
 
 const SUGGESTED_SKILLS = ['React', 'Next.js', 'Python', 'JavaScript', 'UI/UX Design', 'Tailwind CSS', 'Java', 'Data Structures', 'Machine Learning'];
 
 export default function EditProfileModal({ isOpen, onClose }) {
-  const { userProfile, updateProfile } = useContext(ThemeContext);
+  const { userProfile, updateProfile } = useUserProfile() || {};
   const [activeTab, setActiveTab] = useState('identity');
   const [isLoading, setIsLoading] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
+  const [expandedCertId, setExpandedCertId] = useState(null);
   
   // Local Form State
   const [formData, setFormData] = useState({
@@ -79,10 +80,19 @@ export default function EditProfileModal({ isOpen, onClose }) {
         id: Date.now(),
         name: file.name,
         date: new Date().toLocaleDateString(),
-        size: (file.size / 1024).toFixed(1) + ' KB'
+        size: (file.size / 1024).toFixed(1) + ' KB',
+        issuer: '',
+        credentialId: ''
       };
       handleInputChange('certificates', [...currentCerts, newCert]);
+      setExpandedCertId(newCert.id); // Auto-expand new cert to fill details
     }
+  };
+
+  const updateCertDetail = (id, field, value) => {
+    const currentCerts = formData.certificates || [];
+    const updated = currentCerts.map(c => c.id === id ? { ...c, [field]: value } : c);
+    handleInputChange('certificates', updated);
   };
 
   const removeCert = (id) => {
@@ -341,20 +351,62 @@ export default function EditProfileModal({ isOpen, onClose }) {
 
                 <div className="space-y-3">
                    {(formData.certificates || []).map(cert => (
-                     <div key={cert.id} className="p-4 rounded-[24px] border border-slate-100 dark:border-white/5 bg-white dark:bg-slate-800 shadow-sm flex items-center justify-between group animate-in zoom-in-95 duration-300 hover:shadow-md transition-shadow">
-                        <div className="flex items-center gap-4">
-                           <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
-                              <FileText size={20} />
-                           </div>
-                           <div>
-                              <p className="text-sm font-black text-slate-900 dark:text-white truncate max-w-[150px] sm:max-w-[200px]">{cert.name}</p>
-                              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">{cert.date} • {cert.size}</p>
-                           </div>
+                     <div key={cert.id} className="border border-slate-100 dark:border-white/5 bg-white dark:bg-slate-800 shadow-sm rounded-[24px] animate-in zoom-in-95 duration-300 overflow-hidden hover:shadow-md transition-shadow">
+                        <div className="p-4 flex items-center justify-between group">
+                          <div className="flex items-center gap-4">
+                             <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                                <FileText size={20} />
+                             </div>
+                             <div>
+                                <p className="text-sm font-black text-slate-900 dark:text-white truncate max-w-[120px] sm:max-w-[200px]">{cert.name}</p>
+                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">{cert.issuer || 'Unknown Issuer'} • {cert.date}</p>
+                             </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                             <button onClick={() => setExpandedCertId(expandedCertId === cert.id ? null : cert.id)} className={`p-2 rounded-xl transition-colors ${expandedCertId === cert.id ? 'bg-indigo-500/10 text-indigo-600' : 'hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-600 dark:hover:text-white'}`}><Edit3 size={18} /></button>
+                             <button className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors"><Download size={18} /></button>
+                             <button onClick={() => removeCert(cert.id)} className="p-2 rounded-xl hover:bg-rose-500/10 text-slate-400 hover:text-rose-500 transition-colors"><Trash2 size={18} /></button>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                           <button className="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors"><Download size={18} /></button>
-                           <button onClick={() => removeCert(cert.id)} className="p-2 rounded-xl hover:bg-rose-500/10 text-slate-400 hover:text-rose-500 transition-colors"><Trash2 size={18} /></button>
-                        </div>
+                        {expandedCertId === cert.id && (
+                          <div className="px-4 pb-4 pt-2 border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-slate-800/50 animate-in slide-in-from-top-4 fade-in duration-300">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+                               <div>
+                                 <label className="text-[9px] font-black uppercase tracking-widest text-indigo-500 mb-1 block ml-1">Issuing Organization</label>
+                                 <input 
+                                   type="text" 
+                                   placeholder="e.g. Coursera, AWS"
+                                   className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 transition-all text-xs font-semibold text-slate-900 dark:text-white outline-none"
+                                   value={cert.issuer || ''}
+                                   onChange={(e) => updateCertDetail(cert.id, 'issuer', e.target.value)}
+                                 />
+                               </div>
+                               <div>
+                                 <label className="text-[9px] font-black uppercase tracking-widest text-indigo-500 mb-1 block ml-1">Credential ID</label>
+                                 <input 
+                                   type="text" 
+                                   placeholder="e.g. UC-123456"
+                                   className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 transition-all text-xs font-mono font-bold text-slate-900 dark:text-white outline-none tracking-wider"
+                                   value={cert.credentialId || ''}
+                                   onChange={(e) => updateCertDetail(cert.id, 'credentialId', e.target.value)}
+                                 />
+                               </div>
+                               <div className="sm:col-span-2">
+                                 <label className="text-[9px] font-black uppercase tracking-widest text-indigo-500 mb-1 block ml-1">Issue Date</label>
+                                 <input 
+                                   type="text" 
+                                   placeholder="e.g. Aug 2024"
+                                   className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/10 transition-all text-xs font-semibold text-slate-900 dark:text-white outline-none"
+                                   value={cert.date || ''}
+                                   onChange={(e) => updateCertDetail(cert.id, 'date', e.target.value)}
+                                 />
+                               </div>
+                            </div>
+                            <div className="flex justify-end mt-4">
+                              <button onClick={() => setExpandedCertId(null)} className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-[10px] font-black tracking-widest uppercase transition-colors">Done</button>
+                            </div>
+                          </div>
+                        )}
                      </div>
                    ))}
                 </div>

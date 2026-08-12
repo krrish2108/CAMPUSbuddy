@@ -70,7 +70,6 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(getInitialState('isLoggedIn', false));
-  const [userProfile, setUserProfile] = useState(getInitialState('userProfile', null));
   const [userRole, setUserRole] = useState(getInitialState('userRole', 'user'));
   const [isMounted, setIsMounted] = useState(false);
 
@@ -156,19 +155,13 @@ export default function App({ Component, pageProps }) {
       await (userRole === 'admin' ? logoutAdmin() : logoutUser());
     } catch (e) {}
     setIsLoggedIn(false);
-    setUserProfile(null);
     setUserRole('user');
-    removeStorageItem('userProfile');
     removeStorageItem('userRole');
     removeStorageItem('role');
     removeStorageItem('access_token');
     removeStorageItem('refresh_token');
     removeStorageItem('isLoggedIn');
-  };
-
-  const updateProfile = (data) => {
-    const newProfile = { ...userProfile, ...data };
-    setUserProfile(newProfile);
+    removeStorageItem('campus_user_profile'); // Also clear profile on logout
   };
 
   if (!isMounted) return <div className="bg-white dark:bg-[#020617] min-h-screen" />;
@@ -177,7 +170,7 @@ export default function App({ Component, pageProps }) {
     <ThemeContext.Provider value={{ 
       isDarkMode, toggleTheme, 
       isLoggedIn, login, logout,
-      userProfile, updateProfile 
+      userRole
     }}>
       <UserProviders>
         <AdminProviders>
