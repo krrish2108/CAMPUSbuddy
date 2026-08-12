@@ -154,59 +154,78 @@ export default function Navbar({ isDark = false }) {
 
                {/* Profile Details Card (Quick View Dropdown) */}
                {showProfileCard && (
-                 <div className="absolute top-14 right-0 w-[280px] md:w-[320px] bg-white dark:bg-slate-900 border border-gray-100 dark:border-white/5 rounded-3xl shadow-2xl p-6 animate-in fade-in zoom-in-95 duration-200">
-                     <div className="flex justify-between items-start mb-6">
-                      <div className="w-16 h-16 rounded-2xl bg-[#1A56DB] dark:bg-blue-600 flex items-center justify-center text-white text-3xl font-black shadow-lg overflow-hidden">
-                        {activeProfile?.avatar ? (
-                          <img src={activeProfile.avatar} alt="Profile" className="w-full h-full object-cover" />
-                        ) : (
-                          activeProfile?.name?.charAt(0) || 'U'
-                        )}
+                 <div className="absolute top-14 right-0 w-[300px] md:w-[340px] bg-white/90 dark:bg-slate-900/90 backdrop-blur-3xl border border-white/50 dark:border-white/10 rounded-[32px] shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] dark:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] p-1 animate-in fade-in zoom-in-95 slide-in-from-top-4 duration-300">
+                    
+                    <div className="relative overflow-hidden rounded-[28px] p-6 bg-white dark:bg-slate-900">
+                      {/* Subtle background glow */}
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 dark:bg-indigo-500/20 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
+                      <div className="absolute bottom-0 left-0 w-32 h-32 bg-fuchsia-500/10 dark:bg-fuchsia-500/20 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2" />
+
+                      <div className="relative z-10 flex justify-between items-start mb-6">
+                        <div className="relative group">
+                          <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-fuchsia-500 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500" />
+                          <div className="relative w-16 h-16 rounded-[18px] bg-gradient-to-br from-indigo-600 to-purple-700 flex items-center justify-center text-white text-3xl font-black shadow-lg overflow-hidden border-2 border-white/20">
+                            {activeProfile?.avatar ? (
+                              <img src={activeProfile.avatar} alt="Profile" className="w-full h-full object-cover" />
+                            ) : (
+                              activeProfile?.name?.charAt(0) || 'U'
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          <button 
+                            onClick={() => {
+                              setIsModalOpen(true);
+                              setShowProfileCard(false);
+                            }}
+                            className="p-2.5 rounded-xl text-slate-400 bg-slate-50 dark:bg-white/5 hover:bg-indigo-50 hover:text-indigo-600 dark:hover:bg-indigo-500/20 dark:hover:text-indigo-400 transition-all shadow-sm"
+                          >
+                            <Settings size={18} />
+                          </button>
+                          <button onClick={logout} className="p-2.5 rounded-xl text-rose-500 bg-rose-50 dark:bg-rose-500/10 hover:bg-rose-500 hover:text-white transition-all shadow-sm">
+                            <LogOut size={18} />
+                          </button>
+                        </div>
                       </div>
-                      <div className="flex gap-2">
-                        <button 
-                          onClick={() => {
-                            setIsModalOpen(true);
-                            setShowProfileCard(false);
-                          }}
-                          className="p-2 rounded-xl text-gray-400 bg-gray-50 dark:bg-white/5 hover:bg-[#1A56DB] hover:text-white transition-all shadow-sm"
-                        >
-                          <Settings size={18} />
-                        </button>
-                        <button onClick={logout} className="p-2 rounded-xl text-red-500 bg-red-500/10 hover:bg-red-500 hover:text-white transition-all">
-                          <LogOut size={18} />
-                        </button>
+
+                      <div className="relative z-10 mb-6">
+                        <h3 className="font-syne font-black text-2xl text-slate-900 dark:text-white tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
+                          {activeProfile?.name || 'Student Name'}
+                        </h3>
+                        <p className="text-[10px] font-black text-indigo-500 dark:text-indigo-400 uppercase tracking-widest flex items-center gap-1.5 mt-2 bg-indigo-50 dark:bg-indigo-500/10 w-fit px-3 py-1 rounded-full">
+                          <BookOpen size={12} />
+                          {activeProfile?.course || 'No Course'} · {activeProfile?.semester || '0'} Sem
+                        </p>
+                      </div>
+
+                      <div className="relative z-10 space-y-4 pt-5 border-t border-slate-100 dark:border-white/10">
+                        <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400 group">
+                          <div className="p-1.5 rounded-lg bg-slate-50 dark:bg-white/5 group-hover:bg-indigo-50 group-hover:text-indigo-500 dark:group-hover:bg-indigo-500/20 transition-colors">
+                            <Mail size={14} />
+                          </div>
+                          <span className="text-xs font-semibold truncate group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">{activeProfile?.email || 'email@college.edu'}</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400 group">
+                          <div className="p-1.5 rounded-lg bg-slate-50 dark:bg-white/5 group-hover:bg-indigo-50 group-hover:text-indigo-500 dark:group-hover:bg-indigo-500/20 transition-colors">
+                            <Phone size={14} />
+                          </div>
+                          <span className="text-xs font-semibold group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">{activeProfile?.phone || 'No Mobile'}</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400 group">
+                          <div className="p-1.5 rounded-lg bg-slate-50 dark:bg-white/5 group-hover:bg-indigo-50 group-hover:text-indigo-500 dark:group-hover:bg-indigo-500/20 transition-colors">
+                            <School size={14} />
+                          </div>
+                          <span className="text-xs font-semibold line-clamp-1 group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">{activeProfile?.dept || 'No Department'}</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400 group">
+                          <div className="p-1.5 rounded-lg bg-slate-50 dark:bg-white/5 group-hover:bg-indigo-50 group-hover:text-indigo-500 dark:group-hover:bg-indigo-500/20 transition-colors">
+                            <Hash size={14} />
+                          </div>
+                          <span className="text-xs font-bold font-mono tracking-wider group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">{activeProfile?.collegeId || 'ID PENDING'}</span>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="mb-6">
-                      <h3 className="font-syne font-black text-xl text-slate-900 dark:text-white tracking-tighter">
-                        {userProfile?.name || 'Student Name'}
-                      </h3>
-                      <p className="text-xs font-bold text-[#1A56DB] dark:text-blue-400 uppercase tracking-widest flex items-center gap-1.5 mt-1">
-                        <BookOpen size={12} />
-                        {userProfile?.course || 'No Course'} · {userProfile?.semester || '0'} Sem
-                      </p>
-                    </div>
-
-                    <div className="space-y-4 pt-4 border-t border-gray-100 dark:border-white/5">
-                      <div className="flex items-center gap-3 text-gray-500 dark:text-gray-400">
-                        <Mail size={16} />
-                        <span className="text-xs font-medium truncate">{userProfile?.email || 'email@college.edu'}</span>
-                      </div>
-                      <div className="flex items-center gap-3 text-gray-500 dark:text-gray-400">
-                        <Phone size={16} />
-                        <span className="text-xs font-medium">{userProfile?.phone || 'No Mobile'}</span>
-                      </div>
-                      <div className="flex items-center gap-3 text-gray-500 dark:text-gray-400">
-                        <School size={16} />
-                        <span className="text-xs font-medium line-clamp-1">{userProfile?.dept || 'No Department'}</span>
-                      </div>
-                      <div className="flex items-center gap-3 text-gray-500 dark:text-gray-400">
-                        <Hash size={16} />
-                        <span className="text-xs font-medium">ID: {userProfile?.collegeId || 'Not Set'}</span>
-                      </div>
-                    </div>
                  </div>
                )}
                </div>
