@@ -34,12 +34,12 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { useProblemBox } from '@/context/ProblemBoxContext';
-import { useCaffinity } from '@/context/CaffinityContext';
-import { useArena } from '@/context/ArenaContext';
-import { useUAssist } from '@/context/UAssistContext';
-import { useShopperz } from '@/context/ShopperzContext';
-import { useInbox } from '@/context/InboxContext';
+import { useAdminProblemBox } from '@/context/admin/AdminProblemBoxContext';
+import { useAdminCaffinity } from '@/context/admin/AdminCaffinityContext';
+import { useAdminArena } from '@/context/admin/AdminArenaContext';
+import { useAdminUAssist } from '@/context/admin/AdminUAssistContext';
+import { useAdminShopperz } from '@/context/admin/AdminShopperzContext';
+import { useAdminInbox } from '@/context/admin/AdminInboxContext';
 import { INITIAL_USER_DB } from '@/data/userData';
 
 export default function AdminDashboardPage() {
@@ -62,12 +62,12 @@ export default function AdminDashboardPage() {
   });
   
   // Pull real state from all campus modules
-  const { tickets = [] } = useProblemBox();
-  const { orders = [] } = useCaffinity();
-  const { registrations = [] } = useArena();
-  const { globalLogs = [], sendGlobalBroadcast } = useUAssist();
-  const { storeOrders = [], printJobs = [] } = useShopperz();
-  const { addMessage } = useInbox();
+  const { tickets = [] } = useAdminProblemBox();
+  const { orders = [] } = useAdminCaffinity();
+  const { registrations = [] } = useAdminArena();
+  const { globalLogs = [], sendGlobalBroadcast } = useAdminUAssist();
+  const { storeOrders = [], printJobs = [] } = useAdminShopperz();
+  const { addMessage } = useAdminInbox();
 
   const showToast = (message) => {
     setNotificationToast(message);

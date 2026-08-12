@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Megaphone, X } from 'lucide-react';
-import { useUAssist } from '@/context/UAssistContext';
+import { useUserUAssist } from '@/context/user/UserUAssistContext';
 
 export default function GlobalBroadcast() {
-  const { globalBroadcast, dismissBroadcast } = useUAssist();
+  const { globalBroadcast, dismissBroadcast } = useUserUAssist();
 
   return (
     <AnimatePresence>

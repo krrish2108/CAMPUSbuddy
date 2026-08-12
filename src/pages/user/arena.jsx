@@ -27,7 +27,7 @@ import {
   Smartphone
 } from 'lucide-react';
 import { EVENTS, EVENT_CATEGORIES, DASHBOARD_STATS, FRIENDS, TEAM_TIERS, SUGGESTED_TEAMMATES, NETWORK_ACTIVITY } from '@/data/arenaData';
-import { useArena } from '@/context/ArenaContext';
+import { useUserArena } from '@/context/user/UserArenaContext';
 
 function ArenaContent() {
   const {
@@ -56,7 +56,7 @@ function ArenaContent() {
     searchResults,
     isSearching,
     findTeammates
-  } = useArena();
+  } = useUserArena();
 
   const [activeCategory, setActiveCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');

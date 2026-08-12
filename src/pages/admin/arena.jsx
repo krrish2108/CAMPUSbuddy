@@ -33,11 +33,11 @@ import {
   Radio
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useArena } from '@/context/ArenaContext';
+import { useAdminArena } from '@/context/admin/AdminArenaContext';
 import { EVENT_CATEGORIES } from '@/data/arenaData';
 
 function ArenaAdminContent() {
-  const { events, updateEvent, deleteEvent, addEvent } = useArena();
+  const { events, updateEvent, deleteEvent, addEvent } = useAdminArena();
   const [activeTab, setActiveTab] = useState('Registration Hub');
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [editingId, setEditingId] = useState(null);

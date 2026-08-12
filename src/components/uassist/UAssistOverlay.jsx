@@ -11,7 +11,7 @@ import {
   LayoutGrid,
   Sparkles
 } from 'lucide-react';
-import { useUAssist } from '@/context/UAssistContext';
+import { useUserUAssist } from '@/context/user/UserUAssistContext';
 import { QUICK_ACTIONS } from '@/data/uassistData';
 import ActionCard from './ActionCards';
 import { UAssistMessage } from './UAssistResponse';
@@ -25,7 +25,7 @@ export default function UAssistOverlay() {
     queryCount, queryLimit,
     isPremium,
     prefillText, setPrefillText
-  } = useUAssist();
+  } = useUserUAssist();
 
   const [inputValue, setInputValue] = useState('');
   const [isVoiceActive, setIsVoiceActive] = useState(false);

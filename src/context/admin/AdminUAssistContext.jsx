@@ -2,10 +2,10 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { ThemeContext } from '@/pages/_app';
 import { uassistChat } from '@/routes/user';
-import { useInbox } from './InboxContext';
+import { useAdminInbox } from './AdminInboxContext';
 import { INITIAL_USER_DB } from '@/data/userData';
 
-const UAssistContext = createContext();
+const AdminUAssistContext = createContext();
 
 // Initial Knowledge Base dataset entries for campus intelligence
 const INITIAL_FAQS = [
@@ -80,10 +80,15 @@ const INITIAL_TELEMETRY_LOGS = [
   }
 ];
 
-export function UAssistProvider({ children }) {
+
+  // ==========================================
+  // 🗄️ DATABASE INTEGRATION POINT (ADMIN)
+  // -> Hook up high-privilege queries, mutations, and analytics here.
+  // ==========================================
+  export function AdminUAssistProvider({ children }) {
   const router = useRouter();
   const { userProfile } = useContext(ThemeContext);
-  const { addMessage } = useInbox();
+  const { addMessage } = useAdminInbox();
   
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -337,7 +342,7 @@ export function UAssistProvider({ children }) {
   };
 
   return (
-    <UAssistContext.Provider value={{
+    <AdminUAssistContext.Provider value={{
       isOpen, setIsOpen,
       messages, sendMessage,
       isThinking, thinkingText,
@@ -351,10 +356,15 @@ export function UAssistProvider({ children }) {
       triggerSimulatedStudentQuery, getStudentDetails, modelConfig, setModelConfig
     }}>
       {children}
-    </UAssistContext.Provider>
+    </AdminUAssistContext.Provider>
   );
 }
 
-export function useUAssist() {
-  return useContext(UAssistContext);
+
+  // ==========================================
+  // 🗄️ DATABASE INTEGRATION POINT (ADMIN)
+  // -> Hook up high-privilege queries, mutations, and analytics here.
+  // ==========================================
+  export function useAdminUAssist() {
+  return useContext(AdminUAssistContext);
 }

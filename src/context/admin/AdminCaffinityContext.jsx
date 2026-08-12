@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { getCanteens, getMenu, placeCaffinityOrder } from '@/routes/user';
 
-const CaffinityContext = createContext();
+const AdminCaffinityContext = createContext();
 
 const INITIAL_DEMO_ORDERS = [
   {
@@ -45,7 +45,7 @@ const INITIAL_DEMO_ORDERS = [
   }
 ];
 
-export const CaffinityProvider = ({ children }) => {
+export const AdminCaffinityProvider = ({ children }) => {
   const [selectedCanteen, setSelectedCanteen] = useState(null);
   const [canteens, setCanteens] = useState([]);
   const [cart, setCart] = useState([]);
@@ -230,16 +230,16 @@ export const CaffinityProvider = ({ children }) => {
   };
 
   return (
-    <CaffinityContext.Provider value={value}>
+    <AdminCaffinityContext.Provider value={value}>
       {children}
-    </CaffinityContext.Provider>
+    </AdminCaffinityContext.Provider>
   );
 };
 
-export const useCaffinity = () => {
-  const context = useContext(CaffinityContext);
+export const useAdminCaffinity = () => {
+  const context = useContext(AdminCaffinityContext);
   if (!context) {
-    throw new Error('useCaffinity must be used within a CaffinityProvider');
+    throw new Error('useAdminCaffinity must be used within a AdminCaffinityProvider');
   }
   return context;
 };

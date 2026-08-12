@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MessageSquareText, Zap } from 'lucide-react';
-import { useUAssist } from '@/context/UAssistContext';
+import { useUserUAssist } from '@/context/user/UserUAssistContext';
 
 export default function UAssistFab() {
-  const { isOpen, setIsOpen } = useUAssist();
+  const { isOpen, setIsOpen } = useUserUAssist();
 
   if (isOpen) return null;
 

@@ -16,7 +16,7 @@ import {
   Compass,
   Utensils
 } from 'lucide-react';
-import { useUAssist } from '@/context/UAssistContext';
+import { useUserUAssist } from '@/context/user/UserUAssistContext';
 import { useRouter } from 'next/router';
 
 export default function UAssistPage() {
@@ -26,7 +26,7 @@ export default function UAssistPage() {
     queryCount, 
     queryLimit, 
     isPremium 
-  } = useUAssist();
+  } = useUserUAssist();
   const router = useRouter();
 
   const handleSuggest = (text) => {

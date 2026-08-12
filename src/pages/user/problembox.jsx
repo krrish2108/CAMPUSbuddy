@@ -19,13 +19,13 @@ import {
   PartyPopper
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useProblemBox } from '@/context/ProblemBoxContext';
+import { useUserProblemBox } from '@/context/user/UserProblemBoxContext';
 import StudentTicketTracker from '@/components/problembox/StudentTicketTracker';
 import AdminDashboard from '@/components/problembox/AdminDashboard';
 import { TICKET_CATEGORIES } from '@/data/problemData';
 
 export default function ProblemBoxPage() {
-  const { tickets, isAdminView, toggleAdmin, addTicket, upvoteTicket, suggestions, addSuggestion, upvoteSuggestion } = useProblemBox();
+  const { tickets, isAdminView, toggleAdmin, addTicket, upvoteTicket, suggestions, addSuggestion, upvoteSuggestion } = useUserProblemBox();
   const [activeTab, setActiveTab] = useState('My Tickets');
   const [selectedTicket, setSelectedTicket] = useState(null);
   const [showReportModal, setShowReportModal] = useState(false);

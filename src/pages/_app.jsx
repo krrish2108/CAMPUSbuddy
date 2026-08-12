@@ -2,12 +2,8 @@ import { useRouter } from 'next/router';
 import { Syne, Inter } from 'next/font/google';
 import { useEffect, useState, createContext } from 'react';
 import '../styles/globals.css';
-import { CaffinityProvider } from '@/context/CaffinityContext';
-import { ArenaProvider } from '@/context/ArenaContext';
-import { ProblemBoxProvider } from '@/context/ProblemBoxContext';
-import { UAssistProvider } from '@/context/UAssistContext';
-import { ShopperzProvider } from '@/context/ShopperzContext';
-import { InboxProvider } from '@/context/InboxContext';
+import UserProviders from '@/context/user/UserProviders';
+import AdminProviders from '@/context/admin/AdminProviders';
 import UAssistFab from '@/components/uassist/UAssistFab';
 import UAssistOverlay from '@/components/uassist/UAssistOverlay';
 import GlobalBroadcast from '@/components/uassist/GlobalBroadcast';
@@ -183,35 +179,27 @@ export default function App({ Component, pageProps }) {
       isLoggedIn, login, logout,
       userProfile, updateProfile 
     }}>
-      <CaffinityProvider>
-        <ArenaProvider>
-          <ProblemBoxProvider>
-            <InboxProvider>
-              <ShopperzProvider>
-                <UAssistProvider>
-                  <Head>
-                    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-                  </Head>
-                <div className={`${syne.variable} ${inter.variable} font-inter antialiased transition-colors duration-500 min-h-screen bg-white dark:bg-[#020617] text-[#0F172A] dark:text-white`}>
-                  <AuthGuard>
-                    <GlobalBroadcast />
-                    <Component {...pageProps} />
-                    {isLoggedIn && router.pathname !== '/' && router.pathname !== '/login' && (
-                      <>
-                        <UAssistFab />
-                        <AnimatePresence>
-                          <UAssistOverlay />
-                        </AnimatePresence>
-                      </>
-                    )}
-                  </AuthGuard>
-                </div>
-                </UAssistProvider>
-              </ShopperzProvider>
-            </InboxProvider>
-          </ProblemBoxProvider>
-        </ArenaProvider>
-      </CaffinityProvider>
+      <UserProviders>
+        <AdminProviders>
+          <Head>
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+          </Head>
+          <div className={`${syne.variable} ${inter.variable} font-inter antialiased transition-colors duration-500 min-h-screen bg-white dark:bg-[#020617] text-[#0F172A] dark:text-white`}>
+            <AuthGuard>
+              <GlobalBroadcast />
+              <Component {...pageProps} />
+              {isLoggedIn && router.pathname !== '/' && router.pathname !== '/login' && (
+                <>
+                  <UAssistFab />
+                  <AnimatePresence>
+                    <UAssistOverlay />
+                  </AnimatePresence>
+                </>
+              )}
+            </AuthGuard>
+          </div>
+        </AdminProviders>
+      </UserProviders>
     </ThemeContext.Provider>
   );
 }

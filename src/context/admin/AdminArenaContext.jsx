@@ -11,9 +11,14 @@ import {
 } from '@/routes/user';
 import { addArenaEvent } from '@/routes/admin';
 
-const ArenaContext = createContext();
+const AdminArenaContext = createContext();
 
-export function ArenaProvider({ children }) {
+
+  // ==========================================
+  // 🗄️ DATABASE INTEGRATION POINT (ADMIN)
+  // -> Hook up high-privilege queries, mutations, and analytics here.
+  // ==========================================
+  export function AdminArenaProvider({ children }) {
   const [registrations, setRegistrations] = useState([]);
   const [sentRequests, setSentRequests] = useState([]);
   const [activeTeamTier, setActiveTeamTier] = useState('Duo');
@@ -244,7 +249,7 @@ export function ArenaProvider({ children }) {
   };
 
   return (
-    <ArenaContext.Provider value={{
+    <AdminArenaContext.Provider value={{
       registrations,
       sentRequests,
       activeTeamTier,
@@ -273,14 +278,19 @@ export function ArenaProvider({ children }) {
       findTeammates
     }}>
       {children}
-    </ArenaContext.Provider>
+    </AdminArenaContext.Provider>
   );
 }
 
-export function useArena() {
-  const context = useContext(ArenaContext);
+
+  // ==========================================
+  // 🗄️ DATABASE INTEGRATION POINT (ADMIN)
+  // -> Hook up high-privilege queries, mutations, and analytics here.
+  // ==========================================
+  export function useAdminArena() {
+  const context = useContext(AdminArenaContext);
   if (!context) {
-    throw new Error('useArena must be used within an ArenaProvider');
+    throw new Error('useAdminArena must be used within an AdminArenaProvider');
   }
   return context;
 }

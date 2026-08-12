@@ -17,11 +17,11 @@ import {
   X,
   Send
 } from 'lucide-react';
-import { useShopperz } from '@/context/ShopperzContext';
+import { useUserShopperz } from '@/context/user/UserShopperzContext';
 import { MARKET_CATEGORIES } from '@/data/shopperzData';
 
 export default function MarketSection({ searchQuery }) {
-  const { marketListings, reserveItem, addMarketListing, user } = useShopperz();
+  const { marketListings, reserveItem, addMarketListing, user } = useUserShopperz();
   const [activeCategory, setActiveCategory] = useState('All');
   
   // Listing Modal State

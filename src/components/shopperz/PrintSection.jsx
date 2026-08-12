@@ -15,11 +15,11 @@ import {
   Zap,
   Info
 } from 'lucide-react';
-import { useShopperz } from '@/context/ShopperzContext';
+import { useUserShopperz } from '@/context/user/UserShopperzContext';
 import { PRINT_PRICING } from '@/data/shopperzData';
 
 export default function PrintSection() {
-  const { addPrintJob, printJobs } = useShopperz();
+  const { addPrintJob, printJobs } = useUserShopperz();
   const [file, setFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   

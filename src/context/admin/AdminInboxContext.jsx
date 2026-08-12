@@ -1,12 +1,22 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-const InboxContext = createContext();
+const AdminInboxContext = createContext();
 
-export function useInbox() {
-  return useContext(InboxContext);
+
+  // ==========================================
+  // 🗄️ DATABASE INTEGRATION POINT (ADMIN)
+  // -> Hook up high-privilege queries, mutations, and analytics here.
+  // ==========================================
+  export function useAdminInbox() {
+  return useContext(AdminInboxContext);
 }
 
-export function InboxProvider({ children }) {
+
+  // ==========================================
+  // 🗄️ DATABASE INTEGRATION POINT (ADMIN)
+  // -> Hook up high-privilege queries, mutations, and analytics here.
+  // ==========================================
+  export function AdminInboxProvider({ children }) {
   const [messages, setMessages] = useState([]);
   
   // Load messages from local storage on mount
@@ -54,8 +64,8 @@ export function InboxProvider({ children }) {
   const unreadCount = messages.filter(msg => !msg.isRead).length;
 
   return (
-    <InboxContext.Provider value={{ messages, unreadCount, addMessage, markAsRead, clearAll }}>
+    <AdminInboxContext.Provider value={{ messages, unreadCount, addMessage, markAsRead, clearAll }}>
       {children}
-    </InboxContext.Provider>
+    </AdminInboxContext.Provider>
   );
 }

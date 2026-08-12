@@ -15,10 +15,10 @@ import {
   Activity,
   Check
 } from 'lucide-react';
-import { useProblemBox } from '@/context/ProblemBoxContext';
+import { useUserProblemBox } from '@/context/user/UserProblemBoxContext';
 
 export default function StudentTicketTracker({ ticket }) {
-  const { upvoteTicket, reopenTicket } = useProblemBox();
+  const { upvoteTicket, reopenTicket } = useUserProblemBox();
 
   if (!ticket) return null;
 

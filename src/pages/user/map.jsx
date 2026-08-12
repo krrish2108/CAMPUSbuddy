@@ -3,13 +3,13 @@ import ModuleLayout from '@/components/ModuleLayout';
 import Campus3DEngine from '@/components/map/Campus3DEngine';
 import BuildingBottomSheet from '@/components/map/BuildingBottomSheet';
 import { BUILDINGS, MARKERS, FRIEND_LOCATIONS } from '@/data/mapData';
-import { useArena } from '@/context/ArenaContext';
-import { useCaffinity } from '@/context/CaffinityContext';
+import { useUserArena } from '@/context/user/UserArenaContext';
+import { useUserCaffinity } from '@/context/user/UserCaffinityContext';
 import { Search, Layers, Navigation2, Scan, Zap, Users, RotateCcw } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function MapPage() {
-  const { orders } = useCaffinity();
+  const { orders } = useUserCaffinity();
   
   const [selectedBuilding, setSelectedBuilding] = useState(null);
   const [activeFloor, setActiveFloor] = useState(null);

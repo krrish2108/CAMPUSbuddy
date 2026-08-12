@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ModuleLayout from '@/components/ModuleLayout';
-import { useShopperz } from '@/context/ShopperzContext';
+import { useUserShopperz } from '@/context/user/UserShopperzContext';
 import { 
   Store, 
   Printer, 
@@ -21,7 +21,7 @@ import PrintSection from '@/components/shopperz/PrintSection';
 import MarketSection from '@/components/shopperz/MarketSection';
 
 export default function ShopperzPage() {
-  const { activeSection, setActiveSection, cart, removeFromCart, checkout, isExamSeason } = useShopperz();
+  const { activeSection, setActiveSection, cart, removeFromCart, checkout, isExamSeason } = useUserShopperz();
   const [searchQuery, setSearchQuery] = useState('');
   const [showCart, setShowCart] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);

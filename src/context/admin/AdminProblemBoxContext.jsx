@@ -2,9 +2,14 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { getTickets } from '@/routes/user';
 import { DEPARTMENTS } from '@/data/problemData';
 
-const ProblemBoxContext = createContext();
+const AdminProblemBoxContext = createContext();
 
-export function ProblemBoxProvider({ children }) {
+
+  // ==========================================
+  // 🗄️ DATABASE INTEGRATION POINT (ADMIN)
+  // -> Hook up high-privilege queries, mutations, and analytics here.
+  // ==========================================
+  export function AdminProblemBoxProvider({ children }) {
   const [tickets, setTickets] = useState([]);
   const [specialists, setSpecialists] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -327,7 +332,7 @@ export function ProblemBoxProvider({ children }) {
   const upvoteSuggestion = (id) => setSuggestions(prev => prev.map(s => s.id === id ? { ...s, upvotes: s.upvotes + 1 } : s));
 
   return (
-    <ProblemBoxContext.Provider value={{
+    <AdminProblemBoxContext.Provider value={{
       tickets,
       specialists,
       isLoading,
@@ -354,12 +359,17 @@ export function ProblemBoxProvider({ children }) {
       reopenTicket
     }}>
       {children}
-    </ProblemBoxContext.Provider>
+    </AdminProblemBoxContext.Provider>
   );
 }
 
-export function useProblemBox() {
-  const context = useContext(ProblemBoxContext);
-  if (!context) throw new Error('useProblemBox must be used inside ProblemBoxProvider');
+
+  // ==========================================
+  // 🗄️ DATABASE INTEGRATION POINT (ADMIN)
+  // -> Hook up high-privilege queries, mutations, and analytics here.
+  // ==========================================
+  export function useAdminProblemBox() {
+  const context = useContext(AdminProblemBoxContext);
+  if (!context) throw new Error('useAdminProblemBox must be used inside AdminProblemBoxProvider');
   return context;
 }

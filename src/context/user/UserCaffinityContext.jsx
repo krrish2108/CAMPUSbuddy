@@ -1,0 +1,245 @@
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { getCanteens, getMenu, placeCaffinityOrder } from '@/routes/user';
+
+const UserCaffinityContext = createContext();
+
+const INITIAL_DEMO_ORDERS = [
+  {
+    id: 'ORD-8421',
+    canteenId: 'c1',
+    items: [{ id: 'm1', name: 'Peri Peri Cheese Fries', quantity: 2 }, { id: 'm4', name: 'Cold Coffee Hazelnut', quantity: 1 }],
+    totalAmount: 180,
+    status: 'Ready',
+    scheduledTime: 'As soon as possible',
+    paymentMethod: 'UPI (Paid)',
+    timestamp: new Date(Date.now() - 12 * 60000).toISOString(),
+    studentName: 'Ananya Singh',
+    studentId: '24BBT10112',
+    otp: '4891'
+  },
+  {
+    id: 'ORD-8422',
+    canteenId: 'c1',
+    items: [{ id: 'm2', name: 'Paneer Tikka Grilled Sandwich', quantity: 1 }, { id: 'm6', name: 'Masala Chai', quantity: 2 }],
+    totalAmount: 140,
+    status: 'Preparing',
+    scheduledTime: '1:15 PM',
+    paymentMethod: 'Campus Credits',
+    timestamp: new Date(Date.now() - 5 * 60000).toISOString(),
+    studentName: 'Kabir Das',
+    studentId: '24ECE10405',
+    otp: '2204'
+  },
+  {
+    id: 'ORD-8423',
+    canteenId: 'c2',
+    items: [{ id: 'm10', name: 'South Indian Combo (Idli/Dosa)', quantity: 1 }],
+    totalAmount: 95,
+    status: 'Done',
+    scheduledTime: '12:30 PM',
+    paymentMethod: 'UPI (Paid)',
+    timestamp: new Date(Date.now() - 35 * 60000).toISOString(),
+    studentName: 'Rohan Sharma',
+    studentId: '24BCE10023',
+    otp: '9105'
+  }
+];
+
+export const UserCaffinityProvider = ({ children }) => {
+  const [selectedCanteen, setSelectedCanteen] = useState(null);
+  const [canteens, setCanteens] = useState([]);
+  const [cart, setCart] = useState([]);
+  const [orders, setOrders] = useState(INITIAL_DEMO_ORDERS);
+  const [isCanteenSelecting, setIsCanteenSelecting] = useState(true);
+  const [menuItems, setMenuItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // 1. Initial Data Fetch
+  useEffect(() => {
+    loadCanteens();
+    loadMenu();
+    setIsCanteenSelecting(true);
+  }, []);
+
+  const loadCanteens = async () => {
+    try {
+      const res = await getCanteens();
+      if (res.success) setCanteens(res.data);
+    } catch (e) { console.error('Error loading canteens'); }
+  };
+
+  const loadMenu = async (canteenId = null) => {
+    try {
+      setIsLoading(true);
+      const res = await getMenu(canteenId);
+      if (res.success) {
+        const normalized = res.data.map(item => ({
+          ...item,
+          isAvailable: item.isAvailable !== undefined ? item.isAvailable : (item.inStock !== false)
+        }));
+        setMenuItems(normalized);
+      }
+    } catch (e) {
+      console.error('Error loading menu');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Sync canteens view when selecting
+  useEffect(() => {
+    if (selectedCanteen) {
+      loadMenu(selectedCanteen.id);
+    }
+  }, [selectedCanteen]);
+
+  const toggleMenuItemAvailability = (id) => {
+    setMenuItems(prev => prev.map(i => i.id === id ? { ...i, isAvailable: !i.isAvailable } : i));
+  };
+
+  const addMenuItem = (newItem) => {
+    const item = { ...newItem, id: `m${Date.now()}`, isAvailable: true };
+    setMenuItems(prev => [item, ...prev]);
+  };
+
+  const editMenuItem = (id, updatedItem) => {
+    setMenuItems(prev => prev.map(i => i.id === id ? { ...i, ...updatedItem } : i));
+  };
+
+  const deleteMenuItem = (id) => {
+    setMenuItems(prev => prev.filter(i => i.id !== id));
+  };
+
+  const selectCanteen = (canteen) => {
+    setSelectedCanteen(canteen);
+    localStorage.setItem('selected_canteen', JSON.stringify(canteen));
+    setIsCanteenSelecting(false);
+  };
+
+  const resetCanteen = () => {
+    setSelectedCanteen(null);
+    localStorage.removeItem('selected_canteen');
+    setIsCanteenSelecting(true);
+  };
+
+  const addToCart = (item) => {
+    setCart(prev => {
+      const existing = prev.find(i => i.id === item.id);
+      if (existing) {
+        return prev.map(i => i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i);
+      }
+      return [...prev, { ...item, quantity: 1 }];
+    });
+    if (window.navigator.vibrate) window.navigator.vibrate(50);
+  };
+
+  const updateQuantity = (id, delta) => {
+    setCart(prev => prev.map(i => {
+      if (i.id === id) {
+        const newQty = Math.max(0, i.quantity + delta);
+        return { ...i, quantity: newQty };
+      }
+      return i;
+    }).filter(i => i.quantity > 0));
+  };
+
+  const clearCart = () => setCart([]);
+
+  const placeOrder = async (scheduledTime, paymentMethod, specialNote = '') => {
+    const orderData = {
+      items: cart.map(item => ({ id: item.id, quantity: item.quantity })),
+      canteenId: selectedCanteen?.id,
+      scheduledTime: scheduledTime || 'As soon as possible',
+      paymentMethod: paymentMethod || 'UPI',
+      specialNote: specialNote
+    };
+
+    try {
+      const res = await placeCaffinityOrder(orderData);
+      if (res.success) {
+        setOrders(prev => [res.data, ...prev]);
+        clearCart();
+        window.dispatchEvent(new Event('storage'));
+        return res.data;
+      }
+    } catch (e) {
+      console.error('Error placing order:', e);
+      throw e;
+    }
+  };
+
+  const updateOrderStatus = (orderId, newStatus) => {
+    setOrders(prev => prev.map(order => 
+      order.id === orderId ? { ...order, status: newStatus } : order
+    ));
+    window.dispatchEvent(new Event('storage'));
+  };
+
+  // Automated Status Advancement (Demo Simulation)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setOrders(prevOrders => {
+        let changed = false;
+        const newOrders = prevOrders.map(order => {
+          if (order.status === 'Done') return order;
+
+          const elapsedMs = new Date() - new Date(order.timestamp);
+          const elapsedSecs = Math.floor(elapsedMs / 1000);
+
+          let nextStatus = order.status;
+          if (elapsedSecs >= 45) nextStatus = 'Done';
+          else if (elapsedSecs >= 25) nextStatus = 'Ready';
+          else if (elapsedSecs >= 10) nextStatus = 'Preparing';
+
+          if (nextStatus !== order.status) {
+            changed = true;
+            return { ...order, status: nextStatus };
+          }
+          return order;
+        });
+
+        if (changed) {
+          window.dispatchEvent(new Event('storage'));
+          return newOrders;
+        }
+        return prevOrders;
+      });
+    }, 2000); // Check every 2 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const value = {
+    selectedCanteen,
+    selectCanteen,
+    resetCanteen,
+    isCanteenSelecting,
+    cart,
+    addToCart,
+    updateQuantity,
+    clearCart,
+    orders,
+    placeOrder,
+    updateOrderStatus,
+    menuItems,
+    toggleMenuItemAvailability,
+    deleteMenuItem,
+    addMenuItem,
+    editMenuItem,
+    isLoading
+  };
+
+  return (
+    <UserCaffinityContext.Provider value={value}>
+      {children}
+    </UserCaffinityContext.Provider>
+  );
+};
+
+export const useUserCaffinity = () => {
+  const context = useContext(UserCaffinityContext);
+  if (!context) {
+    throw new Error('useUserCaffinity must be used within a UserCaffinityProvider');
+  }
+  return context;
+};

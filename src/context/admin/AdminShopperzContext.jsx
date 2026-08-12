@@ -7,10 +7,10 @@ import {
   submitPrintJob, 
   getUserProfile 
 } from '@/routes/user';
-import { useInbox } from './InboxContext';
+import { useAdminInbox } from './AdminInboxContext';
 import { INITIAL_USER_DB } from '@/data/userData';
 
-const ShopperzContext = createContext();
+const AdminShopperzContext = createContext();
 
 // Initial mock orders to enrich admin order queues instantly
 const MOCK_STORE_ORDERS = [
@@ -87,8 +87,13 @@ const MOCK_PRINT_JOBS = [
   }
 ];
 
-export function ShopperzProvider({ children }) {
-  const { addMessage } = useInbox();
+
+  // ==========================================
+  // 🗄️ DATABASE INTEGRATION POINT (ADMIN)
+  // -> Hook up high-privilege queries, mutations, and analytics here.
+  // ==========================================
+  export function AdminShopperzProvider({ children }) {
+  const { addMessage } = useAdminInbox();
   const [activeSection, setActiveSection] = useState('store');
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
@@ -373,7 +378,7 @@ export function ShopperzProvider({ children }) {
   }, []);
 
   return (
-    <ShopperzContext.Provider value={{
+    <AdminShopperzContext.Provider value={{
       activeSection, setActiveSection,
       products, addProduct, updateProduct, deleteProduct, adjustStock, resupplyAllLowStock,
       cart, addToCart, removeFromCart, checkout,
@@ -384,10 +389,15 @@ export function ShopperzProvider({ children }) {
       isExamSeason, isLoading, user
     }}>
       {children}
-    </ShopperzContext.Provider>
+    </AdminShopperzContext.Provider>
   );
 }
 
-export function useShopperz() {
-  return useContext(ShopperzContext);
+
+  // ==========================================
+  // 🗄️ DATABASE INTEGRATION POINT (ADMIN)
+  // -> Hook up high-privilege queries, mutations, and analytics here.
+  // ==========================================
+  export function useAdminShopperz() {
+  return useContext(AdminShopperzContext);
 }

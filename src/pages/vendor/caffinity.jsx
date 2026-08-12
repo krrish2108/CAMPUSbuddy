@@ -21,7 +21,7 @@ import {
   X
 } from 'lucide-react';
 import { DASHBOARD_STATS, CANTEENS } from '@/data/caffinityData';
-import { useCaffinity } from '@/context/CaffinityContext';
+import { useAdminCaffinity } from '@/context/admin/AdminCaffinityContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
@@ -44,7 +44,7 @@ export default function CaffinityVendorDashboard() {
     deleteMenuItem,
     addMenuItem,
     editMenuItem
-  } = useCaffinity();
+  } = useAdminCaffinity();
 
   const [activeTab, setActiveTab] = useState('Live Orders');
   const [isAcceptingOrders, setIsAcceptingOrders] = useState(true);

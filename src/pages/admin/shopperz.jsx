@@ -34,7 +34,7 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useShopperz } from '@/context/ShopperzContext';
+import { useAdminShopperz } from '@/context/admin/AdminShopperzContext';
 
 const SEARCH_INSIGHTS = [
   { term: 'A3 Chart Paper', count: 142, trend: '+24%', status: 'High Demand' },
@@ -62,7 +62,7 @@ export default function ShopperzAdminPage() {
     printJobs, 
     updateJobStatus,
     getStudentDetails 
-  } = useShopperz();
+  } = useAdminShopperz();
 
   const [activeTab, setActiveTab] = useState('Inventory Matrix');
   const [searchQuery, setSearchQuery] = useState('');

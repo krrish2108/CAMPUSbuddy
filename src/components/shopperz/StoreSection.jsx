@@ -9,7 +9,7 @@ import {
   Sparkles,
   CheckCircle2
 } from 'lucide-react';
-import { useShopperz } from '@/context/ShopperzContext';
+import { useUserShopperz } from '@/context/user/UserShopperzContext';
 import { RETAIL_CATEGORIES } from '@/data/shopperzData';
 
 function ProductCard({ product, idx, addToCart }) {
@@ -98,7 +98,7 @@ function ProductCard({ product, idx, addToCart }) {
 }
 
 export default function StoreSection({ searchQuery }) {
-  const { products, addToCart } = useShopperz();
+  const { products, addToCart } = useUserShopperz();
   const [activeCategory, setActiveCategory] = useState('All');
 
   const filteredProducts = products.filter(p => {

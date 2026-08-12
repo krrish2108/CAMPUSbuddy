@@ -28,7 +28,7 @@ import {
   RotateCcw
 } from 'lucide-react';
 import { MENU_CATEGORIES, CANTEENS } from '@/data/caffinityData';
-import { useCaffinity } from '@/context/CaffinityContext';
+import { useUserCaffinity } from '@/context/user/UserCaffinityContext';
 
 // Helper: Get Time Ago
 const getTimeAgo = (timestamp) => {
@@ -51,7 +51,7 @@ export default function CaffinityPage() {
     orders,
     placeOrder,
     menuItems
-  } = useCaffinity();
+  } = useUserCaffinity();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');

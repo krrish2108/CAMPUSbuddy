@@ -32,7 +32,7 @@ import {
   Radio
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useUAssist } from '@/context/UAssistContext';
+import { useAdminUAssist } from '@/context/admin/AdminUAssistContext';
 
 export default function UAssistAdminPage() {
   const { 
@@ -47,7 +47,7 @@ export default function UAssistAdminPage() {
     getStudentDetails,
     modelConfig, 
     setModelConfig 
-  } = useUAssist();
+  } = useAdminUAssist();
 
   const [activeTab, setActiveTab] = useState('Brain Config & KB');
   const [searchQuery, setSearchQuery] = useState('');

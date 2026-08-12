@@ -37,7 +37,7 @@ import {
   Tag,
   RotateCcw
 } from 'lucide-react';
-import { useProblemBox } from '@/context/ProblemBoxContext';
+import { useAdminProblemBox } from '@/context/admin/AdminProblemBoxContext';
 
 export default function AdminDashboard() {
   const { 
@@ -56,7 +56,7 @@ export default function AdminDashboard() {
     matchProblemToSpecialist, 
     hasNewCriticalAlert, 
     dismissAlert 
-  } = useProblemBox();
+  } = useAdminProblemBox();
 
   const [activePriorityFilter, setActivePriorityFilter] = useState('All');
   const [sortBy, setSortBy] = useState('Urgent'); // 'Urgent', 'Newest', 'Upvotes'

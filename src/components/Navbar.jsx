@@ -3,12 +3,12 @@ import { useContext, useState } from 'react';
 import { ThemeContext } from '@/pages/_app';
 import { Sun, Moon, LogOut, User, Phone, BookOpen, School, Hash, Mail, Settings, Bell, Check, Trash2 } from 'lucide-react';
 import EditProfileModal from './EditProfileModal';
-import { useInbox } from '@/context/InboxContext';
+import { useUserInbox } from '@/context/user/UserInboxContext';
 
 export default function Navbar({ isDark = false }) {
   const router = useRouter();
   const { isDarkMode, toggleTheme, isLoggedIn, logout, userProfile } = useContext(ThemeContext);
-  const { messages, unreadCount, markAsRead, clearAll } = useInbox() || { messages: [], unreadCount: 0 };
+  const { messages, unreadCount, markAsRead, clearAll } = useUserInbox() || { messages: [], unreadCount: 0 };
   const [showProfileCard, setShowProfileCard] = useState(false);
   const [showInbox, setShowInbox] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
