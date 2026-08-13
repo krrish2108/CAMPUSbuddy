@@ -193,19 +193,24 @@ export default function PrintSection() {
                           <h6 className="font-bold text-[11px] text-slate-900 dark:text-white line-clamp-1">{job.fileName}</h6>
                        </div>
                        <div className={`px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest ${
-                         job.status === 'Ready' ? 'bg-green-100 text-green-600 dark:bg-green-600/20' : 
-                         job.status === 'Printing' ? 'bg-blue-100 text-blue-600 animate-pulse' : 'bg-slate-100 text-slate-400'
+                         job.status === 'Ready for Pickup' || job.status === 'Ready' ? 'bg-green-100 text-green-600 dark:bg-green-600/20' : 
+                         job.status === 'Printing' ? 'bg-blue-100 text-blue-600 animate-pulse' : 
+                         job.status === 'Completed' || job.status === 'Settled' ? 'bg-slate-100 text-slate-500 dark:bg-white/5 opacity-70' :
+                         'bg-orange-100 text-orange-600 dark:bg-orange-600/20'
                        }`}>
-                          {job.status}
+                          {job.status === 'Completed' || job.status === 'Settled' ? 'Collected & Settled' : job.status}
                        </div>
                     </div>
 
                     <div className="pt-4 border-t border-slate-50 dark:border-white/5 flex items-center justify-between">
                        <div className="flex items-center gap-2">
                           <Clock size={12} className="text-slate-400" />
-                          <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Est: {job.status === 'Ready' ? 'NOW' : '3 mins'}</p>
+                          <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">
+                             {job.status === 'Completed' || job.status === 'Settled' ? 'Done' :
+                              job.status === 'Ready for Pickup' || job.status === 'Ready' ? 'NOW' : '3 mins'}
+                          </p>
                        </div>
-                       {job.status === 'Ready' ? (
+                       {job.status === 'Ready' || job.status === 'Ready for Pickup' ? (
                           <motion.button 
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
@@ -213,6 +218,11 @@ export default function PrintSection() {
                           >
                              <QrCode size={12} /> Scan QR
                           </motion.button>
+                       ) : job.status === 'Completed' || job.status === 'Settled' ? (
+                          <div className="flex items-center gap-2 opacity-50">
+                             <CheckCircle2 size={12} className="text-slate-400" />
+                             <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Completed</p>
+                          </div>
                        ) : (
                           <div className="flex items-center gap-2">
                              <div className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-ping" />

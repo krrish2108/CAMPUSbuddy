@@ -67,6 +67,7 @@ export default function ShopperzAdminPage() {
   const [activeTab, setActiveTab] = useState('Inventory Matrix');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
+  const [printQueueTab, setPrintQueueTab] = useState('Active'); // Active vs Settled
   
   // Modals state
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
@@ -95,8 +96,13 @@ export default function ShopperzAdminPage() {
     return order.id.toLowerCase().includes(q) || (order.user?.name || '').toLowerCase().includes(q) || order.otp.includes(q);
   });
 
-  // Filter print jobs by search
+  // Filter print jobs by search and tab
   const filteredPrintJobs = (printJobs || []).filter(job => {
+    // Check tab filter first
+    if (printQueueTab === 'Active' && job.status === 'Settled') return false;
+    if (printQueueTab === 'Settled' && job.status !== 'Settled') return false;
+
+    // Check search filter
     if (!searchQuery.trim()) return true;
     const q = searchQuery.toLowerCase();
     return job.name.toLowerCase().includes(q) || (job.user?.name || '').toLowerCase().includes(q) || job.id.toLowerCase().includes(q);
@@ -566,8 +572,22 @@ export default function ShopperzAdminPage() {
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
+                  <div className="flex bg-slate-100 dark:bg-white/5 p-1 rounded-2xl mr-2">
+                    <button 
+                      onClick={() => setPrintQueueTab('Active')} 
+                      className={`px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${printQueueTab === 'Active' ? 'bg-white dark:bg-purple-600 text-slate-900 dark:text-white shadow-xl' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'}`}
+                    >
+                      Active
+                    </button>
+                    <button 
+                      onClick={() => setPrintQueueTab('Settled')} 
+                      className={`px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${printQueueTab === 'Settled' ? 'bg-white dark:bg-purple-600 text-slate-900 dark:text-white shadow-xl' : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'}`}
+                    >
+                      Settled
+                    </button>
+                  </div>
                   <span className="px-4 py-2 bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 rounded-2xl text-xs font-black uppercase tracking-wider">
-                    {(printJobs || []).length} Total Print Jobs
+                    {filteredPrintJobs.length} Jobs
                   </span>
                 </div>
               </div>
@@ -643,6 +663,7 @@ export default function ShopperzAdminPage() {
                             <option value="Printing">🖨️ Currently Printing</option>
                             <option value="Ready for Pickup">✔️ Ready for Pickup</option>
                             <option value="Completed">✅ Completed & Collected</option>
+                            <option value="Settled">🏁 Settled & Archived</option>
                           </select>
                         </div>
 
