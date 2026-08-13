@@ -13,7 +13,11 @@ import {
   ChevronRight,
   ShieldCheck,
   Zap,
-  Info
+  Info,
+  Wallet,
+  Smartphone,
+  X,
+  Loader2
 } from 'lucide-react';
 import { useUserShopperz } from '@/context/user/UserShopperzContext';
 import { PRINT_PRICING } from '@/data/shopperzData';
@@ -22,6 +26,11 @@ export default function PrintSection() {
   const { addPrintJob, printJobs } = useUserShopperz();
   const [file, setFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
+  
+  // Payment Modal State
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('wallet');
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
   
   // Settings
   const [colorMode, setColorMode] = useState('blackAndWhite');
@@ -55,10 +64,19 @@ export default function PrintSection() {
     });
     if (success) {
       setFile(null);
+      setShowPaymentModal(false);
       alert("Print job submitted to queue! 🖨️");
     } else {
       alert("Failed to submit print job. Check your wallet balance.");
     }
+  };
+
+  const handlePaymentSubmit = async () => {
+    setIsProcessingPayment(true);
+    // Simulate payment processing delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    setIsProcessingPayment(false);
+    submitJob();
   };
 
   return (
@@ -157,7 +175,7 @@ export default function PrintSection() {
                          <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1.5"><Zap size={10} className={priority ? 'text-orange-500' : ''} /> Priority Print (₹50)</p>
                       </div>
                       <button 
-                        onClick={submitJob}
+                        onClick={() => setShowPaymentModal(true)}
                         className="w-full md:w-auto px-10 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-black uppercase tracking-widest text-[10px] shadow-2xl hover:bg-orange-600 hover:text-white dark:hover:bg-orange-600 dark:hover:text-white transition-all transform hover:-translate-y-1"
                       >
                          Send to Print Queue →
@@ -258,6 +276,76 @@ export default function PrintSection() {
             <p className="text-[8px] font-bold text-slate-400 uppercase tracking-[0.2em] leading-relaxed">Present your pickup QR at the desk for zero-wait collection.</p>
          </div>
       </div>
+      {/* Payment Modal Overlay */}
+      <AnimatePresence>
+        {showPaymentModal && (
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm"
+          >
+            <motion.div 
+              initial={{ scale: 0.95, opacity: 0, y: 20 }} animate={{ scale: 1, opacity: 1, y: 0 }} exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              className="bg-white dark:bg-slate-900 w-full max-w-md rounded-[32px] shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden"
+            >
+              <div className="p-6 flex items-center justify-between border-b border-slate-100 dark:border-white/5 bg-slate-50 dark:bg-slate-800/50">
+                <h3 className="font-syne font-black text-lg text-slate-900 dark:text-white">Complete Payment</h3>
+                <button onClick={() => !isProcessingPayment && setShowPaymentModal(false)} className="p-2 bg-slate-200 dark:bg-slate-800 rounded-full text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors">
+                  <X size={16} />
+                </button>
+              </div>
+              
+              <div className="p-8 space-y-6">
+                <div className="text-center space-y-1">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Total Amount</p>
+                  <p className="text-4xl font-syne font-black text-slate-900 dark:text-white">₹{totalCost.toFixed(2)}</p>
+                </div>
+
+                <div className="space-y-3">
+                  <button 
+                    onClick={() => setPaymentMethod('wallet')}
+                    className={`w-full flex items-center p-4 rounded-2xl border-2 transition-all ${paymentMethod === 'wallet' ? 'border-orange-600 bg-orange-50 dark:bg-orange-600/10' : 'border-slate-100 dark:border-white/5 hover:border-orange-600/30'}`}
+                  >
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mr-4 ${paymentMethod === 'wallet' ? 'bg-orange-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}>
+                      <Wallet size={20} />
+                    </div>
+                    <div className="text-left">
+                      <h4 className="font-bold text-sm text-slate-900 dark:text-white">BuddyWallet</h4>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">Instant Deduction</p>
+                    </div>
+                    {paymentMethod === 'wallet' && <CheckCircle2 size={20} className="ml-auto text-orange-600" />}
+                  </button>
+
+                  <button 
+                    onClick={() => setPaymentMethod('upi')}
+                    className={`w-full flex items-center p-4 rounded-2xl border-2 transition-all ${paymentMethod === 'upi' ? 'border-orange-600 bg-orange-50 dark:bg-orange-600/10' : 'border-slate-100 dark:border-white/5 hover:border-orange-600/30'}`}
+                  >
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center mr-4 ${paymentMethod === 'upi' ? 'bg-orange-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}`}>
+                      <Smartphone size={20} />
+                    </div>
+                    <div className="text-left">
+                      <h4 className="font-bold text-sm text-slate-900 dark:text-white">UPI ID</h4>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">GPay, PhonePe, Paytm</p>
+                    </div>
+                    {paymentMethod === 'upi' && <CheckCircle2 size={20} className="ml-auto text-orange-600" />}
+                  </button>
+                </div>
+
+                <button 
+                  onClick={handlePaymentSubmit}
+                  disabled={isProcessingPayment}
+                  className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-black uppercase tracking-widest text-[12px] shadow-xl hover:bg-orange-600 hover:text-white dark:hover:bg-orange-600 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {isProcessingPayment ? (
+                    <><Loader2 size={16} className="animate-spin" /> Processing...</>
+                  ) : (
+                    `Pay ₹${totalCost.toFixed(2)} & Print`
+                  )}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
