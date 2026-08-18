@@ -101,7 +101,6 @@ export default function App({ Component, pageProps }) {
       const data = await getUserProfile();
       if (data) {
         setIsLoggedIn(true);
-        setUserProfile(data);
         setUserRole(data.role || 'user');
         
         // Preserve their storage preference (if they had access_token in localStorage, keep it there)
@@ -147,7 +146,6 @@ export default function App({ Component, pageProps }) {
     
     setIsLoggedIn(true);
     if (userData) {
-      setUserProfile(userData);
       const role = userData.role || 'user';
       setUserRole(role);
       setStorageItem('userProfile', JSON.stringify(userData), rememberMe);
