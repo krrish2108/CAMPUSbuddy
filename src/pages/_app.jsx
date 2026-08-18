@@ -89,6 +89,15 @@ export default function App({ Component, pageProps }) {
 
   const checkSession = async () => {
     try {
+      const token = getStorageItem('access_token');
+      if (!token) {
+        setIsLoggedIn(false);
+        removeStorageItem('isLoggedIn');
+        removeStorageItem('userProfile');
+        removeStorageItem('userRole');
+        return;
+      }
+
       const data = await getUserProfile();
       if (data) {
         setIsLoggedIn(true);
