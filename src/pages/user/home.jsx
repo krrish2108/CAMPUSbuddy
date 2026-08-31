@@ -3,6 +3,7 @@ import ModuleCard from '@/components/ModuleCard';
 import { motion } from 'framer-motion';
 import { Coffee, Trophy, Map, Wrench, BookOpen, ShoppingBag, Sun, Moon, Sunset } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useUserProfile } from '@/context/user/UserProfileContext';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -15,7 +16,8 @@ const containerVariants = {
 };
 
 export default function HomePage() {
-  const firstName = 'Student';
+  const { userProfile } = useUserProfile();
+  const firstName = userProfile?.name?.split(' ')[0] || 'Student';
   const [greeting, setGreeting] = useState('Welcome');
   const [TimeIcon, setTimeIcon] = useState(() => Sun);
   const [isMounted, setIsMounted] = useState(false);
